@@ -122,6 +122,17 @@ differentialDrive1.setMaxOutput(1.0);
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        
+        // if(intakeLocation == IntakeLocation.FRONT) {
+        //     differentialDrive.tankDrive(leftSpeed, rightSpeed, true);
+        // }
+        // else {
+        //     differentialDrive.tankDrive(-rightSpeed, -leftSpeed, true);
+        // }
+        differentialDrive1.tankDrive(leftSpeed, rightSpeed, true);
+    }
 
 }
 
