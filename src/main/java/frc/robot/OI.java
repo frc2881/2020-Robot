@@ -163,11 +163,11 @@ public Joystick getManipulator() {
     }
 
     public double getDriverRightX() {
-        return driver.getX(GenericHID.Hand.kRight);
+        return driver.getRawAxis(2);
     }
 
     public double getDriverRightY() {
-        return driver.getY(GenericHID.Hand.kRight);
+        return driver.getRawAxis(5);
     }
 
     //DRIVER Triggers
