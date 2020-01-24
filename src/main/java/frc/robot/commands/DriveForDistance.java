@@ -43,7 +43,7 @@ public class DriveForDistance extends Command {
     protected void initialize() {
         targetPosition = Robot.drive.getDriveEncoderDistance() + distance;
         Robot.logInitialize(this);
-        Robot.log("position " + Robot.drive.getDriveEncoderDistance() + " distance " + distance + " Target Position " + targetPosition);
+        System.out.println("position " + Robot.drive.getDriveEncoderDistance() + " distance " + distance + " Target Position " + targetPosition);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -51,7 +51,7 @@ public class DriveForDistance extends Command {
     protected void execute() {
         double error = targetPosition - Robot.drive.getDriveEncoderDistance();
         Robot.drive.setDriveSpeed(error * 0.125); //0.2
-        Robot.log("position " + Robot.drive.getDriveEncoderDistance() + " error " + error); //takes the value of differen positions from drive.java and prints them out
+        System.out.println("position " + Robot.drive.getDriveEncoderDistance() + " error " + error); //takes the value of differen positions from drive.java and prints them out
     }
 
     // Make this return true when this Command no longer needs to run execute()
