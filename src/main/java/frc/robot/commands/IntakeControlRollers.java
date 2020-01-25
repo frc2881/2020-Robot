@@ -54,7 +54,7 @@ public class IntakeControlRollers extends Command {
     protected void execute() {
         //sequential order
         //rollers, intakeLeft/Right, intakeParallel
-    Robot.intake.intakeRollIn(speed, RollerDirection.INTAKE);
+    Robot.intake.intakeFeeding(speed, RollerDirection.INTAKE);
     Robot.intake.intakeRightLeft(speed, RollerDirection.INTAKE);
     Robot.intake.intakeParallelBand(speed, RollerDirection.INTAKE);
     //Robot.intake
