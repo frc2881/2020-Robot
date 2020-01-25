@@ -45,8 +45,10 @@ public class DriveWithJoysticks extends Command {
     protected void execute() {
         double left = -Robot.oi.getDriverLeftY();
         double right = -Robot.oi.getDriverRightY();
+        double triggerLeft = Robot.oi.getDriverTriggerLeft();
+        double triggerRight = Robot.oi.getDriverTriggerRight();
         Robot.drive.tankDrive(left, right);
-        System.out.println("tankDrive");
+        Robot.drive.hDrive(triggerLeft, triggerRight);
     }
 
     // Make this return true when this Command no longer needs to run execute()
