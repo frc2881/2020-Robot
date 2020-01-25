@@ -23,7 +23,7 @@ Children:
               default: '2'
               name: CAN ID
               validators: &id003 [CANID]
-              value: '0'
+              value: '1'
             MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
               choices: &id004 [kBrushless, kBrushed]
               default: kBrushless
@@ -49,7 +49,7 @@ Children:
               default: '2'
               name: CAN ID
               validators: *id003
-              value: '1'
+              value: '2'
             MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
               choices: *id004
               default: kBrushless
@@ -97,7 +97,7 @@ Children:
               default: '2'
               name: CAN ID
               validators: *id003
-              value: '2'
+              value: '3'
             MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
               choices: *id004
               default: kBrushless
@@ -123,7 +123,7 @@ Children:
               default: '2'
               name: CAN ID
               validators: *id003
-              value: '3'
+              value: '4'
             MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
               choices: *id004
               default: kBrushless
@@ -161,7 +161,7 @@ Children:
           name: Right Motor
           type: PIDOutput
           validators: [RobotDrive2, ChildDropdownSelected]
-          value: Right
+          value: Right Front
         Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Maximum Output, validators: null, value: 1.0}
         Left Motor: !!robotbuilder.data.properties.ChildSelectionProperty
@@ -169,7 +169,7 @@ Children:
           name: Left Motor
           type: PIDOutput
           validators: [RobotDrive2, ChildDropdownSelected]
-          value: Left
+          value: Left Front
         Safety Expiration Time: !!robotbuilder.data.properties.DoubleProperty {default: 0.1,
           name: Safety Expiration Time, validators: null, value: 0.1}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
@@ -185,7 +185,8 @@ Children:
         validators: null
         value: []
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
+        name: Default Command, type: Command, validators: null, value: Drive With
+          Joysticks}
       Constants: !!robotbuilder.data.properties.ConstantsProperty
         default: []
         name: Constants
@@ -1294,10 +1295,10 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Friend\',
-    extension: null, folder: true, name: Wiring file location, validators: null, value: 'C:\Users\Friend\'}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Friend\FRCProjects',
-    extension: null, folder: true, name: Export Directory, validators: null, value: 'C:\Users\Friend\Documents\Ladycans'}
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\2020l\',
+    extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\2020l\FRCProjects',
+    extension: null, folder: true, name: Export Directory, validators: null, value: ..\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
 Base: Robot
