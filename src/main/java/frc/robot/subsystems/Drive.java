@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -120,7 +121,7 @@ addChild("Differential Drive 2",differentialDrive1);
 differentialDrive2.setSafetyEnabled(true);
 differentialDrive2.setExpiration(0.1);
 differentialDrive2.setMaxOutput(1.0);
-
+private PIDController turnPID;
     }
 
     @Override
@@ -160,6 +161,40 @@ differentialDrive2.setMaxOutput(1.0);
         differentialDrive1.tankDrive(leftSpeed, rightSpeed, true);
         System.out.println("tankDrive");
     }
+  
+    public void initializeTurnToHeading(double angle) {
+        //depending on whether we need to turn or not, one or the other would be used
+        turnPID.setSetpoint(angle);
+        rotateToAngleRate = 0;
+        turnPID.enable();
+    }
+    
+    public void changeHeadingTurnToHeading(double angle) {
+        //update the setPoint of the PID loop if the driver has changed the controller value before the turn was finished
+        turnPID.setSetpoint(angle);
+    }
+    
+    public boolean isFinishedTurnToHeading() {
+        //called to finish the command when PID loop is finished
+        boolean stopped = Math.abs(navX.pidGet() - turnMovingAverage.pidGet()) < 0.1;
+        return stopped && turnPID.onTarget();
+    }
+    
+    public void endTurnToHeading() {
+        //Disable the PID loop when the turn is finished
+        turnPID.disable();
+        
+   public double getRotateToAngleRate() {
+    return rotateToAngleRate;
+}
+
+/*public void autonomousRotate(double leftSpeed, double rightSpeed) {
+    // DONT Use 'squaredInputs' or deadband in autonomous
+    driveTrain.setDeadband(0);
+    driveTrain.tankDrive(leftSpeed, rightSpeed, false);
+}
+*/
+
 
 }
 
