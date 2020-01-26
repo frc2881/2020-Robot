@@ -11,7 +11,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.commands.basic.wait.WaitUntilNavXDetected;
+import frc.robot.commands.WaitUntilNavXDetected;
 
 /**
  *
