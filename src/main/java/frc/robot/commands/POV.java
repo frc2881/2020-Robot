@@ -10,6 +10,7 @@
 
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -17,28 +18,33 @@ import frc.robot.Robot;
  *
  */
 public class POV extends Command {
+    private double angle;
+    private PIDController turnPID;
 
-
-    public POV() {
+    public POV(double angle) {
         requires(Robot.drive);
+        this.angle = angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        int angle = getDriverPOVAngle();
         //Robot.log("Turn to POV has started: " + angle);
         //Make a call to the subsystem to use a PID loop controller in the subsystem
         //to set the heading based on the HAT controller.
-        Robot.drive.initializeTurnToHeading(angle);
+        turnPID = new PIDController(1, 0, 0);
+        turnPID.setSetpoint(angle);
+        turnPID.setTolerance(.5);
+        turnPID.enableContinuousInput(-180, 180);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         //Calls to the subsystem to update the angle if controller value has changed
-        double rotateToAngleRate = Robot.drive.getRotateToAngleRate();
         //Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
-        Robot.drive.changeHeadingTurnToHeading(getDriverPOVAngle());
+        double value = turnPID.calculate(measurement);
+        Robot.drive.tankDrive(value, -value);
     }
 
     //returns an integer angle based on what the driver controller reads
@@ -54,14 +60,13 @@ public class POV extends Command {
     @Override
     protected boolean isFinished() {
         //asking the pid loop have we reached our position
-        return Robot.drive.isFinishedTurnToHeading();
+        return turnPID.atSetpoint();
     }
 
     @Override
     protected void interrupted() {
         //call the drive subsystem to make sure the PID loop is disabled
-        Robot.drive.endTurnToHeading();
-        
+        Robot.drive.tankDrive(0, 0);
         //Robot.log("Turn to POV was interrupted");
     }
 
@@ -69,8 +74,7 @@ public class POV extends Command {
     @Override
     protected void end() {
         //call the drive subsystem to make sure the PID loop is disabled
-        Robot.drive.endTurnToHeading();
-        
+        Robot.drive.tankDrive(0, 0);
         //Robot.log("Turn to POV has finished");
     }
 
