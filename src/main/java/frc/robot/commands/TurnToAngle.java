@@ -10,18 +10,19 @@
 
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj.controller.PIDController;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 
 /**
  *
  */
-public class POV extends Command {
+public class TurnToAngle extends Command {
     private double angle;
     private PIDController turnPID;
 
-    public POV(double angle) {
+    public TurnToAngle(double angle) {
         requires(Robot.drive);
         this.angle = angle;
     }
@@ -43,7 +44,7 @@ public class POV extends Command {
     protected void execute() {
         //Calls to the subsystem to update the angle if controller value has changed
         //Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
-        double value = turnPID.calculate(measurement);
+        double value = turnPID.calculate(Robot.navx.getYaw());
         Robot.drive.tankDrive(value, -value);
     }
 
