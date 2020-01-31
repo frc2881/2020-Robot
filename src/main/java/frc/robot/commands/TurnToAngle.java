@@ -8,7 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,10 +28,10 @@ public class TurnToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        //Robot.log("Turn to POV has started: " + angle);
-        //Make a call to the subsystem to use a PID loop controller in the subsystem
-        //to set the heading based on the HAT controller.
-        turnPID = new PIDController(1, 0, 0);
+        // Robot.log("Turn to POV has started: " + angle);
+        // Make a call to the subsystem to use a PID loop controller in the subsystem
+        // to set the heading based on the HAT controller.
+        turnPID = new PIDController(0.04, 0, 0);
         turnPID.setSetpoint(angle);
         turnPID.setTolerance(.5);
         turnPID.enableContinuousInput(-180, 180);
@@ -42,13 +41,15 @@ public class TurnToAngle extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        //Calls to the subsystem to update the angle if controller value has changed
-        //Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
-        double value = turnPID.calculate(Robot.navx.getYaw());
+        // Calls to the subsystem to update the angle if controller value has changed
+        // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
+        double value = turnPID.calculate(Robot.navX.getYaw());
+       // maxOutput = 0.5; 
+       // minOutput = -0.5;
         Robot.drive.tankDrive(value, -value);
     }
 
-    //returns an integer angle based on what the driver controller reads
+    // returns an integer angle based on what the driver controller reads
     private int getDriverPOVAngle() {
         int angle = Robot.oi.driver.getPOV();
         if (angle > 180) {
@@ -60,23 +61,23 @@ public class TurnToAngle extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        //asking the pid loop have we reached our position
+        // asking the pid loop have we reached our position
         return turnPID.atSetpoint();
     }
 
     @Override
     protected void interrupted() {
-        //call the drive subsystem to make sure the PID loop is disabled
+        // call the drive subsystem to make sure the PID loop is disabled
         Robot.drive.tankDrive(0, 0);
-        //Robot.log("Turn to POV was interrupted");
+        // Robot.log("Turn to POV was interrupted");
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        //call the drive subsystem to make sure the PID loop is disabled
+        // call the drive subsystem to make sure the PID loop is disabled
         Robot.drive.tankDrive(0, 0);
-        //Robot.log("Turn to POV has finished");
+        // Robot.log("Turn to POV has finished");
     }
 
 }

@@ -102,7 +102,7 @@ driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
 
 driverGreenTriangle = new JoystickButton(driver, 3);
-driverGreenTriangle.whileHeld(new TurnToAngle(0));
+driverGreenTriangle.whileHeld(new TurnToAngle(0.00001));
 driverRedCircle = new JoystickButton(driver, 2);
 driverRedCircle.whileHeld(new TurnToAngle(90));
 driverBlueX = new JoystickButton(driver, 1);
