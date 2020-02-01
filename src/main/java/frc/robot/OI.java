@@ -25,6 +25,7 @@ import frc.robot.commands.IntakeSetAsBack;
 import frc.robot.commands.IntakeSetAsFront;
 import frc.robot.commands.LiftControl;
 import frc.robot.commands.LiftToHeight;
+import frc.robot.commands.PanelColor;
 import frc.robot.commands.PowerCellControl;
 import frc.robot.commands.PowerCellControlRollers;
 import frc.robot.commands.PowerCellIntake;

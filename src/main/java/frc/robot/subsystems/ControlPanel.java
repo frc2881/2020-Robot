@@ -62,12 +62,33 @@ public class ControlPanel extends Subsystem {
     public void spinMotor(double speed) {
         panelSpinner.set(speed);
     }
-    //drivers select colors --> how to get driver input
-    //spin until selected color is identified
-    //- where is the sensor oriented in relation to the field's sensor and control panel?
-    public void findColor(){
-        //if(this.getColor().equals();
-        //add input
-        //panelSpinner stop
-        }
+
+    public ColorMatchResult gameColor(String color){
+        ColorMatchResult blue = kBlueTarget;
+        ColorMatchResult green = kGreenTarget;
+        ColorMatchResult red = kRedTarget;
+        ColorMatchResult yellow = kYellowTarget;
+        if(gameData.length() > 0){
+            switch (gameData.charAt(0))
+                {
+                    case 'B' :
+                    return blue;
+                break;
+                    case 'G' :
+                    return green;
+                break;
+                    case 'R' :
+                    return red;
+                break;
+                    case 'Y' :
+                    return yellow;
+                break;
+                    default :
+                    return this.getColor();
+                break;
+  }
+        } else {
+            return null;
+    }
+    }
 }
