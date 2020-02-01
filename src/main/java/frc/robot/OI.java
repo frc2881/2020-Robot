@@ -81,7 +81,7 @@ public JoystickButton driverPinkSquare;
 public JoystickButton driverRedCircle;
 public JoystickButton driverPOV;
 public JoystickButton driverOption;
-public JoystickButton driverButton;
+public JoystickButton driverShare;
 public Joystick driver;
 public Joystick manipulator;
 
@@ -94,22 +94,26 @@ manipulator = new Joystick(1);
 
 driver = new Joystick(0);
 
-driverButton = new JoystickButton(driver, 1);
-driverButton.whileHeld(new DoNothing());
-driverOption = new JoystickButton(driver, 1);
+driverShare = new JoystickButton(driver, 9);
+driverShare.whileHeld(new DoNothing());
+
+driverOption = new JoystickButton(driver, 10);
 driverOption.whileHeld(new DoNothing());
+
 driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
 
-driverGreenTriangle = new JoystickButton(driver, 3);
-driverGreenTriangle.whileHeld(new DoNothing());
-driverRedCircle = new JoystickButton(driver, 2);
-driverRedCircle.whileHeld(new TurnToAngle(90));
-driverBlueX = new JoystickButton(driver, 1);
-driverBlueX.whileHeld(new TurnToAngle(180));
-driverPinkSquare = new JoystickButton(driver, 0);
+driverPinkSquare = new JoystickButton(driver, 1);
 driverPinkSquare.whileHeld(new TurnToAngle(270));
 
+driverBlueX = new JoystickButton(driver, 2);
+driverBlueX.whenPressed(new IntakeSetAsBack());
+
+driverRedCircle = new JoystickButton(driver, 3);
+driverRedCircle.whileHeld(new TurnToAngle(90));
+
+driverGreenTriangle = new JoystickButton(driver, 4);
+driverGreenTriangle.whenPressed(new IntakeSetAsFront());
 
 
 
