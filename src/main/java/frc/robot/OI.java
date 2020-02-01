@@ -38,6 +38,7 @@ import frc.robot.commands.RumbleYes;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.TWINKLES;
 import frc.robot.commands.TrenchPrep;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.WaitForPressure;
 import frc.robot.commands.WaitForever;
 
@@ -99,14 +100,17 @@ driverOption = new JoystickButton(driver, 1);
 driverOption.whileHeld(new DoNothing());
 driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
-driverRedCircle = new JoystickButton(driver, 1);
-driverRedCircle.whileHeld(new DoNothing());
-driverPinkSquare = new JoystickButton(driver, 1);
-driverPinkSquare.whileHeld(new DoNothing());
-driverBlueX = new JoystickButton(driver, 1);
-driverBlueX.whileHeld(new DoNothing());
-driverGreenTriangle = new JoystickButton(driver, 1);
+
+driverGreenTriangle = new JoystickButton(driver, 3);
 driverGreenTriangle.whileHeld(new DoNothing());
+driverRedCircle = new JoystickButton(driver, 2);
+driverRedCircle.whileHeld(new TurnToAngle(90));
+driverBlueX = new JoystickButton(driver, 1);
+driverBlueX.whileHeld(new TurnToAngle(180));
+driverPinkSquare = new JoystickButton(driver, 0);
+driverPinkSquare.whileHeld(new TurnToAngle(270));
+
+
 
 
         // SmartDashboard Buttons
