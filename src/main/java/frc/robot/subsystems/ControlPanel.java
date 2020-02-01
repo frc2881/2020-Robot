@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -9,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class ControlPanel extends Subsystem {
+    private CANSparkMax panelSpinner;
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
 
     
@@ -22,6 +26,12 @@ public class ControlPanel extends Subsystem {
     private final Color kYellowTarget = ColorMatch.makeColor(0.318, 0.568, 0.114);
 
     public ControlPanel() {
+        panelSpinner= new CANSparkMax(6, MotorType.kBrushless);
+
+        panelSpinner.restoreFactoryDefaults();  
+        panelSpinner.setInverted(false);
+        panelSpinner.setIdleMode(IdleMode.kBrake);
+
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);
         m_colorMatcher.addColorMatch(kRedTarget);
@@ -47,6 +57,10 @@ public class ControlPanel extends Subsystem {
         ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
         return match;
     
+    }
+
+    public void spinMotor(double speed) {
+        panelSpinner.set(speed);
     }
 
 }
