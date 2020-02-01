@@ -163,33 +163,6 @@ differentialDrive2.setMaxOutput(1.0);
         System.out.println("tankDrive");
     }
   
-    public void initializeTurnToHeading(double angle) {
-        //depending on whether we need to turn or not, one or the other would be used
-        turnPID.setSetpoint(angle);
-        rotateToAngleRate = 0;
-        turnPID.enable();
-    }
-    
-    public void changeHeadingTurnToHeading(double angle) {
-        //update the setPoint of the PID loop if the driver has changed the controller value before the turn was finished
-        turnPID.setSetpoint(angle);
-    }
-    
-    public boolean isFinishedTurnToHeading() {
-        //called to finish the command when PID loop is finished
-        boolean stopped = false;//Math.abs(navX.pidGet() - turnMovingAverage.pidGet()) < 0.1;
-        return stopped && turnPID.onTarget();
-    }
-    
-    public void endTurnToHeading() {
-        //Disable the PID loop when the turn is finished
-        turnPID.disable();
-    }
-        
-   public double getRotateToAngleRate() {
-    return rotateToAngleRate;
-   }
-
 /*public void autonomousRotate(double leftSpeed, double rightSpeed) {
     // DONT Use 'squaredInputs' or deadband in autonomous
     driveTrain.setDeadband(0);
