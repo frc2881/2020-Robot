@@ -21,7 +21,7 @@ public class NavXReset extends WaitUntilNavXDetected {
     @Override
     protected void initialize() {
         Robot.logInitialize(this);
-        Robot.drive.navX.reset();
+        Robot.navX.reset();
 
         
         // TODO: implement this

@@ -26,7 +26,7 @@ public class WaitUntilNavXDetected extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Robot.drive.isNavXReady();
+        return Robot.isNavXReady();
     }
 
     @Override

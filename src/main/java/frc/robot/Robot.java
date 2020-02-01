@@ -23,10 +23,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Utils.frc4048.Logging;
+import frc.robot.utils.frc4048.Logging;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.Utils.NavX;
+import frc.robot.utils.NavX;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -163,4 +163,7 @@ public class Robot extends TimedRobot {
         log("Command " + command.getClass().getSimpleName() + " interrupted");
     }
 
+    public static boolean isNavXReady() {
+        return navX.isConnected() && !navX.isCalibrating();
+    }
 }
