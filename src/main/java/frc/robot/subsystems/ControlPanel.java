@@ -68,8 +68,8 @@ public class ControlPanel extends Subsystem {
         ColorMatchResult green = kGreenTarget;
         ColorMatchResult red = kRedTarget;
         ColorMatchResult yellow = kYellowTarget;
-        if(gameData.length() > 0){
-            switch (gameData.charAt(0))
+        if(color.length() > 0){
+            switch (color.charAt(0))
                 {
                     case 'B' :
                     return blue;

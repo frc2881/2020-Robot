@@ -54,6 +54,7 @@ public class PanelColor extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        //orientation of color sensor mechanism????
         do{
             currentColor = Robot.controlPanel.getColor();
             Robot.controlPanel.spinMotor(.25);
