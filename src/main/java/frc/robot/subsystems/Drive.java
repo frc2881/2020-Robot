@@ -54,14 +54,14 @@ leftFront = new CANSparkMax(1, MotorType.kBrushless);
 
 leftFront.restoreFactoryDefaults();  
 leftFront.setInverted(false);
-leftFront.setIdleMode(IdleMode.kCoast);
+leftFront.setIdleMode(IdleMode.kBrake);
   
         
 leftRear = new CANSparkMax(2, MotorType.kBrushless);
 
 leftRear.restoreFactoryDefaults();  
 leftRear.setInverted(false);
-leftRear.setIdleMode(IdleMode.kCoast);
+leftRear.setIdleMode(IdleMode.kBrake);
   
         
 
@@ -75,14 +75,14 @@ rightFront = new CANSparkMax(3, MotorType.kBrushless);
 
 rightFront.restoreFactoryDefaults();  
 rightFront.setInverted(false);
-rightFront.setIdleMode(IdleMode.kCoast);
+rightFront.setIdleMode(IdleMode.kBrake);
   
         
 rightRear = new CANSparkMax(4, MotorType.kBrushless);
 
 rightRear.restoreFactoryDefaults();  
 rightRear.setInverted(false);
-rightRear.setIdleMode(IdleMode.kCoast);
+rightRear.setIdleMode(IdleMode.kBrake);
   
         
 
@@ -108,7 +108,7 @@ differentialDrive1.setMaxOutput(1.0);
 
     hDrive.restoreFactoryDefaults();  
     hDrive.setInverted(false);
-    hDrive.setIdleMode(IdleMode.kCoast);
+    hDrive.setIdleMode(IdleMode.kBrake);
 
     }
 
@@ -150,7 +150,7 @@ differentialDrive1.setMaxOutput(1.0);
             differentialDrive1.tankDrive(leftSpeed, rightSpeed, true);
         }
         else{
-            differentialDrive1.tankDrive(-leftSpeed, -rightSpeed, true);
+            differentialDrive1.tankDrive(-rightSpeed, -leftSpeed, true);
         }
     }
 

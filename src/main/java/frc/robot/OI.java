@@ -95,18 +95,24 @@ driver = new Joystick(0);
 
 driverButton = new JoystickButton(driver, 1);
 driverButton.whileHeld(new DoNothing());
+
 driverOption = new JoystickButton(driver, 1);
 driverOption.whileHeld(new DoNothing());
+
 driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
+
 driverRedCircle = new JoystickButton(driver, 1);
 driverRedCircle.whileHeld(new DoNothing());
+
 driverPinkSquare = new JoystickButton(driver, 1);
 driverPinkSquare.whileHeld(new DoNothing());
-driverBlueX = new JoystickButton(driver, 1);
-driverBlueX.whileHeld(new DoNothing());
-driverGreenTriangle = new JoystickButton(driver, 1);
-driverGreenTriangle.whileHeld(new DoNothing());
+
+driverBlueX = new JoystickButton(driver, 2);
+driverBlueX.whenPressed(new IntakeSetAsBack());
+
+driverGreenTriangle = new JoystickButton(driver, 4);
+driverGreenTriangle.whenPressed(new IntakeSetAsFront());
 
 
         // SmartDashboard Buttons
