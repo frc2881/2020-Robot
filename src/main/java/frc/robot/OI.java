@@ -80,7 +80,15 @@ public JoystickButton driverPinkSquare;
 public JoystickButton driverRedCircle;
 public JoystickButton driverPOV;
 public JoystickButton driverOption;
-public JoystickButton driverButton;
+public JoystickButton driverShare;
+public JoystickButton manipulatorGreenTriangle;
+public JoystickButton manipulatorBlueX;
+public JoystickButton manipulatorPinkSquare;
+public JoystickButton manipulatorRedCircle;
+public JoystickButton manipulatorPOV;
+public JoystickButton manipulatorOption;
+public JoystickButton manipulatorButton;
+public JoystickButton manipulatorShare;
 public Joystick driver;
 public Joystick manipulator;
 
@@ -93,20 +101,50 @@ manipulator = new Joystick(1);
 
 driver = new Joystick(0);
 
-driverButton = new JoystickButton(driver, 1);
-driverButton.whileHeld(new DoNothing());
+//DRIVERS
+driverShare = new JoystickButton(driver, 1);
+driverShare.whileHeld(new DoNothing());
+
 driverOption = new JoystickButton(driver, 1);
 driverOption.whileHeld(new DoNothing());
+
 driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
+
 driverRedCircle = new JoystickButton(driver, 1);
 driverRedCircle.whileHeld(new DoNothing());
+
 driverPinkSquare = new JoystickButton(driver, 1);
 driverPinkSquare.whileHeld(new DoNothing());
+
 driverBlueX = new JoystickButton(driver, 1);
 driverBlueX.whileHeld(new DoNothing());
+
 driverGreenTriangle = new JoystickButton(driver, 1);
 driverGreenTriangle.whileHeld(new DoNothing());
+
+//MANIPULATOR
+manipulatorPinkSquare = new JoystickButton(manipulator, 1); //want to be Intake
+manipulatorPinkSquare.whileHeld(new IntakeControlRollers()); 
+
+manipulatorBlueX = new JoystickButton(manipulator, 2);
+manipulatorBlueX.whileHeld(new DoNothing());
+
+manipulatorRedCircle = new JoystickButton(manipulator, 3); //want to be Outtake
+manipulatorRedCircle.whileHeld(new IntakeControlRollers());
+
+manipulatorGreenTriangle = new JoystickButton(manipulator, 4);
+manipulatorGreenTriangle.whileHeld(new DoNothing());
+
+manipulatorShare = new JoystickButton(manipulator, 9);
+manipulatorShare.whileHeld(new DoNothing());
+
+manipulatorOption = new JoystickButton(manipulator, 10);
+manipulatorOption.whileHeld(new DoNothing());
+
+manipulatorPOV = new JoystickButton(manipulator, 14);
+manipulatorPOV.whileHeld(new DoNothing());
+
 
 
         // SmartDashboard Buttons
