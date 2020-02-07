@@ -18,6 +18,7 @@ import frc.robot.commands.AngleCalibrateEncoder;
 import frc.robot.commands.ArmControl;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.CameraSwitch;
+import frc.robot.commands.ControlFlywheel;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.IntakeControlRollers;
@@ -82,6 +83,7 @@ public JoystickButton driverRedCircle;
 public JoystickButton driverPOV;
 public JoystickButton driverOption;
 public JoystickButton driverShare;
+public JoystickButton manipulatorBlueX;
 public Joystick driver;
 public Joystick manipulator;
 
@@ -115,6 +117,8 @@ driverRedCircle.whileHeld(new TurnToAngle(90));
 driverGreenTriangle = new JoystickButton(driver, 4);
 driverGreenTriangle.whenPressed(new IntakeSetAsFront());
 
+manipulatorBlueX = new JoystickButton(manipulator, 2);
+manipulatorBlueX.whileHeld(new ControlFlywheel());
 
 
         // SmartDashboard Buttons
