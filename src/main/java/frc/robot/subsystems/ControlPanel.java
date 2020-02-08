@@ -64,29 +64,26 @@ public class ControlPanel extends Subsystem {
     }
 
     public ColorMatchResult gameColor(String color){
-        ColorMatchResult blue = kBlueTarget;
-        ColorMatchResult green = kGreenTarget;
-        ColorMatchResult red = kRedTarget;
-        ColorMatchResult yellow = kYellowTarget;
+        ColorMatchResult blue = m_colorMatcher.matchClosestColor(kBlueTarget);
+        ColorMatchResult green = m_colorMatcher.matchClosestColor(kGreenTarget);
+        ColorMatchResult red = m_colorMatcher.matchClosestColor(kRedTarget);
+        ColorMatchResult yellow = m_colorMatcher.matchClosestColor(kYellowTarget);
+        ColorMatchResult plcHold;
         if(color.length() > 0){
             switch (color.charAt(0))
                 {
-                    case 'B' :
+                case 'B' :
                     return blue;
-                break;
-                    case 'G' :
+                case 'G' :
                     return green;
-                break;
-                    case 'R' :
+                case 'R' :
                     return red;
-                break;
-                    case 'Y' :
+                case 'Y' :
                     return yellow;
-                break;
-                    default :
+                default :
                     return this.getColor();
-                break;
-  }
+
+    }
         } else {
             return null;
     }
