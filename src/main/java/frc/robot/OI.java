@@ -153,7 +153,6 @@ manipulatorPOV.whileHeld(new DoNothing());
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("Do Nothing", new DoNothing());
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
-        SmartDashboard.putData("Intake Control Rollers", new IntakeControlRollers());
         SmartDashboard.putData("Lift Control", new LiftControl());
         SmartDashboard.putData("Lift To Height", new LiftToHeight());
         SmartDashboard.putData("Set Arm Angle", new SetArmAngle());
