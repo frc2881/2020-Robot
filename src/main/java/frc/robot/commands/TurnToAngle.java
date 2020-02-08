@@ -58,6 +58,15 @@ public class TurnToAngle extends Command {
         Robot.drive.tankDrive(value, -value);
     }
 
+    // returns an integer angle based on what the driver controller reads
+    private int getDriverPOVAngle() {
+        int angle = Robot.oi.driver.getPOV();
+        if (angle > 180) {
+            angle = angle - 360;
+        }
+        return angle;
+    }
+
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
