@@ -120,14 +120,4 @@ arm = new Arm();
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
-    public void cargoRollers(double speed, RollerDirection state) {
-        //POSITIVE IS EJECTING
-        if (state == RollerDirection.EJECT) {
-            intakeParallelBand.set(speed);
-        } else if (state == RollerDirection.INTAKE){
-            intakeParallelBand.set(-speed);
-        }
-        else {
-            intakeParallelBand.set(speed);
-        }
 }

@@ -125,13 +125,13 @@ driverGreenTriangle.whileHeld(new DoNothing());
 
 //MANIPULATOR
 manipulatorPinkSquare = new JoystickButton(manipulator, 1); //want to be Intake
-manipulatorPinkSquare.whileHeld(new IntakeControlRollers()); 
+manipulatorPinkSquare.whileHeld(new IntakeControlRollers(0.5)); 
 
 manipulatorBlueX = new JoystickButton(manipulator, 2);
 manipulatorBlueX.whileHeld(new DoNothing());
 
 manipulatorRedCircle = new JoystickButton(manipulator, 3); //want to be Outtake
-manipulatorRedCircle.whileHeld(new IntakeControlRollers());
+manipulatorRedCircle.whileHeld(new IntakeControlRollers(-0.5));
 
 manipulatorGreenTriangle = new JoystickButton(manipulator, 4);
 manipulatorGreenTriangle.whileHeld(new DoNothing());
