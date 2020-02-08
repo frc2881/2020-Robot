@@ -18,7 +18,7 @@ import frc.robot.Robot;
  *
  */
 public class ArmToAngle extends Command {
-    private double angle;
+    private double height;
     private PIDController rotatePID;
     //using the Ziegler-Nichols PID Control Tuning method, we find the proper numbers for the PID loop.
     private static final double Kc = 0.08;
@@ -29,15 +29,15 @@ public class ArmToAngle extends Command {
 
     public ArmToAngle(double angle) {
         requires(Robot.drive);
-        this.angle = angle;
+        height = Robot.arm.toHeightInches(angle);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
         /* Make a call to the subsystem to use a PID loop controller in the subsystem
         to set the heading based on the HAT controller. */
-        rotatePID = new PIDController(0.5, 0, 0);//P, I * 0.1, D * 0.1); //<-- tuned from testing
-        rotatePID.setSetpoint(angle);
+        rotatePID = new PIDController(0.5, 0, 0);//P, I, D); //<-- tuned from testing
+        rotatePID.setSetpoint(height);
         rotatePID.setTolerance(.5);
         rotatePID.enableContinuousInput(-180, 180);
 
@@ -48,15 +48,14 @@ public class ArmToAngle extends Command {
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
         // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
-        double value = rotatePID.calculate();
+        double value = rotatePID.calculate(Robot.arm.getArmPosition());
        // Sets the minimum and maximum speed of the robot during the command 
        if (value > 0.5) {
            value = 0.5;
        } else if (value < -0.5) {
            value = -0.5;
        }
-
-
+       Robot.arm.setArmSpeed(value);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -69,14 +68,14 @@ public class ArmToAngle extends Command {
     @Override
     protected void interrupted() {
         // call the drive subsystem to make sure the PID loop is disabled
-        Robot.arm.
+        Robot.arm.setArmSpeed(0);
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
         // call the drive subsystem to make sure the PID loop is disabled
-        Robot.drive.tankDrive(0, 0);
+        Robot.arm.setArmSpeed(0);
     }
 
 }
