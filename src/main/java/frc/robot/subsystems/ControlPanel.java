@@ -68,7 +68,8 @@ public class ControlPanel extends Subsystem {
         ColorMatchResult green = m_colorMatcher.matchClosestColor(kGreenTarget);
         ColorMatchResult red = m_colorMatcher.matchClosestColor(kRedTarget);
         ColorMatchResult yellow = m_colorMatcher.matchClosestColor(kYellowTarget);
-        ColorMatchResult plcHold;
+
+        
         if(color.length() > 0){
             switch (color.charAt(0))
                 {
