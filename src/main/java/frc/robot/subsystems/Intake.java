@@ -61,21 +61,21 @@ public class Intake extends Subsystem {
     IntakeFlywheel.setInverted(false);
     IntakeFlywheel.setIdleMode(IdleMode.kCoast); //Agreed to keep it in coast mode
       
-            
-    intakeLeft = new CANSparkMax(8, MotorType.kBrushless); //Align Arm Left
-    
-    intakeLeft.restoreFactoryDefaults();  
-    intakeLeft.setInverted(false);
-    intakeLeft.setIdleMode(IdleMode.kBrake);
-      
-            
-    intakeRight = new CANSparkMax(9, MotorType.kBrushless); //Align Arm Right
+                 
+    intakeRight = new CANSparkMax(8, MotorType.kBrushless); //Align Arm Right
     
     intakeRight.restoreFactoryDefaults();  
     intakeRight.setInverted(false);
     intakeRight.setIdleMode(IdleMode.kBrake);
       
             
+    intakeLeft = new CANSparkMax(9, MotorType.kBrushless); //Align Arm Left
+    
+    intakeLeft.restoreFactoryDefaults();  
+    intakeLeft.setInverted(true);
+    intakeLeft.setIdleMode(IdleMode.kBrake);
+      
+    
     intakeMain = new CANSparkMax(8, MotorType.kBrushless); //Tube Intake
     
     intakeMain.restoreFactoryDefaults();  
@@ -119,7 +119,7 @@ public class Intake extends Subsystem {
 
     }
 
-    public void armAlign(double left, double right){
+    public void armAlign(double left, double right){ //positive values make cells go in, negative goes out
         if(left>-1&&right>-1){
             intakeLeft.set(0);
             intakeRight.set(0);
