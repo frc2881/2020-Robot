@@ -38,6 +38,7 @@ import frc.robot.commands.RumbleYes;
 import frc.robot.commands.SetArmAngle;
 import frc.robot.commands.TWINKLES;
 import frc.robot.commands.TrenchPrep;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.commands.WaitForPressure;
 import frc.robot.commands.WaitForever;
 
@@ -87,7 +88,6 @@ public class OI {
     public JoystickButton manipulatorRedCircle;
     public JoystickButton manipulatorPOV;
     public JoystickButton manipulatorOption;
-    public JoystickButton manipulatorButton;
     public JoystickButton manipulatorShare;
     public Joystick driver;
     public Joystick manipulator;
@@ -101,28 +101,31 @@ public class OI {
 
         driver = new Joystick(0);
 
-        // DRIVERS
-        driverShare = new JoystickButton(driver, 1);
-        driverShare.whileHeld(new DoNothing());
 
-        driverOption = new JoystickButton(driver, 1);
-        driverOption.whileHeld(new DoNothing());
+        //Driver
+
 
         driverPOV = new JoystickButton(driver, 1);
         driverPOV.whileHeld(new DoNothing());
 
-        driverRedCircle = new JoystickButton(driver, 1);
-        driverRedCircle.whileHeld(new DoNothing());
-
         driverPinkSquare = new JoystickButton(driver, 1);
         driverPinkSquare.whileHeld(new DoNothing());
 
-        driverBlueX = new JoystickButton(driver, 1);
-        driverBlueX.whileHeld(new DoNothing());
+        driverBlueX = new JoystickButton(driver, 2);
+        driverBlueX.whenPressed(new IntakeSetAsBack());
 
-        driverGreenTriangle = new JoystickButton(driver, 1);
-        driverGreenTriangle.whileHeld(new DoNothing());
+        driverRedCircle = new JoystickButton(driver, 3);
+        driverRedCircle.whileHeld(new DoNothing());
 
+        driverGreenTriangle = new JoystickButton(driver, 4);
+        driverGreenTriangle.whenPressed(new IntakeSetAsFront());
+
+        driverShare = new JoystickButton(driver, 9);
+        driverShare.whileHeld(new DoNothing());
+
+        driverOption = new JoystickButton(driver, 10);
+        driverOption.whileHeld(new DoNothing());
+      
         // MANIPULATOR
         manipulatorPinkSquare = new JoystickButton(manipulator, 1); // want to be Intake
         manipulatorPinkSquare.whileHeld(new IntakeControlRollers(0.5));
@@ -189,11 +192,11 @@ public class OI {
     // DRIVER Joysticks
 
     public double getDriverLeftX() {
-        return driver.getX(GenericHID.Hand.kLeft);
+        return driver.getRawAxis(0);
     }
 
     public double getDriverLeftY() {
-        return driver.getY(GenericHID.Hand.kLeft);
+        return driver.getRawAxis(1);
     }
 
     public double getDriverRightX() {
