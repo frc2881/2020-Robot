@@ -6,15 +6,17 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.Spark;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Robot;
 
 public class ControlPanel extends Subsystem {
-    private CANSparkMax panelSpinner;
+    
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
-
+    Spark spinPanel = Robot.intake.getIntakeLeft();
     
     private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   
@@ -26,11 +28,7 @@ public class ControlPanel extends Subsystem {
     private final Color kYellowTarget = ColorMatch.makeColor(0.318, 0.568, 0.114);
 
     public ControlPanel() {
-        panelSpinner= new CANSparkMax(6, MotorType.kBrushless);
-
-        panelSpinner.restoreFactoryDefaults();  
-        panelSpinner.setInverted(false);
-        panelSpinner.setIdleMode(IdleMode.kBrake);
+        
 
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);
@@ -47,7 +45,7 @@ public class ControlPanel extends Subsystem {
 
     @Override
     public void periodic() {
-        // Put code here to be run every loop
+        // Put code here to be run every 
     
     }
 
@@ -60,7 +58,7 @@ public class ControlPanel extends Subsystem {
     }
 
     public void spinMotor(double speed) {
-        panelSpinner.set(speed);
+        spinPanel.set(speed);
     }
 
     public ColorMatchResult gameColor(String color){
