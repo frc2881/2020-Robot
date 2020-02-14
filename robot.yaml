@@ -197,6 +197,110 @@ Children:
   - Children:
     - Children: []
       Properties:
+        Idle Mode: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: kCoast
+          name: Idle Mode
+          validators: null
+          value: kCoast
+        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Inverted, validators: null, value: false}
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '2'
+          name: CAN ID
+          validators: *id003
+          value: '5'
+        MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
+          default: kBrushless
+          name: MOTOR TYPE
+          validators: null
+          value: kBrushless
+        Restore Factory Defaults: !!robotbuilder.data.properties.BooleanProperty {
+          default: true, name: Restore Factory Defaults, validators: null, value: true}
+      Base: Spark MAX
+      Name: Intake Feeder
+    - Children: []
+      Properties:
+        Idle Mode: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: kCoast
+          name: Idle Mode
+          validators: null
+          value: kCoast
+        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Inverted, validators: null, value: false}
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '2'
+          name: CAN ID
+          validators: *id003
+          value: '6'
+        MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
+          default: kBrushless
+          name: MOTOR TYPE
+          validators: null
+          value: kBrushless
+        Restore Factory Defaults: !!robotbuilder.data.properties.BooleanProperty {
+          default: true, name: Restore Factory Defaults, validators: null, value: true}
+      Base: Spark MAX
+      Name: Intake Left
+    - Children: []
+      Properties:
+        Idle Mode: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: kCoast
+          name: Idle Mode
+          validators: null
+          value: kCoast
+        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Inverted, validators: null, value: false}
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '2'
+          name: CAN ID
+          validators: *id003
+          value: '7'
+        MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
+          default: kBrushless
+          name: MOTOR TYPE
+          validators: null
+          value: kBrushless
+        Restore Factory Defaults: !!robotbuilder.data.properties.BooleanProperty {
+          default: true, name: Restore Factory Defaults, validators: null, value: true}
+      Base: Spark MAX
+      Name: Intake Right
+    - Children: []
+      Properties:
+        Idle Mode: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: kCoast
+          name: Idle Mode
+          validators: null
+          value: kCoast
+        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Inverted, validators: null, value: false}
+        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '2'
+          name: CAN ID
+          validators: *id003
+          value: '8'
+        MOTOR TYPE: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id004
+          default: kBrushless
+          name: MOTOR TYPE
+          validators: null
+          value: kBrushless
+        Restore Factory Defaults: !!robotbuilder.data.properties.BooleanProperty {
+          default: true, name: Restore Factory Defaults, validators: null, value: true}
+      Base: Spark MAX
+      Name: Intake Main
+    - Children: []
+      Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id007 [Victor, Jaguar, Talon, VictorSP, PWMTalonSRX, Spark, SD540,
             PWMVictorSPX, DMC60, PWMSparkMax, PWMTalonFX, PWMVenom]
@@ -210,42 +314,6 @@ Children:
           default: '0'
           name: Output Channel (PWM)
           validators: &id009 [PWMOutput]
-          value: '5'
-        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Inverted, validators: null, value: false}
-      Base: Speed Controller
-      Name: Intake Left
-    - Children: []
-      Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id007
-          default: PWMVictorSPX
-          name: Type
-          validators: null
-          value: Spark
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id008
-          default: '0'
-          name: Output Channel (PWM)
-          validators: *id009
-          value: '6'
-        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Inverted, validators: null, value: false}
-      Base: Speed Controller
-      Name: Intake Right
-    - Children: []
-      Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id007
-          default: PWMVictorSPX
-          name: Type
-          validators: null
-          value: Spark
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id008
-          default: '0'
-          name: Output Channel (PWM)
-          validators: *id009
           value: '8'
         Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Inverted, validators: null, value: false}
@@ -1295,9 +1363,9 @@ Properties:
     name: Export Subsystems, validators: null, value: true}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
     name: Simulation World File, validators: null, value: /usr/share/frcsim/worlds/GearsBotDemo.world}
-  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\2020l\',
+  Wiring file location: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\mines\',
     extension: null, folder: true, name: Wiring file location, validators: null, value: .\}
-  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\2020l\FRCProjects',
+  Export Directory: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\mines\FRCProjects',
     extension: null, folder: true, name: Export Directory, validators: null, value: ..\}
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
