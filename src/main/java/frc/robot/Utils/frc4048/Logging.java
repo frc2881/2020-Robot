@@ -1,4 +1,4 @@
-package frc.robot.utils.frc4048;
+package frc.robot.Utils.frc4048;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,6 +55,7 @@ public class Logging {
 		}
 		
 		public final void writeData() {
+			/*
 			if ((DriverStation.getInstance().isEnabled() && (counter % 5 == 0)) || writeTitles) {
 				sb.setLength(0);
 				sb.append(df3.format(Timer.getFPGATimestamp()));
@@ -69,6 +70,7 @@ public class Logging {
 				addAll();
 				Robot.logging.traceMessage(sb);
 			}
+			*/
 		}
 		
 		protected void add(String title, int value) {
@@ -178,6 +180,7 @@ public class Logging {
 	}
 
 	public void traceMessage(String ...vals) {
+		/*
 		final StringBuilder sb = new StringBuilder();
 		sb.append(df3.format(Timer.getFPGATimestamp()));
 		sb.append(",");
@@ -194,13 +197,16 @@ public class Logging {
 			}
 		}
 		traceMessage(sb);
+		*/
 	}
 
 	public void printHeadings() {
+		/*
 		final LoggingContext list[] = { Robot.drive.loggingContext};
 		for (final LoggingContext c : list) {
 			c.writeHeadings();
 		}
+		*/
 	}
 
 	private class ConsolePrintTask extends TimerTask {

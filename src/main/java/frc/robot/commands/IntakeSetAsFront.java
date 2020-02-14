@@ -28,7 +28,7 @@ public class IntakeSetAsFront extends InstantCommand {
     // Called once when this command runs
     @Override
     protected void initialize() {
-        Robot.drive.setIntakeLocation(Drive.IntakeLocation.FRONT);
+      //  Robot.drive.setIntakeLocation(Drive.IntakeLocation.FRONT);
     }
 
 }

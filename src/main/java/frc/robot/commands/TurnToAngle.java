@@ -28,7 +28,7 @@ public class TurnToAngle extends Command {
     private static final double D = 0.125 * P * Pc / 0.05;
 
     public TurnToAngle(double angle) {
-        requires(Robot.drive);
+        //requires(Robot.drive);
         this.angle = angle;
     }
 
@@ -48,15 +48,15 @@ public class TurnToAngle extends Command {
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
         // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
-        double value = turnPID.calculate(Robot.navX.getYaw());
+       // double value = turnPID.calculate(Robot.navX.getYaw());
        // Sets the minimum and maximum speed of the robot during the command 
-       if (value > 0.5) {
+      /* if (value > 0.5) {
            value = 0.5;
        } else if (value < -0.5) {
            value = -0.5;
        }
-        Robot.drive.tankDrive(value, -value);
-    }
+        Robot.drive.tankDrive(value, -value); */
+    } 
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
@@ -68,14 +68,14 @@ public class TurnToAngle extends Command {
     @Override
     protected void interrupted() {
         // call the drive subsystem to make sure the PID loop is disabled
-        Robot.drive.tankDrive(0, 0);
+       // Robot.drive.tankDrive(0, 0);
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
         // call the drive subsystem to make sure the PID loop is disabled
-        Robot.drive.tankDrive(0, 0);
+      // Robot.drive.tankDrive(0, 0);
     }
 
 }

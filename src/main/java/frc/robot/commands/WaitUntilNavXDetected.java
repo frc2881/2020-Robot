@@ -21,16 +21,17 @@ public class WaitUntilNavXDetected extends Command {
 
     @Override
     protected void initialize() {
-        Robot.logInitialize(this);
+      //Robot.logInitialize(this);
     }
 
     @Override
     protected boolean isFinished() {
-        return Robot.isNavXReady();
+        return false;
+       //return Robot.isNavXReady();
     }
 
     @Override
     protected void end() {
-        Robot.logEnd(this);
+       //Robot.logEnd(this);
     }
 }

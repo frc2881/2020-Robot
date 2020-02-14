@@ -20,8 +20,8 @@ public class NavXReset extends WaitUntilNavXDetected {
 
     @Override
     protected void initialize() {
-        Robot.logInitialize(this);
-        Robot.navX.reset();
+      //  Robot.logInitialize(this);
+      //  Robot.navX.reset();
 
         
         // TODO: implement this
@@ -29,6 +29,6 @@ public class NavXReset extends WaitUntilNavXDetected {
 
     @Override
     protected void end() {
-        Robot.logEnd(this);
+      //  Robot.logEnd(this);
     }
 }

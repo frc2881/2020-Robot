@@ -28,7 +28,7 @@ public class IntakeSetAsBack extends InstantCommand {
     // Called once when this command runs
     @Override
     protected void initialize() {
-        Robot.drive.setIntakeLocation(Drive.IntakeLocation.BACK);
+       // Robot.drive.setIntakeLocation(Drive.IntakeLocation.BACK);
 
     }
 
