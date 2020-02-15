@@ -35,7 +35,9 @@ import frc.robot.commands.RumbleDriver;
 import frc.robot.commands.RumbleJoysticks;
 import frc.robot.commands.RumbleNo;
 import frc.robot.commands.RumbleYes;
+import frc.robot.commands.SetArcadeDrive;
 import frc.robot.commands.SetArmAngle;
+import frc.robot.commands.SetTankDrive;
 import frc.robot.commands.TWINKLES;
 import frc.robot.commands.TrenchPrep;
 import frc.robot.commands.TurnToAngle;
@@ -95,10 +97,10 @@ manipulator = new Joystick(1);
 driver = new Joystick(0);
 
 driverShare = new JoystickButton(driver, 9);
-driverShare.whileHeld(new DoNothing());
+driverShare.whileHeld(new SetArcadeDrive());
 
 driverOption = new JoystickButton(driver, 10);
-driverOption.whileHeld(new DoNothing());
+driverOption.whileHeld(new SetTankDrive());
 
 driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
