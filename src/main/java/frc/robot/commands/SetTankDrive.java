@@ -28,7 +28,7 @@ public class SetTankDrive extends InstantCommand {
     // Called once when this command runs
     @Override
     protected void initialize() {
-        Robot.drive.setUseTankDrive (true);
+        Robot.drive.setUseSplitArcade (false);
     }
 
 }

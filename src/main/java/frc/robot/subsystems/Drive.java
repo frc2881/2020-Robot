@@ -53,7 +53,6 @@ private PIDController turnPID;
 private double rotateToAngleRate;
 private CANSparkMax hDrive;
 private boolean useSplitArcade;
-private boolean useTankDrive;
 
     
     public Drive() {
@@ -72,8 +71,8 @@ leftRear.setInverted(false);
 leftRear.setIdleMode(IdleMode.kBrake);
   
         
-//setUseSplitArcade(true);
-//delete ^this later LOL
+setUseSplitArcade(false);
+
 
 //Set SlaveSpeedControllers to Follow MasterSpeedController
 leftRear.follow(leftFront);
@@ -162,13 +161,6 @@ differentialDrive1.setMaxOutput(1.0);
         }
     }
 
-    public boolean getUseTankDrive() {
-        return this.useTankDrive;
-    }
-
-    public void setUseTankDrive(boolean useTankDrive) {
-        this.useTankDrive = useTankDrive;
-    }
     
     public void arcadeDrive(double xSpeed, double zRotation){
         if(intakeLocation == IntakeLocation.FRONT){
