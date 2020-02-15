@@ -24,7 +24,6 @@ public class PanelColor extends Command {
 
     ColorMatchResult filteredColor;
     int counter;
-    int colorChange;
     ColorMatchResult matchColor;
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     /*ColorMatchResult currentColor;
@@ -55,7 +54,6 @@ public class PanelColor extends Command {
     protected void initialize() {
         filteredColor = Robot.controlPanel.getColor();
         counter = 0;
-        colorChange = 0;
         Robot.controlPanel.spinMotor(.5);
         /*Robot.controlPanel.spinMotor(.5);
         itr = 0;*/
@@ -73,25 +71,17 @@ public class PanelColor extends Command {
             {
                 filteredColor = currentColor;
                 counter = 0;
-                colorChange++;
             }
         }
         else
         {
             counter = 0;
         }
-        /*ColorMatchResult currentColor = Robot.controlPanel.getColor();
-        
-        do{
-            currentColor = Robot.controlPanel.getColor();
-            Robot.controlPanel.spinMotor(.25);
-        } while(matchColor != currentColor);*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        //return matchColor == currentColor;
         return matchColor == filteredColor;
     }
 

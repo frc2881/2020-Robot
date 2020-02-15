@@ -6,7 +6,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.Spark;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,7 +15,7 @@ import frc.robot.Robot;
 public class ControlPanel extends Subsystem {
     
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
-    Spark spinPanel = Robot.intake.getIntakeLeft();
+    CANSparkMax spinPanel = Robot.intake.getIntakeLeft();
     
     private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   
