@@ -150,10 +150,10 @@ differentialDrive1.setMaxOutput(1.0);
         //     differentialDrive.tankDrive(-rightSpeed, -leftSpeed, true);
         // }
         if(intakeLocation == IntakeLocation.FRONT){
-            differentialDrive1.tankDrive(leftSpeed, rightSpeed, true);
+            differentialDrive1.tankDrive(-leftSpeed, -rightSpeed, true);
         }
         else{
-            differentialDrive1.tankDrive(-rightSpeed, -leftSpeed, true);
+            differentialDrive1.tankDrive(rightSpeed, leftSpeed, true);
         }
     }
 
