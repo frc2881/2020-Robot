@@ -136,7 +136,7 @@ manipulatorBlueX.whileHeld(new ControlFlywheel());
       
         // MANIPULATOR
         manipulatorPinkSquare = new JoystickButton(manipulator, 1); // want to be Intake
-        manipulatorPinkSquare.whileHeld(new IntakeControlRollers(0.5));
+        manipulatorPinkSquare.whileHeld(new IntakeControlRollers(1));
 
         manipulatorBlueX = new JoystickButton(manipulator, 2);
         manipulatorBlueX.whileHeld(new DoNothing());
