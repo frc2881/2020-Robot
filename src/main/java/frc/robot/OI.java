@@ -36,7 +36,9 @@ import frc.robot.commands.RumbleDriver;
 import frc.robot.commands.RumbleJoysticks;
 import frc.robot.commands.RumbleNo;
 import frc.robot.commands.RumbleYes;
+import frc.robot.commands.SetArcadeDrive;
 import frc.robot.commands.SetArmAngle;
+import frc.robot.commands.SetTankDrive;
 import frc.robot.commands.TWINKLES;
 import frc.robot.commands.TrenchPrep;
 import frc.robot.commands.TurnToAngle;
@@ -117,8 +119,16 @@ public class OI {
         driverBlueX = new JoystickButton(driver, 2);
         driverBlueX.whenPressed(new IntakeSetAsBack());
 
+
+driverShare = new JoystickButton(driver, 9);
+driverShare.whileHeld(new SetArcadeDrive());
+
+driverOption = new JoystickButton(driver, 10);
+driverOption.whileHeld(new SetTankDrive());
+
         driverRedCircle = new JoystickButton(driver, 3);
         driverRedCircle.whileHeld(new DoNothing());
+
 
 
 manipulatorBlueX = new JoystickButton(manipulator, 2);

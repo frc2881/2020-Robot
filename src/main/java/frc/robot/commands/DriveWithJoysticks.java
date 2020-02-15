@@ -44,12 +44,21 @@ public class DriveWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        if (!Robot.drive.getUseSplitArcade()){
         double left = -Robot.oi.getDriverLeftY();
         double right = -Robot.oi.getDriverRightY();
         double triggerLeft = Robot.oi.getDriverTriggerLeft();
         double triggerRight = Robot.oi.getDriverTriggerRight();
         Robot.drive.tankDrive(left, right);
         Robot.drive.hDrive(triggerLeft, triggerRight);
+        } else {
+            double xSpeed = (Robot.oi.getDriverLeftY());
+            double zRotation = (Robot.oi.getDriverRightX());
+            double triggerLeft = (Robot.oi.getDriverTriggerLeft());
+            double triggerRight = (Robot.oi.getDriverTriggerRight());
+            Robot.drive.arcadeDrive(xSpeed, zRotation);
+            Robot.drive.hDrive(triggerLeft, triggerRight);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
