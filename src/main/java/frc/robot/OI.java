@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AngleCalibrateEncoder;
+import frc.robot.commands.ArmAligningControl;
 import frc.robot.commands.ArmControl;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.CameraSwitch;
@@ -93,6 +94,8 @@ public class OI {
     public JoystickButton manipulatorPOV;
     public JoystickButton manipulatorOption;
     public JoystickButton manipulatorShare;
+    public JoystickButton manipulatorLeftTrigger;
+    public JoystickButton manipulatorRightTrigger;
     public Joystick driver;
     public Joystick manipulator;
 
@@ -165,6 +168,12 @@ manipulatorBlueX.whileHeld(new ControlFlywheel());
 
         manipulatorPOV = new JoystickButton(manipulator, 14);
         manipulatorPOV.whileHeld(new DoNothing());
+
+        manipulatorLeftTrigger = new JoystickButton(manipulator, 7);
+        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true));
+
+        manipulatorRightTrigger = new JoystickButton(manipulator, 8);
+        manipulatorRightTrigger.whileHeld(new ArmAligningControl(false));
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());

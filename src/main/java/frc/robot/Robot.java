@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.Utils.NavX;
+import frc.robot.utils.NavX;
 
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.subsystems.Arm;
