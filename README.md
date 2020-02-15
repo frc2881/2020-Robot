@@ -24,16 +24,3 @@ PS4 Dualshock Raw Axis Mapping:
 * 3 = Left Trigger
 * 4 = Right Trigger
 * 5 = Right Y
-
-CanSparkMax Mapping:
-* 1 = Left Front
-* 2 = Left Rear
-* 3 = Right Front
-* 4 = Right Rear
-* 5 = HDrive
-* 6 = Flywheel
-* 7 = Intake Tube
-* 8 = Right Aligner
-* 9 = Left Aligner
-* 10 = Intake Roller
-* 11 = Control Panel (we dont need this, we are running the control panel off of one of the Aligners)
