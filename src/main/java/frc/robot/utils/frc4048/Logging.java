@@ -196,12 +196,12 @@ public class Logging {
 		traceMessage(sb);
 	}
 
-	public void printHeadings() {
+	/*public void printHeadings() {
 		final LoggingContext list[] = { Robot.drive.loggingContext};
 		for (final LoggingContext c : list) {
 			c.writeHeadings();
 		}
-	}
+	}*/
 
 	private class ConsolePrintTask extends TimerTask {
 		PrintWriter log;

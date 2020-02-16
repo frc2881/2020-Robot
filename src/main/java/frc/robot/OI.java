@@ -70,8 +70,9 @@ public class OI {
     public JoystickButton manipulatorRedCircle;
     public JoystickButton manipulatorPOV;
     public JoystickButton manipulatorOption;
-    public JoystickButton manipulatorButton;
     public JoystickButton manipulatorShare;
+    public JoystickButton manipulatorLeftTrigger;
+    public JoystickButton manipulatorRightTrigger;
     public Joystick driver;
     public Joystick manipulator;
 
@@ -84,31 +85,41 @@ public class OI {
 
         driver = new Joystick(0);
 
-        // DRIVERS
-        driverShare = new JoystickButton(driver, 1);
-        driverShare.whileHeld(new DoNothing());
-
-        driverOption = new JoystickButton(driver, 1);
-        driverOption.whileHeld(new DoNothing());
+        // Driver
 
         driverPOV = new JoystickButton(driver, 1);
         driverPOV.whileHeld(new DoNothing());
 
-        driverRedCircle = new JoystickButton(driver, 1);
-        driverRedCircle.whileHeld(new DoNothing());
-
         driverPinkSquare = new JoystickButton(driver, 1);
         driverPinkSquare.whileHeld(new DoNothing());
 
-        driverBlueX = new JoystickButton(driver, 1);
-        driverBlueX.whileHeld(new DoNothing());
+        driverBlueX = new JoystickButton(driver, 2);
+        driverBlueX.whenPressed(new IntakeSetAsBack());
 
-        driverGreenTriangle = new JoystickButton(driver, 1);
-        driverGreenTriangle.whileHeld(new DoNothing());
+        driverShare = new JoystickButton(driver, 9);
+        driverShare.whileHeld(new SetArcadeDrive());
+
+        driverOption = new JoystickButton(driver, 10);
+        driverOption.whileHeld(new SetTankDrive());
+
+        driverRedCircle = new JoystickButton(driver, 3);
+        driverRedCircle.whileHeld(new DoNothing());
+
+        manipulatorBlueX = new JoystickButton(manipulator, 2);
+        manipulatorBlueX.whileHeld(new ControlFlywheel());
+
+        driverGreenTriangle = new JoystickButton(driver, 4);
+        driverGreenTriangle.whenPressed(new IntakeSetAsFront());
+
+        driverShare = new JoystickButton(driver, 9);
+        driverShare.whileHeld(new DoNothing());
+
+        driverOption = new JoystickButton(driver, 10);
+        driverOption.whileHeld(new DoNothing());
 
         // MANIPULATOR
         manipulatorPinkSquare = new JoystickButton(manipulator, 1); // want to be Intake
-        manipulatorPinkSquare.whileHeld(new IntakeControlRollers(0.5));
+        manipulatorPinkSquare.whileHeld(new IntakeControlRollers(1));
 
         manipulatorBlueX = new JoystickButton(manipulator, 2);
         manipulatorBlueX.whileHeld(new DoNothing());
@@ -127,6 +138,12 @@ public class OI {
 
         manipulatorPOV = new JoystickButton(manipulator, 14);
         manipulatorPOV.whileHeld(new DoNothing());
+
+        manipulatorLeftTrigger = new JoystickButton(manipulator, 7);
+        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true));
+
+        manipulatorRightTrigger = new JoystickButton(manipulator, 8);
+        manipulatorRightTrigger.whileHeld(new ArmAligningControl(false));
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());

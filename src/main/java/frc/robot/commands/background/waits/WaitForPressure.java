@@ -41,7 +41,8 @@ public class WaitForPressure extends Command {
         // Make this return true when this Command no longer needs to run execute()
         @Override
         protected boolean isFinished() {
-            return timeSinceInitialized() > 0.2 && Robot.pneumatics.hasEnoughPressure();
+            //return timeSinceInitialized() > 0.2 && Robot.pneumatics.hasEnoughPressure();
+            return true;
         }
     
         @Override
