@@ -96,7 +96,6 @@ rightRear = new CANSparkMax(4, MotorType.kBrushless);
 rightRear.setInverted(false);
 rightRear.setIdleMode(IdleMode.kBrake);
   
-        
 
 
 //Set SlaveSpeedControllers to Follow MasterSpeedController
