@@ -36,7 +36,7 @@ public class ArmToAngle extends Command {
     protected void initialize() {
         /* Make a call to the subsystem to use a PID loop controller in the subsystem
         to set the heading based on the HAT controller. */
-        rotatePID = new PIDController(0.5, 0, 0);//P, I, D); //<-- tuned from testing
+        rotatePID = new PIDController(0.1, 0, 0);//P, I, D); //<-- tuned from testing
         rotatePID.setSetpoint(height);
         rotatePID.setTolerance(.5);
         rotatePID.enableContinuousInput(-180, 180);
