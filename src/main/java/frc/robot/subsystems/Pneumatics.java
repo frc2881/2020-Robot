@@ -39,7 +39,8 @@ public class Pneumatics extends Subsystem {
         //compressor.start();
     }
     public boolean hasEnoughPressure() {
-        return Robot.pneumatics.getPressure() > 40;
+        //return Robot.pneumatics.getPressure() > 40;
+        return true;
     }
 
     @Override
