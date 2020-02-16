@@ -167,7 +167,7 @@ angleAdjustment.setInverted(false);
         else {
             intakeLeft.set(0);
             intakeRight.set(0);
-            intakeFeeder.set(speed);
+            //intakeFeeder.set(speed);
         }
     }
 
