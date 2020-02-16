@@ -69,7 +69,7 @@ public class IntakeFeeding extends Command {
     protected void end() {
         Robot.intake.intakeFlywheel(0, RollerDirection.INTAKE);
         Robot.intake.intakeRightLeft(0, RollerDirection.INTAKE);
-        Robot.intake.intakeParallelBand(0, RollerDirection.INTAKE);
+        Robot.intake.intakeMain(0, RollerDirection.INTAKE);
     }
 
     // Called when another command which requires one or more of the same
