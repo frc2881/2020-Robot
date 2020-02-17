@@ -20,12 +20,6 @@ import frc.robot.Robot;
 public class ArmToAngle extends Command {
     private double height;
     private PIDController rotatePID;
-    //using the Ziegler-Nichols PID Control Tuning method, we find the proper numbers for the PID loop.
-    private static final double Kc = 0.08;
-    private static final double Pc = 0.291666;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
-    private static final double P = 0.6 * Kc; 
-    private static final double I = 2 * P * 0.05 / Pc;
-    private static final double D = 0.125 * P * Pc / 0.05;
 
     public ArmToAngle(double angle) {
         requires(Robot.drive);
@@ -34,20 +28,16 @@ public class ArmToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        /* Make a call to the subsystem to use a PID loop controller in the subsystem
-        to set the heading based on the HAT controller. */
-        rotatePID = new PIDController(0.5, 0, 0);//P, I, D); //<-- tuned from testing
+        rotatePID = new PIDController(0.5, 0, 0);
         rotatePID.setSetpoint(height);
-        rotatePID.setTolerance(.5);
-        rotatePID.enableContinuousInput(-180, 180);
-
+        rotatePID.setTolerance(0.1);
+        rotatePID.enableContinuousInput(2, 12);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
-        // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
         double value = rotatePID.calculate(Robot.arm.getArmPosition());
        // Sets the minimum and maximum speed of the robot during the command 
        if (value > 0.5) {
@@ -55,7 +45,7 @@ public class ArmToAngle extends Command {
        } else if (value < -0.5) {
            value = -0.5;
        }
-       Robot.arm.setArmSpeed(value);
+       Robot.arm.setArmSpeed(-value);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -68,7 +58,7 @@ public class ArmToAngle extends Command {
     @Override
     protected void interrupted() {
         // call the drive subsystem to make sure the PID loop is disabled
-        Robot.arm.setArmSpeed(0);
+        end();
     }
 
     // Called once after isFinished returns true
