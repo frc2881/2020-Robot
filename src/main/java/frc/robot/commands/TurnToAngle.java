@@ -36,7 +36,7 @@ public class TurnToAngle extends Command {
     protected void initialize() {
         /* Make a call to the subsystem to use a PID loop controller in the subsystem
         to set the heading based on the HAT controller. */
-        turnPID = new PIDController(P, I * 0.1, D * 0.1); //<-- tuned from testing
+        turnPID = new PIDController(0.5, 0, 0);//P, I * 0.1, D * 0.1); //<-- tuned from testing
         turnPID.setSetpoint(angle);
         turnPID.setTolerance(.5);
         turnPID.enableContinuousInput(-180, 180);

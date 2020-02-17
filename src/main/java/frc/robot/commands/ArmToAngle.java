@@ -32,7 +32,6 @@ public class ArmToAngle extends Command {
         rotatePID.setSetpoint(height);
         rotatePID.setTolerance(0.1);
         rotatePID.enableContinuousInput(2, 12);
-
     }
 
     // Called repeatedly when this Command is scheduled to run
