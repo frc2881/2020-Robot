@@ -36,10 +36,10 @@ public class ArmToAngle extends Command {
     protected void initialize() {
         /* Make a call to the subsystem to use a PID loop controller in the subsystem
         to set the heading based on the HAT controller. */
-        rotatePID = new PIDController(0.1, 0, 0);//P, I, D); //<-- tuned from testing
+        rotatePID = new PIDController(0.5, 0, 0);//P, I, D); //<-- tuned from testing
         rotatePID.setSetpoint(height);
-        rotatePID.setTolerance(.5);
-        rotatePID.enableContinuousInput(-180, 180);
+        rotatePID.setTolerance(0.1);
+        rotatePID.enableContinuousInput(2, 12);
 
     }
 
@@ -47,7 +47,6 @@ public class ArmToAngle extends Command {
     @Override
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
-        // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
         double value = rotatePID.calculate(Robot.arm.getArmPosition());
        // Sets the minimum and maximum speed of the robot during the command 
        if (value > 0.5) {
@@ -55,7 +54,7 @@ public class ArmToAngle extends Command {
        } else if (value < -0.5) {
            value = -0.5;
        }
-       Robot.arm.setArmSpeed(value);
+       Robot.arm.setArmSpeed(-value);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -68,7 +67,7 @@ public class ArmToAngle extends Command {
     @Override
     protected void interrupted() {
         // call the drive subsystem to make sure the PID loop is disabled
-        Robot.arm.setArmSpeed(0);
+        end();
     }
 
     // Called once after isFinished returns true

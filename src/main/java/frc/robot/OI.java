@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AngleCalibrateEncoder;
 import frc.robot.commands.ArmAligningControl;
 import frc.robot.commands.ArmControl;
+import frc.robot.commands.ArmToAngle;
 import frc.robot.commands.AutonomousCommand;
 import frc.robot.commands.CameraSwitch;
 import frc.robot.commands.ControlFlywheel;
@@ -94,14 +95,16 @@ public class OI {
     public JoystickButton manipulatorBlueX;
     public JoystickButton manipulatorPinkSquare;
     public JoystickButton manipulatorRedCircle;
-    public JoystickButton manipulatorPOV;
     public JoystickButton manipulatorOption;
     public JoystickButton manipulatorShare;
     public JoystickButton manipulatorLeftTrigger;
     public JoystickButton manipulatorRightTrigger;
     public JoystickButton manipulatorLeftBumper;
     public JoystickButton manipulatorRightBumper;
-
+    public JoystickButton manipulatorPOV0;
+    public JoystickButton manipulatorPOV90;
+    public JoystickButton manipulatorPOV180;
+    public JoystickButton manipulatorPOV270;
     public Joystick driver;
     public Joystick manipulator;
 
@@ -165,9 +168,6 @@ public class OI {
         manipulatorOption = new JoystickButton(manipulator, 10);
         manipulatorOption.whileHeld(new DoNothing());
 
-        manipulatorPOV = new JoystickButton(manipulator, 14);
-        manipulatorPOV.whileHeld(new DoNothing());
-
         manipulatorLeftTrigger = new JoystickButton(manipulator, 7);
         manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, false));
 
@@ -176,6 +176,18 @@ public class OI {
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6);
         manipulatorRightBumper.whileHeld(new ArmAligningControl(false, true));
+
+        manipulatorPOV0 = buttonFromPOV(manipulator, 0);
+        manipulatorPOV0.whileHeld(new ArmToAngle(60));
+
+        manipulatorPOV90 = buttonFromPOV(manipulator, 90);
+        manipulatorPOV90.whileHeld(new ArmToAngle(20));
+
+        manipulatorPOV180 = buttonFromPOV(manipulator, 180);
+        manipulatorPOV180.whileHeld(new ArmToAngle(0));
+
+        manipulatorPOV270 = buttonFromPOV(manipulator, 270);
+        manipulatorPOV270.whileHeld(new ArmToAngle(40));
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());
@@ -211,10 +223,20 @@ public class OI {
         return new JoystickButton(controller, angle) {
             @Override
             public boolean get() {
-                if (angle == 0) {
-                    return (controller.getPOV() == 0) || (controller.getPOV() == 45) || (controller.getPOV() == 315);
-                } else {
-                    return (controller.getPOV() == 180) || (controller.getPOV() == 225) || (controller.getPOV() == 135);
+                if (angle == 180) {
+                    return (controller.getPOV() == 180);
+                } 
+                else if (angle == 90) {
+                    return (controller.getPOV() == 90);
+                }
+                else if (angle == 270) {
+                    return (controller.getPOV() == 270);
+                }
+                else if (angle == 0) {
+                    return (controller.getPOV() == 0);
+                }
+                else{
+                    return false;
                 }
             }
         };
@@ -234,19 +256,19 @@ public class OI {
     //DRIVER Joysticks
     
     public double getDriverLeftX() {
-        return manipulator.getX(GenericHID.Hand.kLeft);
+        return driver.getX(GenericHID.Hand.kLeft);
     }
 
     public double getDriverLeftY() {
-        return manipulator.getY(GenericHID.Hand.kLeft);
+        return driver.getY(GenericHID.Hand.kLeft);
     }
 
     public double getDriverRightX() {
-        return manipulator.getX(GenericHID.Hand.kRight);
+        return driver.getX(GenericHID.Hand.kRight);
     }
 
     public double getDriverRightY() {
-        return manipulator.getY(GenericHID.Hand.kRight);
+        return driver.getY(GenericHID.Hand.kRight);
     }
 
     public double getDriverPOV() {
