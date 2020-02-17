@@ -20,12 +20,6 @@ import frc.robot.Robot;
 public class ArmToAngle extends Command {
     private double height;
     private PIDController rotatePID;
-    //using the Ziegler-Nichols PID Control Tuning method, we find the proper numbers for the PID loop.
-    private static final double Kc = 0.08;
-    private static final double Pc = 0.291666;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
-    private static final double P = 0.6 * Kc; 
-    private static final double I = 2 * P * 0.05 / Pc;
-    private static final double D = 0.125 * P * Pc / 0.05;
 
     public ArmToAngle(double angle) {
         requires(Robot.drive);
@@ -34,9 +28,7 @@ public class ArmToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        /* Make a call to the subsystem to use a PID loop controller in the subsystem
-        to set the heading based on the HAT controller. */
-        rotatePID = new PIDController(0.5, 0, 0);//P, I, D); //<-- tuned from testing
+        rotatePID = new PIDController(0.5, 0, 0);
         rotatePID.setSetpoint(height);
         rotatePID.setTolerance(0.1);
         rotatePID.enableContinuousInput(2, 12);
