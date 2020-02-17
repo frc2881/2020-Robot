@@ -60,7 +60,7 @@ private DigitalInput middle;
 intakeLeft = new CANSparkMax(9, MotorType.kBrushless); //Align Arm Left
 
 intakeLeft.restoreFactoryDefaults();  
-intakeLeft.setInverted(false);
+intakeLeft.setInverted(true);
 intakeLeft.setIdleMode(IdleMode.kBrake);
   
         

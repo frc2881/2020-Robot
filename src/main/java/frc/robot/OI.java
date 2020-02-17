@@ -174,8 +174,12 @@ public class OI {
         manipulatorRightTrigger = new JoystickButton(manipulator, 8);
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, false));
 
+        manipulatorLeftBumper = new JoystickButton(manipulator, 5);
+        manipulatorLeftBumper.whileHeld(new ArmAligningControl(true, true));
+
         manipulatorRightBumper = new JoystickButton(manipulator, 6);
         manipulatorRightBumper.whileHeld(new ArmAligningControl(false, true));
+        
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0);
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
