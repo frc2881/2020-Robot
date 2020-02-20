@@ -60,7 +60,7 @@ public class Intake extends Subsystem {
 
         feeder = new CANSparkMax(10, MotorType.kBrushless); // Align Arm Left
         feeder.restoreFactoryDefaults();
-        feeder.setInverted(true);
+        feeder.setInverted(false);
         feeder.setIdleMode(IdleMode.kCoast);
 
         intakeLeft = new CANSparkMax(9, MotorType.kBrushless); // Align Arm Left
@@ -180,13 +180,9 @@ public class Intake extends Subsystem {
         intakeRight.set(right);
     }
 
-    public void controlFeeder(double speed, RollerDirection state) {
-        if (state == RollerDirection.INTAKE) {
-            feeder.set(speed);
-        } else {
-            // EJECT
-            feeder.set(-speed);
-        }
+    public void controlFeeder(double speed) {
+        //negative is intake
+        feeder.set(speed);
     }
 
 }

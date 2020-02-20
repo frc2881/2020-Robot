@@ -52,13 +52,12 @@ public class ControlFeeder extends Command {
     protected void execute() {
         // sequential order
         // rollers, intakeLeft/Right, intakeParallel
-        double speed = Math.abs(Robot.oi.getManipulatorRightY());
-        if (speed <= 0) {
-            Robot.intake.controlFeeder(speed, RollerDirection.INTAKE);
+        double speed = Robot.oi.getManipulatorRightY();
+        if (Math.abs(speed) <= 0.05) {
+            Robot.intake.controlFeeder(0);
         } else {
-            Robot.intake.controlFeeder(speed, RollerDirection.EJECT);
+            Robot.intake.controlFeeder(-speed);
         }
-        // Robot.intake
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -70,7 +69,7 @@ public class ControlFeeder extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.intake.controlFeeder(0, RollerDirection.EJECT);
+        Robot.intake.controlFeeder(0);
     }
 
     // Called when another command which requires one or more of the same
