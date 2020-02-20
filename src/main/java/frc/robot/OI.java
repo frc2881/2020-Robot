@@ -23,7 +23,7 @@ import frc.robot.commands.CameraSwitch;
 import frc.robot.commands.ControlFlywheel;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.IntakeControlRollers;
+import frc.robot.commands.IntakeTube;
 import frc.robot.commands.IntakeSetAsBack;
 import frc.robot.commands.IntakeSetAsFront;
 import frc.robot.commands.LiftControl;
@@ -134,21 +134,18 @@ public class OI {
         driverRedCircle = new JoystickButton(driver, 3);
         driverRedCircle.whileHeld(new DoNothing());
 
-        manipulatorBlueX = new JoystickButton(manipulator, 2);
-        manipulatorBlueX.whileHeld(new ControlFlywheel());
-
         driverGreenTriangle = new JoystickButton(driver, 4);
         driverGreenTriangle.whenPressed(new IntakeSetAsFront());
 
         // MANIPULATOR
         manipulatorPinkSquare = new JoystickButton(manipulator, 1); // want to be Intake
-        manipulatorPinkSquare.whileHeld(new IntakeControlRollers(1));
+        manipulatorPinkSquare.whileHeld(new IntakeTube(1));
 
         manipulatorBlueX = new JoystickButton(manipulator, 2);
-        manipulatorBlueX.whileHeld(new DoNothing());
+        manipulatorBlueX.whileHeld(new ControlFlywheel());
 
         manipulatorRedCircle = new JoystickButton(manipulator, 3); // want to be Outtake
-        manipulatorRedCircle.whileHeld(new IntakeControlRollers(-0.5));
+        manipulatorRedCircle.whileHeld(new IntakeTube(-0.5));
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4);
         manipulatorGreenTriangle.whileHeld(new DoNothing());
