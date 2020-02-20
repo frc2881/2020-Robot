@@ -259,28 +259,20 @@ public class OI {
     }
 
     /*
-    //DRIVER Joysticks
-    
-    public double getDriverLeftX() {
-        return driver.getX(GenericHID.Hand.kLeft);
-    }
-
-    public double getDriverLeftY() {
-        return driver.getY(GenericHID.Hand.kLeft);
-    }
-
-    public double getDriverRightX() {
-        return driver.getX(GenericHID.Hand.kRight);
-    }
-
-    public double getDriverRightY() {
-        return driver.getY(GenericHID.Hand.kRight);
-    }
-
-    public double getDriverPOV() {
-        return driver.getPOV();
-    }
-    */
+     * //DRIVER Joysticks
+     * 
+     * public double getDriverLeftX() { return driver.getX(GenericHID.Hand.kLeft); }
+     * 
+     * public double getDriverLeftY() { return driver.getY(GenericHID.Hand.kLeft); }
+     * 
+     * public double getDriverRightX() { return driver.getX(GenericHID.Hand.kRight);
+     * }
+     * 
+     * public double getDriverRightY() { return driver.getY(GenericHID.Hand.kRight);
+     * }
+     * 
+     * public double getDriverPOV() { return driver.getPOV(); }
+     */
 
     // DRIVER Triggers
 
@@ -293,22 +285,35 @@ public class OI {
     }
 
     // MANIPULATOR Joysticks
-
     public double getManipulatorLeftX() {
-        return manipulator.getX(GenericHID.Hand.kLeft);
+        return manipulator.getRawAxis(0);
     }
 
     public double getManipulatorLeftY() {
-        return manipulator.getY(GenericHID.Hand.kLeft);
+        return manipulator.getRawAxis(1);
     }
 
     public double getManipulatorRightX() {
-        return manipulator.getX(GenericHID.Hand.kRight);
+        return manipulator.getRawAxis(2);
     }
 
     public double getManipulatorRightY() {
-        return manipulator.getY(GenericHID.Hand.kRight);
+        return manipulator.getRawAxis(5);
     }
+
+    /*
+     * public double getManipulatorLeftX() { return
+     * manipulator.getX(GenericHID.Hand.kLeft); }
+     * 
+     * public double getManipulatorLeftY() { return
+     * manipulator.getY(GenericHID.Hand.kLeft); }
+     * 
+     * public double getManipulatorRightX() { return
+     * manipulator.getX(GenericHID.Hand.kRight); }
+     * 
+     * public double getManipulatorRightY() { return
+     * manipulator.getY(GenericHID.Hand.kRight); }
+     */
 
     // MANIPULATOR Triggers
 
