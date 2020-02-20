@@ -60,7 +60,7 @@ public class Intake extends Subsystem {
         feeder = new CANSparkMax(10, MotorType.kBrushless); // Align Arm Left
         feeder.restoreFactoryDefaults();
         feeder.setInverted(true);
-        feeder.setIdleMode(IdleMode.kBrake);
+        feeder.setIdleMode(IdleMode.kCoast);
 
         intakeLeft = new CANSparkMax(9, MotorType.kBrushless); // Align Arm Left
 

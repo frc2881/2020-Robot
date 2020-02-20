@@ -80,12 +80,13 @@ public class ArmAligningControl extends Command {
     @Override
     protected void end() {
         Robot.intake.armAlign(0, 0);
+        Robot.intake.controlFeeder(0, RollerDirection.INTAKE);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        Robot.intake.armAlign(0, 0);
+        end();
     }
 }
