@@ -90,6 +90,7 @@ intakeMain.restoreFactoryDefaults();
 intakeMain.setInverted(false);
 intakeMain.setIdleMode(IdleMode.kBrake);
   
+intakeMain.setOpenLoopRampRate(0.5);
 
         
 flywheel = new CANSparkMax(6, MotorType.kBrushless);

@@ -24,11 +24,11 @@ public class IntakeFor7Inches extends Command {
     private double setpoint;
     private PIDController straightPID;
     //using the Ziegler-Nichols PID Control Tuning method, we find the proper numbers for the PID loop.
-    private static final double Kc = 0.08;
-    private static final double Pc = 0.291666;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
-    private static final double P = 0.1;//0.6 * Kc; 
-    private static final double I = 0;//2 * P * 0.05 / Pc;
-    private static final double D = 0;//0.125 * P * Pc / 0.05;
+    private static final double Kc = 0.3;
+    private static final double Pc = 0.47125;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
+    private static final double P = 0.6 * Kc; 
+    private static final double I = 2 * P * 0.05 / Pc;
+    private static final double D = 0.125 * P * Pc / 0.05;
 
     public IntakeFor7Inches() {
         //requires(Robot.intake);
@@ -43,10 +43,10 @@ public class IntakeFor7Inches extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        setpoint = Robot.intake.getIntakeMainEncoderPosition() + 7;
+        setpoint = Robot.intake.getIntakeMainEncoderPosition() + 7.125;
         straightPID = new PIDController(P, I * 0.1, D * 0.1);
         straightPID.setSetpoint(setpoint);
-        straightPID.setTolerance(.5);
+        straightPID.setTolerance(.125);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -55,10 +55,14 @@ public class IntakeFor7Inches extends Command {
        //System.out.println("IntakeFor7Inches executing");
        double value = straightPID.calculate(Robot.intake.getIntakeMainEncoderPosition());
        // Sets the minimum and maximum speed of the robot during the command 
-       if (value > 0.5) {
-           value = 0.5;
-       } else if (value < -0.5) {
-           value = -0.5;
+       if (value > 0.2) {
+           value = 0.2;
+       } else if (value < -0.2) {
+           value = -0.2;
+       } else if (value > 0 && value < 0.05){
+           value = 0.05;
+       } else if (value < 0 && value > -0.05){
+           value = -0.05;
        }
        if(straightPID.atSetpoint()){
            value = 0;
