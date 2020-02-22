@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AngleCalibrateEncoder;
-import frc.robot.commands.ArmAligningControl;
 import frc.robot.commands.ArmControl;
 import frc.robot.commands.ArmToAngle;
 import frc.robot.commands.AutonomousCommand;
@@ -23,9 +22,10 @@ import frc.robot.commands.CameraSwitch;
 import frc.robot.commands.ControlFlywheel;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.IntakeTube;
+import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.IntakeSetAsBack;
 import frc.robot.commands.IntakeSetAsFront;
+import frc.robot.commands.IntakeTube;
 import frc.robot.commands.LiftControl;
 import frc.robot.commands.LiftToHeight;
 import frc.robot.commands.PowerCellControl;
@@ -138,35 +138,39 @@ public class OI {
         driverGreenTriangle.whenPressed(new IntakeSetAsFront());
 
         // MANIPULATOR
-        manipulatorPinkSquare = new JoystickButton(manipulator, 1); // want to be Intake
-        manipulatorPinkSquare.whileHeld(new IntakeTube(1));
+        manipulatorPinkSquare = new JoystickButton(manipulator, 1); 
+        manipulatorPinkSquare.whileHeld(new DoNothing());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2);
-        manipulatorBlueX.whileHeld(new ControlFlywheel());
+        manipulatorBlueX.whileHeld(new IntakeAuto());
 
-        manipulatorRedCircle = new JoystickButton(manipulator, 3); // want to be Outtake
-        manipulatorRedCircle.whileHeld(new IntakeTube(-0.5));
+        manipulatorRedCircle = new JoystickButton(manipulator, 3); 
+        manipulatorRedCircle.whileHeld(new DoNothing());
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4);
-        manipulatorGreenTriangle.whileHeld(new DoNothing());
+        manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5)); // want to be Outtake
 
         manipulatorShare = new JoystickButton(manipulator, 9);
-        manipulatorShare.whileHeld(new DoNothing());
+        manipulatorShare.whileHeld(new DoNothing()); //ball out left
 
         manipulatorOption = new JoystickButton(manipulator, 10);
-        manipulatorOption.whileHeld(new DoNothing());
+        manipulatorOption.whileHeld(new DoNothing()); //ball out right
 
-        manipulatorLeftTrigger = new JoystickButton(manipulator, 7);
-        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, true));
+        manipulatorLeftTrigger = new JoystickButton(manipulator, 7); //ball center left
+        manipulatorLeftTrigger.whileHeld(new DoNothing());
+        //manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, true));
 
-        manipulatorRightTrigger = new JoystickButton(manipulator, 8);
-        manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
+        manipulatorRightTrigger = new JoystickButton(manipulator, 8); //ball center right
+        manipulatorRightTrigger.whileHeld(new DoNothing());
+        //manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5);
-        manipulatorLeftBumper.whileHeld(new ArmAligningControl(true, false));
+        manipulatorLeftBumper.whileHeld(new ControlFlywheel());
+        //manipulatorLeftBumper.whileHeld(new ArmAligningControl(true, false));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6);
-        manipulatorRightBumper.whileHeld(new ArmAligningControl(false, false));
+        manipulatorRightTrigger.whileHeld(new IntakeTube(1)); // want to be Intake
+        //manipulatorRightBumper.whileHeld(new ArmAligningControl(false, false));
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0);
         manipulatorPOV0.whileHeld(new ArmToAngle(60));

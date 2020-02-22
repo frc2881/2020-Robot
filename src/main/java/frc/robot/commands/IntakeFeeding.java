@@ -55,6 +55,7 @@ public class IntakeFeeding extends Command {
         //sequential order
         //rollers, intakeLeft/Right, intakeParallel
     Robot.intake.intakeCell(speed);
+    
     //Robot.intake
     }
 
