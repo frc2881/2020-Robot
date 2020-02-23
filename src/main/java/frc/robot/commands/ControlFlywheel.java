@@ -11,6 +11,7 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -38,12 +39,17 @@ public class ControlFlywheel extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        SmartDashboard.putNumber("Flywheel Speed (0 - 1)", 0.0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.intake.setFlywheel(-0.85);
+        Robot.intake.setFlywheel(SmartDashboard.getNumber("Flywheel Speed (0 - 1)", 0.0));//PLEASE SET THIS TO ONLY POS NUMBERS
+
+        //27.6 seconds at 70 amps, 23.76 seconds at 75 amps
+        //80 amps doesn't wrk
+        //also this makes high goal at about 4100? 4200?
     }
 
     // Make this return true when this Command no longer needs to run execute()
