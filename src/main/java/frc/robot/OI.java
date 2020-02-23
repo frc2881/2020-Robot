@@ -31,11 +31,11 @@ import frc.robot.commands.background.wait.WaitForever;
 import frc.robot.commands.scoring.arm.AngleCalibrateEncoder;
 import frc.robot.commands.scoring.arm.ArmControl;
 import frc.robot.commands.scoring.arm.ArmToAngle;
+import frc.robot.commands.scoring.ballmechanism.ArmAligningControl;
+import frc.robot.commands.scoring.ballmechanism.ControlFlywheel;
+import frc.robot.commands.scoring.ballmechanism.IntakeTube;
 import frc.robot.commands.scoring.lift.LiftControl;
 import frc.robot.commands.scoring.lift.LiftToHeight;
-import frc.robot.commands.scoring.powercellmechanism.ArmAligningControl;
-import frc.robot.commands.scoring.powercellmechanism.ControlFlywheel;
-import frc.robot.commands.scoring.powercellmechanism.IntakeTube;
 
 /**
  * This class is the glue that binds the controls on the physical operator

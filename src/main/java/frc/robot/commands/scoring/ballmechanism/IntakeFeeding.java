@@ -9,7 +9,7 @@
 // it from being updated in the future.
 
 
-package frc.robot.commands.scoring.powercellmechanism;
+package frc.robot.commands.scoring.ballmechanism;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Intake.RollerDirection;
