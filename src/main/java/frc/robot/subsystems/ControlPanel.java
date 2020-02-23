@@ -27,7 +27,6 @@ public class ControlPanel extends Subsystem {
     public ControlPanel() {
         panelSpinner= new CANSparkMax(11, MotorType.kBrushless);
 
-        panelSpinner.restoreFactoryDefaults();
         panelSpinner.setInverted(false);
         panelSpinner.setIdleMode(IdleMode.kBrake);
 
