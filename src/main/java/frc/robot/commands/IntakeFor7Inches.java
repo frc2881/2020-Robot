@@ -43,10 +43,10 @@ public class IntakeFor7Inches extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        setpoint = Robot.intake.getIntakeMainEncoderPosition() + 7.125;
+        setpoint = Robot.intake.getIntakeMainEncoderPosition() + ;
         straightPID = new PIDController(P, I * 0.1, D * 0.1);
         straightPID.setSetpoint(setpoint);
-        straightPID.setTolerance(.5);
+        straightPID.setTolerance(.3);
     }
 
     // Called repeatedly when this Command is scheduled to run
