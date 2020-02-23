@@ -44,9 +44,9 @@ public class ArmToAngle extends Command {
             value = 0.5;
         } else if (value < -0.3) {
             value = -0.3;
-        } else if (value > 0.05) {
+        } else if (value > 0 && value < 0.05){
             value = 0.05;
-        } else if (value < -0.05) {
+        } else if (value < 0 && value > -0.05){
             value = -0.05;
         }
         Robot.arm.setArmSpeed(-value);
