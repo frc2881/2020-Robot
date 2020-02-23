@@ -53,7 +53,7 @@ public class ControlFeeder extends Command {
         // sequential order
         // rollers, intakeLeft/Right, intakeParallel
         double speed = Robot.oi.getManipulatorRightY();
-        if (Math.abs(speed) <= 0.05) {
+        if (Math.abs(speed) <= 0.07) {
             Robot.intake.controlFeeder(0);
         } else {
             Robot.intake.controlFeeder(-speed);
