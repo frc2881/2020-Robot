@@ -1,4 +1,4 @@
-package frc.robot.Utils;
+package frc.robot.utils;
 
 /**
  * Helper for monitoring for conditions where motors suck too much current, usually because the motor isn't turning.
