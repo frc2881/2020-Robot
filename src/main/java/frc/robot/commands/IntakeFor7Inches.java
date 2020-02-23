@@ -46,7 +46,7 @@ public class IntakeFor7Inches extends Command {
         setpoint = Robot.intake.getIntakeMainEncoderPosition() + 7.125;
         straightPID = new PIDController(P, I * 0.1, D * 0.1);
         straightPID.setSetpoint(setpoint);
-        straightPID.setTolerance(.125);
+        straightPID.setTolerance(.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
