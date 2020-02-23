@@ -42,8 +42,8 @@ public class ArmControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double left = Robot.oi.getManipulatorRightY();
-        Robot.arm.setArmSpeed(left);
+        double right = Robot.oi.getManipulatorRightY();
+        Robot.arm.setArmSpeed(right);
     }
 
     // Make this return true when this Command no longer needs to run execute()
