@@ -9,9 +9,9 @@
 // it from being updated in the future.
 
 
-package frc.robot.commands;
+package frc.robot.commands.background.wait;
+
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
 /**
  *

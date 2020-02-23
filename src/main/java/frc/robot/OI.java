@@ -14,32 +14,28 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AngleCalibrateEncoder;
-import frc.robot.commands.ArmAligningControl;
-import frc.robot.commands.ArmControl;
-import frc.robot.commands.ArmToAngle;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.CameraSwitch;
-import frc.robot.commands.ControlFlywheel;
-import frc.robot.commands.DoNothing;
-import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.IntakeSetAsBack;
-import frc.robot.commands.IntakeSetAsFront;
-import frc.robot.commands.IntakeTube;
-import frc.robot.commands.LiftControl;
-import frc.robot.commands.LiftToHeight;
-import frc.robot.commands.RobotPrep;
-import frc.robot.commands.RumbleDriver;
-import frc.robot.commands.RumbleJoysticks;
-import frc.robot.commands.RumbleNo;
-import frc.robot.commands.RumbleYes;
-import frc.robot.commands.SetArcadeDrive;
-import frc.robot.commands.SetArmAngle;
-import frc.robot.commands.SetTankDrive;
-import frc.robot.commands.TWINKLES;
-import frc.robot.commands.TrenchPrep;
-import frc.robot.commands.WaitForPressure;
-import frc.robot.commands.WaitForever;
+import frc.robot.commands.background.TWINKLES;
+import frc.robot.commands.background.drive.DriveWithJoysticks;
+import frc.robot.commands.background.drive.IntakeSetAsBack;
+import frc.robot.commands.background.drive.IntakeSetAsFront;
+import frc.robot.commands.background.drive.SetArcadeDrive;
+import frc.robot.commands.background.drive.SetTankDrive;
+import frc.robot.commands.background.rumble.RumbleDriver;
+import frc.robot.commands.background.rumble.RumbleJoysticks;
+import frc.robot.commands.background.rumble.RumbleNo;
+import frc.robot.commands.background.rumble.RumbleYes;
+import frc.robot.commands.background.wait.DoNothing;
+import frc.robot.commands.background.wait.WaitForPressure;
+import frc.robot.commands.background.wait.WaitForever;
+import frc.robot.commands.scoring.arm.AngleCalibrateEncoder;
+import frc.robot.commands.scoring.arm.ArmControl;
+import frc.robot.commands.scoring.arm.ArmToAngle;
+import frc.robot.commands.scoring.lift.LiftControl;
+import frc.robot.commands.scoring.lift.LiftToHeight;
+import frc.robot.commands.scoring.powercellmechanism.ArmAligningControl;
+import frc.robot.commands.scoring.powercellmechanism.ControlFlywheel;
+import frc.robot.commands.scoring.powercellmechanism.IntakeTube;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -164,7 +160,7 @@ public class OI {
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
         manipulatorBlueX.whileHeld(new DoNothing()); 
-
+ 
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
         manipulatorRedCircle.whileHeld(new DoNothing());
 
@@ -212,9 +208,6 @@ public class OI {
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
         SmartDashboard.putData("Lift Control", new LiftControl());
         SmartDashboard.putData("Lift To Height", new LiftToHeight());
-        SmartDashboard.putData("Set Arm Angle", new SetArmAngle());
-        SmartDashboard.putData("Trench Prep", new TrenchPrep());
-        SmartDashboard.putData("Robot Prep", new RobotPrep());
         SmartDashboard.putData("TWINKLES", new TWINKLES());
         SmartDashboard.putData("Rumble Driver", new RumbleDriver());
         SmartDashboard.putData("Rumble Joysticks", new RumbleJoysticks());
@@ -222,7 +215,6 @@ public class OI {
         SmartDashboard.putData("Rumble No", new RumbleNo());
         SmartDashboard.putData("Intake Set As Front", new IntakeSetAsFront());
         SmartDashboard.putData("Intake Set As Back", new IntakeSetAsBack());
-        SmartDashboard.putData("Camera Switch", new CameraSwitch());
         SmartDashboard.putData("Wait Forever", new WaitForever());
         SmartDashboard.putData("Wait For Pressure", new WaitForPressure());
 
