@@ -39,13 +39,17 @@ public class ArmToAngle extends Command {
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
         double value = rotatePID.calculate(Robot.arm.getArmPosition());
-       // Sets the minimum and maximum speed of the robot during the command 
-       if (value > 0.5) {
-           value = 0.5;
-       } else if (value < -0.5) {
-           value = -0.5;
-       }
-       Robot.arm.setArmSpeed(-value);
+        // Sets the minimum and maximum speed of the robot during the command
+        if (value > 0.5) {
+            value = 0.5;
+        } else if (value < -0.3) {
+            value = -0.3;
+        } else if (value > 0.05) {
+            value = 0.05;
+        } else if (value < -0.05) {
+            value = -0.05;
+        }
+        Robot.arm.setArmSpeed(-value);
     }
 
     // Make this return true when this Command no longer needs to run execute()
