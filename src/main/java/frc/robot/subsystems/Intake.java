@@ -175,6 +175,10 @@ public class Intake extends Subsystem {
         }
     }
 
+    public void setBallStorageRampRate(double rate){
+        intakeMain.setOpenLoopRampRate(rate);
+    }
+
     public void intakeCell(double speed) {
         if (left.get()) {
             intakeLeft.set(speed);

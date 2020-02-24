@@ -23,12 +23,8 @@ import frc.robot.subsystems.Intake.RollerDirection;
 public class IntakeFor7Inches extends Command {
     private double setpoint;
     private PIDController straightPID;
-    //using the Ziegler-Nichols PID Control Tuning method, we find the proper numbers for the PID loop.
-    private static final double Kc = 0.3;
-    private static final double Pc = 0.47125;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
-    private static final double P = 0.6 * Kc; 
-    private static final double I = 2 * P * 0.05 / Pc;
-    private static final double D = 0.125 * P * Pc / 0.05;
+
+
 
     private static double beginningPosition;
 
@@ -47,11 +43,12 @@ public class IntakeFor7Inches extends Command {
     @Override
     protected void initialize() {
         setpoint = Robot.intake.getIntakeMainEncoderPosition() + 7.9;
-        straightPID = new PIDController(P, I * 0.1, D * 0.1);
+        straightPID = new PIDController(0.1, 0, 0);
         straightPID.setSetpoint(setpoint);
         straightPID.setTolerance(.4);
         Robot.log("Beginning storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         beginningPosition = Robot.intake.getIntakeMainEncoderPosition();
+        Robot.intake.setBallStorageRampRate(0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -64,10 +61,10 @@ public class IntakeFor7Inches extends Command {
            value = 0.2;
        } else if (value < -0.2) {
            value = -0.2;
-       } else if (value > 0 && value < 0.05){
-           value = 0.05;
-       } else if (value < 0 && value > -0.05){
-           value = -0.05;
+       } else if (value > 0 && value < 0.025){
+           value = 0.025;
+       } else if (value < 0 && value > -0.025){
+           value = -0.025;
        }
        if(straightPID.atSetpoint()){
            value = 0;
@@ -81,6 +78,9 @@ public class IntakeFor7Inches extends Command {
         // rollers, intakeLeft/Right, intakeParallel
         // Robot.intake.intakeRightLeft(speed, RollerDirection.INTAKE);
         // Robot.intake.intakeParallelBand(speed, RollerDirection.INTAKE);
+        if(timeSinceInitialized() > 0.5){
+            Robot.intake.setBallStorageRampRate(0);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
