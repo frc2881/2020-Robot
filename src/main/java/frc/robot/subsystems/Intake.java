@@ -158,9 +158,7 @@ public class Intake extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        if (!Robot.lift.readyForLift) {
-            setDefaultCommand(new ControlFeeder());
-        }
+        setDefaultCommand(new ControlFeeder());
     }
 
     public void armAlign(double left, double right) { // positive values make cells go in, negative goes out
