@@ -42,8 +42,12 @@ public class ArmControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double right = Robot.oi.getManipulatorRightY();
-        Robot.arm.setArmSpeed(right);
+        double speed = Robot.oi.getManipulatorRightY();
+        //made a deadband with a boolean because the spark maxs dont have a function for one
+        if (Math.abs(speed) < (0.075)) {
+            speed = 0;
+        }        
+        Robot.arm.setArmSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

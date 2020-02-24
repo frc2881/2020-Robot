@@ -10,6 +10,7 @@
 
 package frc.robot.commands.scoring.ballmechanism;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -50,7 +51,8 @@ public class ControlFeeder extends Command {
     protected void execute() {
         // sequential order
         // rollers, intakeLeft/Right, intakeParallel
-        double speed = Robot.oi.getManipulatorRightY();
+        double speed = Robot.oi.getManipulatorLeftY();
+        //made a deadband with a boolean because the spark maxs dont have a function for one
         if (Math.abs(speed) <= 0.05) {
             Robot.intake.controlFeeder(0);
         } else {
