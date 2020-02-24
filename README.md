@@ -38,4 +38,5 @@ CanSparkMax Mapping:
 * 10 = Intake Roller
 * 11 = Control Panel (we dont need this, we are running the control panel off of one of the Aligners)
 * 12 = Arm Lead Screw
-* 13 = Lift Lead Screw
+* 13 = Lift Lead Screw 1
+* 14 = Lift Lead Screw 2
