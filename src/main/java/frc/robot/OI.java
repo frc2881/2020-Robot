@@ -162,7 +162,7 @@ public class OI {
         manipulatorBlueX.whileHeld(new DoNothing()); 
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
-        manipulatorRedCircle.whileHeld(new DoNothing());
+        manipulatorRedCircle.whileHeld(new ControlFlywheel(-0.45));
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
         manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5));
@@ -182,7 +182,7 @@ public class OI {
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new ControlFlywheel());
+        manipulatorLeftBumper.whileHeld(new ControlFlywheel(-0.85));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
         manipulatorRightBumper.whileHeld(new IntakeTube(1));

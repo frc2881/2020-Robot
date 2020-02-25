@@ -162,7 +162,7 @@ public class Intake extends Subsystem {
     protected void initDefaultCommand() {
         // TODO Auto-generated method stub
         setDefaultCommand(new ControlFeeder());
-
+        
     }
 
     public void armAlign(double left, double right) { // positive values make cells go in, negative goes out

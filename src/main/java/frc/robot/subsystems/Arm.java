@@ -140,4 +140,5 @@ public class Arm extends Subsystem {
     public double getArmAngle(){
         return toAngleDegrees(getArmPosition());
     }
+
 }
