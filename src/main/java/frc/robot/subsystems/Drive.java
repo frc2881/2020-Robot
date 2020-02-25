@@ -65,7 +65,7 @@ public class Drive extends Subsystem {
         leftRear.setInverted(false);
         leftRear.setIdleMode(IdleMode.kBrake);
 
-        setUseSplitArcade(false);
+        setUseSplitArcade(true); 
 
         // Set SlaveSpeedControllers to Follow MasterSpeedController
         leftRear.follow(leftFront);
