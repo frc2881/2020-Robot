@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
+<<<<<<< HEAD
 import frc.robot.commands.background.TWINKLES;
 import frc.robot.commands.background.drive.*;
 import frc.robot.commands.background.rumble.*;
@@ -22,6 +23,36 @@ import frc.robot.commands.background.wait.*;
 import frc.robot.commands.scoring.arm.*;
 import frc.robot.commands.scoring.ballmechanism.*;
 import frc.robot.commands.scoring.lift.*;
+=======
+import frc.robot.commands.CameraSwitch;
+import frc.robot.commands.ControlFlywheel;
+import frc.robot.commands.DoNothing;
+import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.IntakeFor7Inches;
+import frc.robot.commands.IntakeTube;
+import frc.robot.commands.IntakeSetAsBack;
+import frc.robot.commands.IntakeSetAsFront;
+import frc.robot.commands.LiftControl;
+import frc.robot.commands.LiftToHeight;
+import frc.robot.commands.PowerCellControl;
+import frc.robot.commands.PowerCellControlRollers;
+import frc.robot.commands.PowerCellIntake;
+import frc.robot.commands.PowerCellSetRoller;
+import frc.robot.commands.Rendezvous;
+import frc.robot.commands.RobotPrep;
+import frc.robot.commands.RumbleDriver;
+import frc.robot.commands.RumbleJoysticks;
+import frc.robot.commands.RumbleNo;
+import frc.robot.commands.RumbleYes;
+import frc.robot.commands.SetArcadeDrive;
+import frc.robot.commands.SetArmAngle;
+import frc.robot.commands.SetTankDrive;
+import frc.robot.commands.TWINKLES;
+import frc.robot.commands.TrenchPrep;
+import frc.robot.commands.WaitForPressure;
+import frc.robot.commands.WaitForever;
+
+>>>>>>> IntakeFor7Inches
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -129,8 +160,13 @@ public class OI {
         driverPOV90 = buttonFromPOV(driver, 90); //
         driverPOV90.whileHeld(new DoNothing());
 
+<<<<<<< HEAD
         driverPOV180 = buttonFromPOV(driver, 180); //
         driverPOV180.whileHeld(new DoNothing());
+=======
+        manipulatorGreenTriangle = new JoystickButton(manipulator, 4);
+        manipulatorGreenTriangle.whileHeld(new IntakeFor7Inches());
+>>>>>>> IntakeFor7Inches
 
         driverPOV270 = buttonFromPOV(driver, 270); // 
         driverPOV270.whileHeld(new DoNothing());
@@ -288,4 +324,32 @@ public class OI {
         return manipulator.getRawAxis(5);
     }
 
+<<<<<<< HEAD
 }
+=======
+    /*
+     * public double getManipulatorLeftX() { return
+     * manipulator.getX(GenericHID.Hand.kLeft); }
+     * 
+     * public double getManipulatorLeftY() { return
+     * manipulator.getY(GenericHID.Hand.kLeft); }
+     * 
+     * public double getManipulatorRightX() { return
+     * manipulator.getX(GenericHID.Hand.kRight); }
+     * 
+     * public double getManipulatorRightY() { return
+     * manipulator.getY(GenericHID.Hand.kRight); }
+     */
+
+    // MANIPULATOR Triggers
+
+    public double getManipulatorTriggerLeft() {
+        return manipulator.getRawAxis(3);
+    }
+
+    public double getManipulatorTriggerRight() {
+        return manipulator.getRawAxis(4);
+    }
+
+}
+>>>>>>> IntakeFor7Inches

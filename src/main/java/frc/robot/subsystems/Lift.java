@@ -69,6 +69,7 @@ public class Lift extends Subsystem {
 
         liftSolenoid = new DoubleSolenoid(1, 0);
         addChild("Lift Solenoid", liftSolenoid);
+        liftSolenoid.set(Value.kOff);
 
         liftEncoder = liftMotor.getEncoder();
         distancePerPulse = DistancePerPulse.get(highestGearTeethNumber, lowestGearTeethNumber,
