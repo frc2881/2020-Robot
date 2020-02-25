@@ -161,11 +161,11 @@ public class Intake extends Subsystem {
     }
 
     public void intakeMain(double speed, RollerDirection state) {
-        if (speed < 0.1 && speed > 0) {
+        /*if (speed < 0.1 && speed > 0) {
             speed = 0.2;
         } else if (speed > -0.1 && speed < 0) {
             speed = -0.2;
-        }
+        }*/
 
         if (state == RollerDirection.INTAKE) {
             intakeMain.set(-speed);
