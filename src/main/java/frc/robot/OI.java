@@ -162,7 +162,7 @@ public class OI {
         manipulatorBlueX.whileHeld(new DoNothing()); 
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
-        manipulatorRedCircle.whileHeld(new ControlFlywheel(-0.45));
+        manipulatorRedCircle.whileHeld(new ControlFlywheel(0));
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
         manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5));
