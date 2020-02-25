@@ -38,6 +38,7 @@ public class LiftInitialize extends InstantCommand {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.logInitialize(this);
         if (Robot.timeSinceStarted > 0) {
             Robot.lift.setLiftSolenoidExtended();
             Robot.lift.readyForLift = true;

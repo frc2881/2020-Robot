@@ -38,18 +38,17 @@ public class LiftControl extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.lift.setLiftSolenoidExtended();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         if (Robot.lift.readyForLift) {
-            double speed = Robot.oi.getManipulatorRightY();
+            double speed = Robot.oi.getManipulatorLeftY();
             if (Math.abs(speed) <= 0.05) {
-                Robot.intake.controlFeeder(0);
+                Robot.lift.setLiftSpeed(0);
             } else {
-                Robot.intake.controlFeeder(-speed);
+                Robot.lift.setLiftSpeed(speed);
             }
         }
     }
