@@ -98,7 +98,7 @@ driverShare = new JoystickButton(driver, 9);
 driverShare.whileHeld(new DoNothing());
 
 driverOption = new JoystickButton(driver, 10);
-driverOption.whileHeld(new DoNothing());
+driverOption.whenPressed(new TurnToAngle(-15.41));
 
 driverPOV = new JoystickButton(driver, 1);
 driverPOV.whileHeld(new DoNothing());
