@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.background.TWINKLES;
+import frc.robot.commands.background.*;
 import frc.robot.commands.background.drive.*;
 import frc.robot.commands.background.rumble.*;
 import frc.robot.commands.background.wait.*;
@@ -117,7 +117,7 @@ public class OI {
 
         //Bumpers
         driverLeftBumper = new JoystickButton(driver, 5); // Climber Leadscrew Down TODO
-        driverLeftBumper.whileHeld(new DoNothing());
+        driverLeftBumper.whileHeld(new SetSpotlight());
 
         driverRightBumper = new JoystickButton(driver, 6); // Climber PistonOut + Leadscrew Up TODO
         driverRightBumper.whileHeld(new DoNothing());

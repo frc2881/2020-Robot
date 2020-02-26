@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -42,6 +43,7 @@ public class Drive extends Subsystem {
     private CANSparkMax rightRear;
     private SpeedControllerGroup right;
     private DifferentialDrive differentialDrive1;
+    private Spark spotlight;
     private CANSparkMax hMotorRight;
     private CANSparkMax hMotorLeft;
     // fix in RobotBuilder later
@@ -92,6 +94,8 @@ public class Drive extends Subsystem {
         hDrive.setInverted(false);
         hDrive.setIdleMode(IdleMode.kBrake);
 
+        spotlight = new Spark(0);
+        spotlight.addChild(spotlight);
     }
 
     @Override
@@ -186,6 +190,10 @@ public class Drive extends Subsystem {
         else{
             hDrive.set(0);
         }
+    }
+
+    public void setSpotlight(boolean on) {
+        spotlight.set(on ? 1 : 0);
     }
 /*
  * set speed to +1, /2 -1 to 1
