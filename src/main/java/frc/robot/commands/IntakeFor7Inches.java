@@ -10,9 +10,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 import frc.robot.subsystems.Intake.RollerDirection;
 //fix pathway
@@ -42,40 +41,36 @@ public class IntakeFor7Inches extends Command {
     @Override
     protected void initialize() {
         setpoint = Robot.intake.getIntakeMainEncoderPosition() + 7;
-        straightPID = new PIDController(0.1, 0, 0);
-        straightPID.setSetpoint(setpoint + 1);
-        straightPID.setTolerance(.4);
         Robot.log("Beginning storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         beginningPosition = Robot.intake.getIntakeMainEncoderPosition();
         Robot.intake.setBallStorageRampRate(0.5);
-    }
+    } 
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
        //System.out.println("IntakeFor7Inches executing");
-       double value = straightPID.calculate(Robot.intake.getIntakeMainEncoderPosition());
+       double time = timeSinceInitialized();
+       double speed;
+       double distance = Robot.intake.getIntakeMainEncoderPosition() - beginningPosition;
        // Sets the minimum and maximum speed of the robot during the command 
-       if (value > 0.2) {
-           value = 0.2;
-       } else if (value < -0.2) {
-           value = -0.2;
-       } else if (value > 0 && value < 0.05){
-           value = 0.05;
-       } else if (value < 0 && value > -0.05){
-           value = -0.05;
+       if (time < 1) {
+           speed = time * 0.2;
+       } else if (distance < 5) {
+           speed = 0.2;
+       } else if (distance < 6.5){
+           speed = 0.1 + ((6.5 - distance) / 15);
+       } else if (distance < 9){
+           speed = 0.1;
+       } else {
+           speed = 0;
        }
-       if(Robot.intake.getIntakeMainEncoderPosition() >= setpoint){
-           value = 0;
-       }
-       /*if(straightPID.atSetpoint()){
-           value = 0;
-       }*/
+
        //System.out.println("Value: " + value);
        System.out.println("Setpoint: " + setpoint);
        System.out.println("Current Position: " + Robot.intake.getIntakeMainEncoderPosition());
 
-        Robot.intake.intakeMain(value, RollerDirection.INTAKE);
+        Robot.intake.intakeMain(speed, RollerDirection.INTAKE);
         // sequential order
         // rollers, intakeLeft/Right, intakeParallel
         // Robot.intake.intakeRightLeft(speed, RollerDirection.INTAKE);
