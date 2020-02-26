@@ -49,15 +49,17 @@ public class ControlFeeder extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        // sequential order
-        // rollers, intakeLeft/Right, intakeParallel
-        double speed = Robot.oi.getManipulatorLeftY();
-        //made a deadband with a boolean because the spark maxs dont have a function for one
-        if (Math.abs(speed) <= 0.05) {
-            Robot.intake.controlFeeder(0);
-        } else {
-            Robot.intake.controlFeeder(-speed);
+        if (!Robot.lift.readyForLift) {
+            // sequential order
+            // rollers, intakeLeft/Right, intakeParallel
+            double speed = Robot.oi.getManipulatorLeftY();
+            if (Math.abs(speed) <= 0.07) {
+                Robot.intake.controlFeeder(0);
+            } else {
+                Robot.intake.controlFeeder(-speed);
+            }
         }
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
