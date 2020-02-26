@@ -52,6 +52,13 @@ public class Intake extends Subsystem {
     private Solenoid flywheelSolenoid;
     private Encoder colourWheelEncoder;
     private Spark angleAdjustment;
+    private CANEncoder intakeMainEncoder;
+    private DoubleSupplier intakeMainEncoderPosition;
+
+    private static final double highestGearTeethNumber = 7.0;
+    private static final double lowestGearTeethNumber = 1.0;
+    private static final double encoderCountsPerRevolution = 42;
+    private static final double wheelDiameter = 1.5;
 
     private DoubleSupplier flywheelVelocity;
 
@@ -90,6 +97,15 @@ public class Intake extends Subsystem {
 
         flywheelSolenoid = new Solenoid(0, 0);
         addChild("Flywheel Solenoid", flywheelSolenoid);
+
+        // 42 ticks per rotation, 7:1 gearbox - nine revolutions for one wheel
+        // revolution, inch and a half diameter, 3/16 inch belt
+        double ticksPerRevolution = encoderCountsPerRevolution;
+        double gearRatio = lowestGearTeethNumber / highestGearTeethNumber;
+        double wheelCircumference = wheelDiameter * Math.PI;
+        double distancePerPulse = wheelCircumference / ticksPerRevolution / gearRatio;
+        intakeMainEncoder = intakeMain.getEncoder();
+        intakeMainEncoderPosition = () -> intakeMainEncoder.getPosition() * -distancePerPulse;
 
         colourWheelEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         addChild("Colour Wheel Encoder", colourWheelEncoder);
@@ -177,5 +193,7 @@ public class Intake extends Subsystem {
         //negative is intake
         feeder.set(speed);
     }
-
+    public double getIntakeMainEncoderPosition() {
+        return intakeMainEncoderPosition.getAsDouble();
+    }
 }
