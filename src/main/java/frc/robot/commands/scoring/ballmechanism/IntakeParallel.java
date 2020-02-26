@@ -67,7 +67,7 @@ public class IntakeParallel extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.intake.intakeFlywheel(0, RollerDirection.INTAKE);
+        Robot.flywheel.intakeFlywheel(0, RollerDirection.INTAKE);
         Robot.intake.intakeRightLeft(0, RollerDirection.INTAKE);
         Robot.intake.intakeMain(0, RollerDirection.INTAKE);
     }

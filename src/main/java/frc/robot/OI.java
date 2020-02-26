@@ -156,7 +156,7 @@ public class OI {
 
         // Buttons Pad RIGHT
         manipulatorPinkSquare = new JoystickButton(manipulator, 1);
-        manipulatorPinkSquare.whileHeld( new DoNothing());
+        manipulatorPinkSquare.whileHeld(new DoNothing());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
         manipulatorBlueX.whileHeld(new DoNothing()); 
