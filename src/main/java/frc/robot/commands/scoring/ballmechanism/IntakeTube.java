@@ -46,11 +46,11 @@ public class IntakeTube extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        // sequential order
-        // rollers, intakeLeft/Right, intakeParallel
+        if (Robot.oi.manipulatorRightBumper.get() && !Robot.intake.flywheelReady) {
+            speed = 0;
+        }
+        
         Robot.intake.intakeMain(speed, RollerDirection.INTAKE);
-        // Robot.intake.intakeRightLeft(speed, RollerDirection.INTAKE);
-        // Robot.intake.intakeParallelBand(speed, RollerDirection.INTAKE);
     }
 
     // Make this return true when this Command no longer needs to run execute()
