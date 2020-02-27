@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.IntakeFor7Inches;
 import frc.robot.commands.background.TWINKLES;
 import frc.robot.commands.background.drive.DriveWithJoysticks;
 import frc.robot.commands.background.drive.IntakeSetAsBack;
@@ -159,7 +160,7 @@ public class OI {
         manipulatorPinkSquare.whileHeld( new DoNothing());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
-        manipulatorBlueX.whileHeld(new DoNothing()); 
+        manipulatorBlueX.whileHeld(new IntakeFor7Inches()); 
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
         manipulatorRedCircle.whileHeld(new DoNothing());
