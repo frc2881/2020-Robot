@@ -144,7 +144,7 @@ public class OI {
         manipulatorPinkSquare.whenPressed( new LiftInitialize());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
-        manipulatorBlueX.whileHeld(new DoNothing()); 
+        manipulatorBlueX.whileHeld(new IntakeFor7Inches()); 
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
         manipulatorRedCircle.whileHeld(new DoNothing());
