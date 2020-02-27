@@ -33,6 +33,7 @@ import frc.robot.commands.scoring.arm.ArmControl;
 import frc.robot.commands.scoring.arm.ArmToAngle;
 import frc.robot.commands.scoring.ballmechanism.ArmAligningControl;
 import frc.robot.commands.scoring.ballmechanism.ControlFlywheel;
+import frc.robot.commands.scoring.ballmechanism.FeederSwitch;
 import frc.robot.commands.scoring.ballmechanism.IntakeFor7Inches;
 import frc.robot.commands.scoring.ballmechanism.IntakeTube;
 import frc.robot.commands.scoring.lift.LiftControl;
@@ -101,6 +102,7 @@ public class OI {
     public JoystickButton manipulatorPOV90;
     public JoystickButton manipulatorPOV180;
     public JoystickButton manipulatorPOV270;
+    public JoystickButton manipulatorJoystickButtonLeft;
     public Joystick driver;
     public Joystick manipulator;
 
@@ -200,6 +202,9 @@ public class OI {
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0); // ARM HEIGHT 60
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
+
+        manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
+        manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());

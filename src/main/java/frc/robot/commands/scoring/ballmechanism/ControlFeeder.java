@@ -51,13 +51,14 @@ public class ControlFeeder extends Command {
     protected void execute() {
         // sequential order
         // rollers, intakeLeft/Right, intakeParallel
-        double speed = Robot.oi.getManipulatorLeftY();
+        double speed;
         //made a deadband with a boolean because the spark maxs dont have a function for one
-        if (Math.abs(speed) <= 0.05) {
-            Robot.intake.controlFeeder(0);
+        if (Robot.intake.intakeFeeder) {
+            speed = -1;
         } else {
-            Robot.intake.controlFeeder(-speed);
+            speed = 0.5;
         }
+        Robot.intake.controlFeeder(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
