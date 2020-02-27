@@ -55,13 +55,13 @@ public class IntakeFor7Inches extends Command {
        double distance = Robot.intake.getIntakeMainEncoderPosition() - beginningPosition;
        // Sets the minimum and maximum speed of the robot during the command 
        if (time < 1) {
-           speed = time * 0.2;
+           speed = time * 0.4;
        } else if (distance < 5) {
-           speed = 0.2;
+           speed = 0.4;
        } else if (distance < 6.5){
-           speed = 0.1 + ((6.5 - distance) / 15);
+           speed = 0.2 + ((6.5 - distance) / 7.5);
        } else if (distance < 9){
-           speed = 0.1;
+           speed = 0.2;
        } else {
            speed = 0;
        }
