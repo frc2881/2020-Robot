@@ -83,8 +83,15 @@ public class IntakeFor7Inches extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        double distance = Robot.intake.getIntakeMainEncoderPosition() - beginningPosition;
         //return straightPID.atSetpoint();
-        return false;
+
+        if (distance >= 9){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     // Called once after isFinished returns true

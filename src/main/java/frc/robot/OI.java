@@ -34,6 +34,7 @@ import frc.robot.commands.scoring.arm.ArmControl;
 import frc.robot.commands.scoring.arm.ArmToAngle;
 import frc.robot.commands.scoring.ballmechanism.ArmAligningControl;
 import frc.robot.commands.scoring.ballmechanism.ControlFlywheel;
+import frc.robot.commands.scoring.ballmechanism.IntakeFor7Inches;
 import frc.robot.commands.scoring.ballmechanism.IntakeTube;
 import frc.robot.commands.scoring.lift.LiftControl;
 import frc.robot.commands.scoring.lift.LiftToHeight;
@@ -160,7 +161,7 @@ public class OI {
         manipulatorPinkSquare.whileHeld( new DoNothing());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
-        manipulatorBlueX.whileHeld(new IntakeFor7Inches()); 
+        manipulatorBlueX.whenPressed(new IntakeFor7Inches()); 
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
         manipulatorRedCircle.whileHeld(new DoNothing());
@@ -183,7 +184,7 @@ public class OI {
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new ControlFlywheel());
+        manipulatorLeftBumper.whileHeld(new ControlFlywheel(-0.85));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
         manipulatorRightBumper.whileHeld(new IntakeTube(1));
