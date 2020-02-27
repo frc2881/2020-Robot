@@ -50,18 +50,18 @@ public class ArmAligningControl extends Command {
         //double right = Robot.oi.getManipulatorTriggerRight();
         if (intake){
             if (left){
-                Robot.intake.armAlign(0.7, 0); // TODO change these back to left and right
+                Robot.ballStorage.armAlign(0.7, 0); // TODO change these back to left and right
             }
             else{
-                Robot.intake.armAlign(0, 0.75); // TODO change these back to left and right
+                Robot.ballStorage.armAlign(0, 0.75); // TODO change these back to left and right
             }
         }
         else {
             if (left){
-                Robot.intake.armAlign(-0.7, 0); // TODO change these back to left and right
+                Robot.ballStorage.armAlign(-0.7, 0); // TODO change these back to left and right
             }
             else{
-                Robot.intake.armAlign(0, -0.75); // TODO change these back to left and right
+                Robot.ballStorage.armAlign(0, -0.75); // TODO change these back to left and right
             }
         }
     }
@@ -75,7 +75,7 @@ public class ArmAligningControl extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.intake.armAlign(0, 0);
+        Robot.ballStorage.armAlign(0, 0);
     }
 
     // Called when another command which requires one or more of the same

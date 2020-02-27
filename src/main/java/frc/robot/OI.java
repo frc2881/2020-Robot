@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.IntakeFor7Inches;
+import frc.robot.commands.scoring.ballmechanism.IntakeFor7Inches;
 import frc.robot.commands.background.TWINKLES;
 import frc.robot.commands.background.drive.DriveWithJoysticks;
 import frc.robot.commands.background.drive.IntakeSetAsBack;
