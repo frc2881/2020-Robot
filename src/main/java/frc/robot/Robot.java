@@ -24,7 +24,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Intake;
-import frc.robot.Utils.NavX;
+import frc.robot.utils.NavX;
 
 /**
  * The VM is configured to automatically run this class, and to call the
