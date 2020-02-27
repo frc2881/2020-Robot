@@ -59,8 +59,7 @@ public class Robot extends TimedRobot {
     public static NavX navX;
     public static Logging logging;
 
-    public static double timeOfStart = 0;
-    public static double timeSinceStarted = 0;
+    public static double timeOfStart;
     private boolean resetRobot = true;
     private static long startTime = System.currentTimeMillis();
 
@@ -139,7 +138,6 @@ public class Robot extends TimedRobot {
         timeOfStart = Timer.getFPGATimestamp();
         // schedule the autonomous command (example)
         printRobotMode("STARTING AUTONOMOUS", "-");
-        timeOfStart = Timer.getFPGATimestamp();
         logging.traceMessage(
 				"---------------------------- Autonomous mode starting ----------------------------");
 		//logging.printHeadings();
@@ -186,10 +184,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        timeSinceStarted = Timer.getFPGATimestamp() - timeOfStart;
     }
 
-    private boolean isCompetitionMode() {
+    public static double timeSinceStart() {
+        return Timer.getFPGATimestamp() - timeOfStart;
+    }
+
+    public static boolean isCompetitionMode() {
         // In Practice mode and in a real competition getMatchTime() returns time left
         // in this part of the match. Otherwise it just returns -1.0.
         return DriverStation.getInstance().getMatchTime() != -1;
