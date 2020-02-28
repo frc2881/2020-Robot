@@ -171,7 +171,7 @@ public class OI {
         manipulatorLeftBumper.whileHeld(new ControlFlywheel(-0.85));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
-        manipulatorRightBumper.whileHeld(new IntakeTube(1));
+        manipulatorRightBumper.whileHeld(new AutoFiringSequence());
 
         // POV Pad LEFT
         manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
