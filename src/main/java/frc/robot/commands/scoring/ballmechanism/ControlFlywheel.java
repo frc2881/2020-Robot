@@ -47,17 +47,14 @@ public class ControlFlywheel extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.flywheel.getFlywheelRPM() > 4000 && speed == 0.85) {
-            Robot.flywheel.flywheelReady = true;
-            if (Robot.flywheel.getFlywheelRPM() > 4400) {
-                speed = 0.5;
-                overLimit = true;
-            }
-        } else if (overLimit && Robot.flywheel.getFlywheelRPM() < 4300) {
-            overLimit = false;
-            speed = 0.85;
+        if (Robot.lift.readyForLift == false) {
+            boolean readyForHigh = Robot.flywheel.getFlywheelRPM() > 4000 && speed == 0.85;
+            boolean readyForLow = Robot.flywheel.getFlywheelRPM() > 2000 && speed == 0.45;
+
+            Robot.flywheel.flywheelReady = readyForHigh || readyForLow;
+
+            Robot.flywheel.setFlywheel(speed);
         }
-        Robot.flywheel.setFlywheel(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

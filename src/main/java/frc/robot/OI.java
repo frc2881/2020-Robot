@@ -85,6 +85,7 @@ public class OI {
     public JoystickButton manipulatorPOV90;
     public JoystickButton manipulatorPOV180;
     public JoystickButton manipulatorPOV270;
+    public JoystickButton manipulatorJoystickButtonLeft;
     public Joystick driver;
     public Joystick manipulator;
 
@@ -144,7 +145,7 @@ public class OI {
         manipulatorPinkSquare.whenPressed( new LiftInitialize());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
-        manipulatorBlueX.whileHeld(new IntakeFor7Inches()); 
+        manipulatorBlueX.whenPressed(new IntakeFor7Inches()); 
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3);
         manipulatorRedCircle.whileHeld(new DoNothing());
@@ -184,6 +185,9 @@ public class OI {
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0); // ARM HEIGHT 60
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
+
+        manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
+        manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());
