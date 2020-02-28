@@ -15,13 +15,32 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.background.*;
-import frc.robot.commands.background.drive.*;
-import frc.robot.commands.background.rumble.*;
-import frc.robot.commands.background.wait.*;
-import frc.robot.commands.scoring.arm.*;
-import frc.robot.commands.scoring.ballmechanism.*;
-import frc.robot.commands.scoring.lift.*;
+import frc.robot.commands.background.SetSpotlight;
+import frc.robot.commands.background.TWINKLES;
+import frc.robot.commands.background.drive.DriveWithJoysticks;
+import frc.robot.commands.background.drive.IntakeSetAsBack;
+import frc.robot.commands.background.drive.IntakeSetAsFront;
+import frc.robot.commands.background.drive.SetArcadeDrive;
+import frc.robot.commands.background.drive.SetTankDrive;
+import frc.robot.commands.background.rumble.RumbleDriver;
+import frc.robot.commands.background.rumble.RumbleJoysticks;
+import frc.robot.commands.background.rumble.RumbleNo;
+import frc.robot.commands.background.rumble.RumbleYes;
+import frc.robot.commands.background.wait.DoNothing;
+import frc.robot.commands.background.wait.WaitForPressure;
+import frc.robot.commands.background.wait.WaitForever;
+import frc.robot.commands.scoring.arm.AngleCalibrateEncoder;
+import frc.robot.commands.scoring.arm.ArmControl;
+import frc.robot.commands.scoring.arm.ArmToAngle;
+import frc.robot.commands.scoring.ballmechanism.ArmAligningControl;
+import frc.robot.commands.scoring.ballmechanism.ControlFlywheel;
+import frc.robot.commands.scoring.ballmechanism.FeederStop;
+import frc.robot.commands.scoring.ballmechanism.FeederSwitch;
+import frc.robot.commands.scoring.ballmechanism.IntakeFor7Inches;
+import frc.robot.commands.scoring.ballmechanism.IntakeTube;
+import frc.robot.commands.scoring.lift.LiftControl;
+import frc.robot.commands.scoring.lift.LiftInitialize;
+import frc.robot.commands.scoring.lift.LiftToHeight;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -147,8 +166,8 @@ public class OI {
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
         manipulatorBlueX.whenPressed(new IntakeFor7Inches()); 
  
-        manipulatorRedCircle = new JoystickButton(manipulator, 3);
-        manipulatorRedCircle.whileHeld(new DoNothing());
+        manipulatorRedCircle = new JoystickButton(manipulator, 3); // INTAKE STOP
+        manipulatorRedCircle.whenPressed(new FeederStop());
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
         manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5));
