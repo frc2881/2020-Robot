@@ -107,6 +107,11 @@ public class Lift extends Subsystem {
     public void initSendable(SendableBuilder builder) {
         super.initSendable(builder);
         builder.addDoubleProperty("Height", this::getLiftPosition, null);
+        builder.addBooleanProperty("Ready for Lift", this::readyForLift, null);
+    }
+
+    public boolean readyForLift() {
+        return readyForLift;
     }
 
     public void setLiftSpeed(double speed) {

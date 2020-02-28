@@ -49,7 +49,6 @@ public class ControlFeeder extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.lift.readyForLift == false) {
             double speed;
             // made a deadband with a boolean because the spark maxs dont have a function
             // for one
@@ -58,8 +57,12 @@ public class ControlFeeder extends Command {
             } else {
                 speed = 0.5;
             }
+
+            if (Robot.lift.readyForLift) {
+                speed = 0;
+            }
+            
             Robot.intake.controlFeeder(speed);
-        }
 
     }
 

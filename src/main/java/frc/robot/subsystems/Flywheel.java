@@ -45,6 +45,11 @@ public class Flywheel extends Subsystem {
     public void initSendable(SendableBuilder builder) {
         super.initSendable(builder);
         builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
+        builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
+    }
+
+    public boolean isFlywheelReady() {
+        return flywheelReady;
     }
 
     public void intakeFlywheel(double speed, RollerDirection state) {
