@@ -43,12 +43,10 @@ public class ControlFlywheel extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-            if (Robot.lift.readyForLift()) {
+            if (Robot.lift.readyForLift() || Robot.flywheel.getFlywheelStopped()) {
                 speed = 0;
             } else if (Robot.flywheel.isFlywheelFullSpeed()) {
                 speed = 0.85;
-            } else if (Robot.flywheel.getFlywheelStopped()) {
-                speed = 0;
             } else {
                 speed = 0.45;
             }
