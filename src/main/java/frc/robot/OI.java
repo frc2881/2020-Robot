@@ -147,8 +147,8 @@ public class OI {
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
         manipulatorBlueX.whenPressed(new IntakeFor7Inches()); 
  
-        manipulatorRedCircle = new JoystickButton(manipulator, 3);
-        manipulatorRedCircle.whileHeld(new DoNothing());
+        manipulatorRedCircle = new JoystickButton(manipulator, 3); // INTAKE STOP
+        manipulatorRedCircle.whenPressed(new FeederStop());
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
         manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5));
@@ -171,7 +171,7 @@ public class OI {
         manipulatorLeftBumper.whileHeld(new ControlFlywheel(0.85));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
-        manipulatorRightBumper.whileHeld(new IntakeTube(1));
+        manipulatorRightBumper.whileHeld(new AutoFiringSequence());
 
         // POV Pad LEFT
         manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
@@ -181,9 +181,9 @@ public class OI {
         manipulatorPOV90.whileHeld(new ArmToAngle(20));
 
         manipulatorPOV270 = buttonFromPOV(manipulator, 270); // ARM HEIGHT 40
-        manipulatorPOV270.whileHeld(new ArmToAngle(40));
+        manipulatorPOV270.whileHeld(new ArmToAngle(50));
 
-        manipulatorPOV0 = buttonFromPOV(manipulator, 0); // ARM HEIGHT 60
+        manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
