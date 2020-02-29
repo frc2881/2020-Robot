@@ -8,10 +8,12 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.Drive;
 
 /**
  *
@@ -42,7 +44,15 @@ public class AutonomousCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    }
+
+            double time = SmartDashboard.getNumber("Auto Pre-Delay Time", .25);
+            Robot.drive.setIntakeLocation(Drive.IntakeLocation.FRONT);
+            Robot.drive.arcadeDrive(.25, 0);
+
+            if (timeSinceInitialized() > time) {
+                Robot.drive.arcadeDrive(0, 0);
+            }
+        }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
@@ -53,6 +63,7 @@ public class AutonomousCommand extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.drive.arcadeDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
