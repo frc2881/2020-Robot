@@ -47,12 +47,7 @@ public class ControlFlywheel extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-            boolean readyForHigh = Robot.flywheel.getFlywheelRPM() > 4000 && speed == 0.85;
-            boolean readyForLow = Robot.flywheel.getFlywheelRPM() > 2000 && speed == 0.45;
-
-            Robot.flywheel.flywheelReady = readyForHigh || readyForLow;
-
-            if (Robot.lift.readyForLift) {
+            if (Robot.lift.readyForLift()) {
                 speed = 0;
             }
 

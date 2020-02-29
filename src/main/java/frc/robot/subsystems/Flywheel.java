@@ -49,7 +49,10 @@ public class Flywheel extends Subsystem {
     }
 
     public boolean isFlywheelReady() {
-        return flywheelReady;
+        boolean readyForHigh = getFlywheelRPM() > 4000 && flywheel.get() == 0.85;
+        boolean readyForLow = getFlywheelRPM() > 2000 && flywheel.get() == 0.45;
+
+        return readyForHigh || readyForLow;
     }
 
     public void intakeFlywheel(double speed, RollerDirection state) {

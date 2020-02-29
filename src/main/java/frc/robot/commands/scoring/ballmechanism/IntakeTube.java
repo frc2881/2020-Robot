@@ -46,7 +46,7 @@ public class IntakeTube extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (speed == 1 && !Robot.flywheel.flywheelReady) {
+        if (speed == 1 && !Robot.flywheel.isFlywheelReady()) {
             speed = 0;
         }
         

@@ -58,7 +58,7 @@ public class ControlFeeder extends Command {
                 speed = 0.5;
             }
 
-            if (Robot.lift.readyForLift) {
+            if (Robot.lift.readyForLift()) {
                 speed = 0;
             }
             
