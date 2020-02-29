@@ -45,11 +45,11 @@ public class AutonomousCommand extends Command {
     @Override
     protected void execute() {
 
-            double time = SmartDashboard.getNumber("Auto Driving Speed", .25);
+            double time = SmartDashboard.getNumber("Auto Pre-Delay Time", .25);
             Robot.drive.setIntakeLocation(Drive.IntakeLocation.FRONT);
             Robot.drive.arcadeDrive(.25, 0);
 
-            if (time > time + 1) {
+            if (timeSinceInitialized() > time) {
                 Robot.drive.arcadeDrive(0, 0);
             }
         }
