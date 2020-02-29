@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.robot.commands.scoring.ballmechanism.ControlFlywheel;
+import frc.robot.commands.scoring.flywheel.ControlFlywheel;
 import frc.robot.subsystems.Intake.RollerDirection;
 
 
@@ -22,6 +22,9 @@ public class Flywheel extends Subsystem {
     private CANEncoder flywheelEncoder;
     private Solenoid flywheelSolenoid;
     private DoubleSupplier flywheelVelocity;
+
+    private boolean flywheelStop = false;
+    private boolean flywheelFullSpeed = false;
 
     public Flywheel() {
 
@@ -36,9 +39,27 @@ public class Flywheel extends Subsystem {
     addChild("Flywheel Solenoid", flywheelSolenoid);
 
     }
+
+    public void toggleFlywheelStopped() {
+        flywheelStop = !flywheelStop;
+    }
+
+    public boolean getFlywheelStopped() {
+        return flywheelStop;
+    }
+
+    public void setFlywheelSpeed(boolean fullSpeed) {
+        flywheelFullSpeed = fullSpeed;
+    }
+
+    public boolean isFlywheelFullSpeed() {
+        return flywheelFullSpeed;
+    }
    
     public void reset() {
         flywheelReady = false;
+        flywheelFullSpeed = false;
+        flywheelStop = false;
     }
     
     @Override
@@ -84,7 +105,7 @@ public class Flywheel extends Subsystem {
     @Override
     public void initDefaultCommand() {
 
-        setDefaultCommand(new ControlFlywheel(0.45));
+        setDefaultCommand(new ControlFlywheel());
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());

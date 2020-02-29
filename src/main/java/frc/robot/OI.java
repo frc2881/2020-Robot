@@ -21,6 +21,7 @@ import frc.robot.commands.background.rumble.*;
 import frc.robot.commands.background.wait.*;
 import frc.robot.commands.scoring.arm.*;
 import frc.robot.commands.scoring.ballmechanism.*;
+import frc.robot.commands.scoring.flywheel.*;
 import frc.robot.commands.scoring.lift.*;
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -104,7 +105,7 @@ public class OI {
         driverBlueX.whenPressed(new IntakeSetAsBack());
 
         driverRedCircle = new JoystickButton(driver, 3);
-        driverRedCircle.whileHeld(new DoNothing());
+        driverRedCircle.whenPressed(new FlywheelSwitch());
 
         driverGreenTriangle = new JoystickButton(driver, 4);
         driverGreenTriangle.whenPressed(new IntakeSetAsFront());
@@ -168,7 +169,7 @@ public class OI {
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new ControlFlywheel(0.85));
+        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeedToggle());
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
         manipulatorRightBumper.whileHeld(new AutoFiringSequence());
