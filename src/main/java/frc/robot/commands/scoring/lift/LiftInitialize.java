@@ -39,7 +39,7 @@ public class LiftInitialize extends InstantCommand {
     @Override
     protected void initialize() {
         Robot.logInitialize(this);
-        if (!Robot.isCompetitionMode() || (Robot.timeSinceStart() > 120)) {
+        if ((!Robot.isCompetitionMode() || (Robot.timeSinceStart() > 120)) && (Robot.arm.getArmPosition() > 10.7)) {
             Robot.lift.setLiftSolenoidExtended();
             Robot.lift.readyForLift = true;
         }
