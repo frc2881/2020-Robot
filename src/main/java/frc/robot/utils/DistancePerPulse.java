@@ -1,8 +1,5 @@
 package frc.robot.utils;
 
-/**
- * Helper for monitoring for conditions where motors suck too much current, usually because the motor isn't turning.
- */
 public class DistancePerPulse {
 
     public static double get(double highestGearTeethNumber, double lowestGearTeethNumber, double encoderCountsPerRevolution, double wheelDiameter) {

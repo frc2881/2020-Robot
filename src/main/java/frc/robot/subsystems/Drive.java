@@ -139,11 +139,12 @@ public class Drive extends Subsystem {
     }
 
     public void arcadeDrive(double xSpeed, double zRotation) {
-        if (intakeLocation == IntakeLocation.FRONT) {
+        /*if (intakeLocation == IntakeLocation.FRONT) {
             differentialDrive1.arcadeDrive(xSpeed, -zRotation, false);
         } else {
             differentialDrive1.arcadeDrive(-xSpeed, -zRotation, false);
-        }
+        }*/
+        differentialDrive1.arcadeDrive(xSpeed, -zRotation, false);
     }
 
     public void setIntakeLocation(IntakeLocation intakeLocation) {
