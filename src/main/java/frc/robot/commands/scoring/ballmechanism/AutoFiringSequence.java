@@ -34,6 +34,7 @@ public class AutoFiringSequence extends CommandGroup {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.logInitialize(this);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -59,7 +60,7 @@ public class AutoFiringSequence extends CommandGroup {
     // Called once after isFinished returns true
     @Override
     protected void interrupted() {
-        end();
+        Robot.logInterrupted(this);
         Robot.ballStorage.armAlign(0, 0);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
     }
@@ -68,6 +69,6 @@ public class AutoFiringSequence extends CommandGroup {
     // subsystems is scheduled to run
     @Override
     protected void end() {
-
+        Robot.logEnd(this);
     }
 }

@@ -10,28 +10,34 @@
 
 package frc.robot;
 
-import edu.wpi.first.hal.FRCNetComm.tInstances;
-import edu.wpi.first.hal.FRCNetComm.tResourceType;
-import frc.robot.utils.frc4048.Logging;
-import frc.robot.utils.frc4048.WorkQueue;
-
 import static java.util.stream.Collectors.joining;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import edu.wpi.first.hal.FRCNetComm.tInstances;
+import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.BallStorage;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.Pneumatics;
 import frc.robot.utils.NavX;
+import frc.robot.utils.frc4048.Logging;
+import frc.robot.utils.frc4048.WorkQueue;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -233,6 +239,10 @@ public class Robot extends TimedRobot {
 
     public static void logInterrupted(Command command) {
         log("Command " + command.getClass().getSimpleName() + " interrupted");
+    }
+
+    public static void logRun(InstantCommand command) {
+        log("Running instant command " + command.getClass().getSimpleName());
     }
 
 }

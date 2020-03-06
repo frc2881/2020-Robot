@@ -36,11 +36,11 @@ public class TurnToAngle extends Command {
     protected void initialize() {
         /* Make a call to the subsystem to use a PID loop controller in the subsystem
         to set the heading based on the HAT controller. */
+        Robot.logInitialize(this);
         turnPID = new PIDController(0.5, 0, 0);//P, I * 0.1, D * 0.1); //<-- tuned from testing
         turnPID.setSetpoint(angle);
         turnPID.setTolerance(.5);
         turnPID.enableContinuousInput(-180, 180);
-
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -67,6 +67,7 @@ public class TurnToAngle extends Command {
 
     @Override
     protected void interrupted() {
+        Robot.logInterrupted(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.drive.tankDrive(0, 0);
     }
@@ -74,6 +75,7 @@ public class TurnToAngle extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.logEnd(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.drive.tankDrive(0, 0);
     }
