@@ -242,7 +242,7 @@ public class Robot extends TimedRobot {
     }
 
     public static void logRun(InstantCommand command) {
-        log("Running" + " command " + command.getClass().getSimpleName());
+        log("Running instant command " + command.getClass().getSimpleName());
     }
 
 }
