@@ -48,8 +48,8 @@ public class Flywheel extends Subsystem {
         return flywheelStop;
     }
 
-    public void setFlywheelSpeed(boolean fullSpeed) {
-        flywheelFullSpeed = fullSpeed;
+    public void setFlywheelSpeed(boolean halfSpeed) {
+        flywheelFullSpeed = halfSpeed;
     }
 
     public boolean isFlywheelFullSpeed() {
