@@ -49,5 +49,6 @@ public class IntakeSetAsBack extends InstantCommand {
 
     @Override
     protected void interrupted(){
+        Robot.logInterrupted(this);
     }
 }

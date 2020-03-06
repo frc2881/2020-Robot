@@ -67,6 +67,7 @@ public class TurnToAngle extends Command {
 
     @Override
     protected void interrupted() {
+        Robot.logInterrupted(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.drive.tankDrive(0, 0);
     }

@@ -81,5 +81,6 @@ public class DriveWithJoysticks extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        Robot.logInterrupted(this);
     }
 }
