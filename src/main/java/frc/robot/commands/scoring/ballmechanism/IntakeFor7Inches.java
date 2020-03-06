@@ -40,6 +40,7 @@ public class IntakeFor7Inches extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.logInitialize(this);
         setpoint = Robot.ballStorage.getIntakeMainEncoderPosition() + 7;
         //Robot.log("Beginning storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         beginningPosition = Robot.ballStorage.getIntakeMainEncoderPosition();
@@ -97,14 +98,15 @@ public class IntakeFor7Inches extends Command {
     // Called once after isFinished returns true
     @Override
     protected void interrupted() {
+        Robot.logInterrupted(this);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-        end();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void end() {
+        Robot.logEnd(this);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
         //Robot.log("Ending storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         //Robot.log("Storage distance traveled: " + (Robot.intake.getIntakeMainEncoderPosition() - beginningPosition));

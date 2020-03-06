@@ -28,8 +28,8 @@ public class IntakeSetAsBack extends InstantCommand {
     // Called once when this command runs
     @Override
     protected void initialize() {
+        Robot.logRun(this);
         Robot.drive.setIntakeLocation(Drive.IntakeLocation.BACK);
-
     }
 
     @Override
@@ -44,6 +44,7 @@ public class IntakeSetAsBack extends InstantCommand {
 
     @Override
     protected void end(){
+        Robot.logEnd(this);
     }
 
     @Override
