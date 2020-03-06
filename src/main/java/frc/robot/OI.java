@@ -237,6 +237,10 @@ public class OI {
         return manipulator;
     }
 
+    public double applyDeadband(double input, double deadband) {
+        return input;
+    }
+
     // DRIVER Joysticks
 
     public double getDriverLeftX() {
