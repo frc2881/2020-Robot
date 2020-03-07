@@ -238,23 +238,18 @@ public class OI {
     }
 
     public double applyDeadband(double input, double deadband) {
-        if(Math.abs(input)> 0.0){
-            if(input > 0.0){
-                return (input-deadband)/(1.0-deadband);
-            }
-            else{
-                return (input + deadband)/(1.0-deadband);
-            }
+        if(Math.abs(input)<deadband){
+            return 0.0;
         }
         else{
-            return 0.0;
+            return input;
         }
     }
 
     // DRIVER Joysticks
 
     public double getDriverLeftX() {
-        return applyDeadband(driver.getRawAxis(0),0.06);
+        return driver.getRawAxis(0);
     }
 
     public double getDriverLeftY() {
@@ -262,7 +257,7 @@ public class OI {
     }
 
     public double getDriverRightX() {
-        return driver.getRawAxis(2);
+        return applyDeadband(driver.getRawAxis(2), 0.1);
     }
 
     public double getDriverRightY() {
