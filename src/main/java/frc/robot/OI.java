@@ -175,16 +175,16 @@ public class OI {
 
         // POV Pad LEFT
         manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
-        manipulatorPOV180.whileHeld(new ArmToAngle(0));
+        manipulatorPOV180.whileHeld(new ArmToAngle(52.5));
 
         manipulatorPOV90 = buttonFromPOV(manipulator, 90); // ARM HEIGHT 20
-        manipulatorPOV90.whileHeld(new ArmToAngle(20));
+        manipulatorPOV90.whileHeld(new ArmToAngle(25));
 
         manipulatorPOV270 = buttonFromPOV(manipulator, 270); // ARM HEIGHT 40
-        manipulatorPOV270.whileHeld(new ArmToAngle(50));
+        manipulatorPOV270.whileHeld(new ArmToAngle(66.76));
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
-        manipulatorPOV0.whileHeld(new ArmToAngle(60));
+        manipulatorPOV0.whileHeld(new ArmToAngle(0));
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
         manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
