@@ -101,14 +101,14 @@ public class OI {
         driverPinkSquare = new JoystickButton(driver, 1);
         driverPinkSquare.whileHeld(new DoNothing());
 
-        driverBlueX = new JoystickButton(driver, 2);
+        /*driverBlueX = new JoystickButton(driver, 2);
         driverBlueX.whenPressed(new IntakeSetAsBack());
 
         driverRedCircle = new JoystickButton(driver, 3);
         driverRedCircle.whenPressed(new FlywheelSwitch());
 
         driverGreenTriangle = new JoystickButton(driver, 4);
-        driverGreenTriangle.whenPressed(new IntakeSetAsFront());
+        driverGreenTriangle.whenPressed(new IntakeSetAsFront());*/
 
         // Small Buttons
         driverShare = new JoystickButton(driver, 9); // ARCADE DRIVE SWITCH

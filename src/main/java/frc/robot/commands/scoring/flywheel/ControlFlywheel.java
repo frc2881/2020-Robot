@@ -38,6 +38,7 @@ public class ControlFlywheel extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.logInitialize(this);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -63,6 +64,7 @@ public class ControlFlywheel extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.logEnd(this);
         Robot.flywheel.setFlywheel(0);
     }
 
@@ -70,6 +72,7 @@ public class ControlFlywheel extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        end();
+        Robot.logInterrupted(this);
+        Robot.flywheel.setFlywheel(0);
     }
 }

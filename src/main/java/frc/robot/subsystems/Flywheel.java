@@ -31,13 +31,10 @@ public class Flywheel extends Subsystem {
     flywheel = new CANSparkMax(6, MotorType.kBrushless);
     flywheel.setInverted(true);
     flywheel.setIdleMode(IdleMode.kCoast);
+    flywheel.setSmartCurrentLimit(70);
 
     flywheelEncoder = flywheel.getEncoder();
     flywheelVelocity = () -> flywheelEncoder.getVelocity();
-
-    flywheelSolenoid = new Solenoid(0, 0);
-    addChild("Flywheel Solenoid", flywheelSolenoid);
-
     }
 
     public void toggleFlywheelStopped() {
