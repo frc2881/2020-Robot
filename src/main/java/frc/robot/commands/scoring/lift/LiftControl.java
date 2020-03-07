@@ -46,7 +46,7 @@ public class LiftControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.lift.readyForLift) {
+        if (Robot.lift.readyForLift()) {
             double speed = -Robot.oi.getManipulatorLeftY();
             if (topLimitReached) {
                 if (speed >= 0.05) {

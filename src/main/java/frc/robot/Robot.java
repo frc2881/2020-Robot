@@ -121,6 +121,7 @@ public class Robot extends TimedRobot {
         if (resetRobot) {
             pneumatics.reset();
             lift.reset();
+            flywheel.reset();
             startTime = System.currentTimeMillis();
             Robot.log("Resetting robot sensors");
             resetRobot = false;

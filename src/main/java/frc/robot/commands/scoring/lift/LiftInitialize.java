@@ -41,7 +41,6 @@ public class LiftInitialize extends InstantCommand {
         Robot.logRun(this);
         if ((!Robot.isCompetitionMode() || (Robot.timeSinceStart() > 120)) && (Robot.arm.getArmPosition() > 10.7)) {
             Robot.lift.setLiftSolenoidExtended();
-            Robot.lift.readyForLift = true;
         }
     }
 }

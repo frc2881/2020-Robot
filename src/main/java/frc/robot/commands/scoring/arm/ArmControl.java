@@ -47,7 +47,7 @@ public class ArmControl extends Command {
         // made a deadband with a boolean because the spark maxs dont have a function
         // for one
         boolean topLimitReached = Robot.arm.getArmPosition() > 11.9;
-        boolean bottomLimitClimbReached = Robot.lift.readyForLift && Robot.arm.getArmPosition() < 10.7;
+        boolean bottomLimitClimbReached = Robot.lift.readyForLift() && Robot.arm.getArmPosition() < 10.7;
 
         if (Math.abs(speed) < (0.075)) {
             speed = 0;
