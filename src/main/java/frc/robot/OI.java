@@ -236,6 +236,15 @@ public class OI {
         return manipulator;
     }
 
+    public double applyDeadband(double input, double deadband) {
+        if(Math.abs(input)<deadband){
+            return 0.0;
+        }
+        else{
+            return input;
+        }
+    }
+
     // DRIVER Joysticks
 
     public double getDriverLeftX() {
@@ -247,7 +256,7 @@ public class OI {
     }
 
     public double getDriverRightX() {
-        return driver.getRawAxis(2);
+        return applyDeadband(driver.getRawAxis(2), 0.1);
     }
 
     public double getDriverRightY() {
