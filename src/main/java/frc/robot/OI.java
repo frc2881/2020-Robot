@@ -102,20 +102,20 @@ public class OI {
         driverPinkSquare.whileHeld(new DoNothing());
 
         /*driverBlueX = new JoystickButton(driver, 2);
-        driverBlueX.whenPressed(new IntakeSetAsBack());
+        driverBlueX.whenPressed(new DoNothing());
 
         driverRedCircle = new JoystickButton(driver, 3);
         driverRedCircle.whenPressed(new FlywheelSwitch());
 
         driverGreenTriangle = new JoystickButton(driver, 4);
-        driverGreenTriangle.whenPressed(new IntakeSetAsFront());*/
+        driverGreenTriangle.whenPressed(new DoNothing());*/
 
         // Small Buttons
         driverShare = new JoystickButton(driver, 9); // ARCADE DRIVE SWITCH
-        driverShare.whileHeld(new SetArcadeDrive());
+        driverShare.whileHeld(new DoNothing());
 
         driverOption = new JoystickButton(driver, 10); // TANK DRIVE SWITCH
-        driverOption.whileHeld(new SetTankDrive());
+        driverOption.whileHeld(new DoNothing());
 
         //Bumpers
         driverLeftBumper = new JoystickButton(driver, 5); // Climber Leadscrew Down TODO
@@ -203,8 +203,6 @@ public class OI {
         SmartDashboard.putData("Rumble Joysticks", new RumbleJoysticks());
         SmartDashboard.putData("Rumble Yes", new RumbleYes());
         SmartDashboard.putData("Rumble No", new RumbleNo());
-        SmartDashboard.putData("Intake Set As Front", new IntakeSetAsFront());
-        SmartDashboard.putData("Intake Set As Back", new IntakeSetAsBack());
         SmartDashboard.putData("Wait Forever", new WaitForever());
         SmartDashboard.putData("Wait For Pressure", new WaitForPressure());
 
