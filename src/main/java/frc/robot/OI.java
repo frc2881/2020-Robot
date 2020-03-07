@@ -128,7 +128,7 @@ public class OI {
         driverPOV0.whileHeld(new DoNothing());
 
         driverPOV90 = buttonFromPOV(driver, 90); //
-        driverPOV90.whileHeld(new TurnToAngle(20));
+        driverPOV90.whileHeld(new DoNothing());
 
         driverPOV180 = buttonFromPOV(driver, 180); //
         driverPOV180.whileHeld(new DoNothing());
