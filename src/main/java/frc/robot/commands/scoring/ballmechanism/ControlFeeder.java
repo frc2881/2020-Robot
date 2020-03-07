@@ -51,22 +51,18 @@ public class ControlFeeder extends Command {
     @Override
     protected void execute() {
 
-        if (!Robot.lift.readyForLift() && Robot.arm.getArmAngle() < 18) {
-            double speed;
-            // made a deadband with a boolean because the spark maxs dont have a function
-            // for one
-            if (Robot.intake.feederStop) {
-                speed = 0; 
-            } else if (Robot.intake.intakeFeeder) {
-                speed = -1;
-            } else {
-                speed = 0.5;
-            }
-
-            Robot.intake.controlFeeder(speed);
+        double speed;
+        // made a deadband with a boolean because the spark maxs dont have a function
+        // for one
+        if (Robot.intake.feederStop || Robot.lift.readyForLift() || Robot.arm.getArmAngle() > 18) {
+            speed = 0;
+        } else if (Robot.intake.intakeFeeder) {
+            speed = -1;
         } else {
-            Robot.intake.controlFeeder(0);
+            speed = 0.5;
         }
+
+        Robot.intake.controlFeeder(speed);
 
     }
 

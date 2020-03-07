@@ -152,7 +152,7 @@ public class OI {
         manipulatorRedCircle.whenPressed(new FeederStop());
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
-        manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5));
+        manipulatorGreenTriangle.whileHeld(new EjectStorage(-0.5));
 
         // Small Buttons
         manipulatorShare = new JoystickButton(manipulator, 9); // BALL OUT - LEFT
