@@ -18,45 +18,46 @@ import frc.robot.Robot;
  *
  */
 public class ArmToAngle extends Command {
-    private double height;
-    private PIDController rotatePID;
+    private double angle;
+    private static double beginningPosition;
 
     public ArmToAngle(double angle) {
         requires(Robot.drive);
-        height = Robot.arm.toHeightInches(angle);
+        angle = this.angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        rotatePID = new PIDController(0.5, 0, 0);
-        rotatePID.setSetpoint(height);
-        rotatePID.setTolerance(0.1);
-        rotatePID.enableContinuousInput(2, 12);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
-        double value = rotatePID.calculate(Robot.arm.getArmPosition());
+        double time = timeSinceInitialized();
+        double speed; 
+        double difference = angle - Robot.arm.getArmAngle();
         // Sets the minimum and maximum speed of the robot during the command
-        if (value > 0.5) {
-            value = 0.5;
-        } else if (value < -0.3) {
-            value = -0.3;
-        } else if (value > 0 && value < 0.05){
-            value = 0.05;
-        } else if (value < 0 && value > -0.05){
-            value = -0.05;
+        if (time < 1) {
+            speed = Math.copysign(time, difference);
+        } else if (Math.abs(difference) <= 0.5) {
+            speed = 0;
+        } else if (Math.abs(difference) < 5) {
+            speed = difference * 0.2;
+        } else if (Math.abs(difference) > 5) {
+            speed = Math.copysign(1, difference);
+        } else {
+            speed = 0;
         }
-        Robot.arm.setArmSpeed(-value);
+
+        Robot.arm.setArmSpeed(-speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return rotatePID.atSetpoint();
+        return Math.abs(angle - Robot.arm.getArmAngle()) < 0.5;
     }
 
     @Override
