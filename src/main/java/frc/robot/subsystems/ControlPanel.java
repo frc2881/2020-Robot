@@ -25,7 +25,7 @@ public class ControlPanel extends Subsystem {
     private final Color kYellowTarget = ColorMatch.makeColor(0.318, 0.568, 0.114);
 
     public ControlPanel() {
-        panelSpinner= new CANSparkMax(11, MotorType.kBrushless);
+        //panelSpinner= new CANSparkMax(11, MotorType.kBrushless);
 
         panelSpinner.setInverted(false);
         panelSpinner.setIdleMode(IdleMode.kBrake);

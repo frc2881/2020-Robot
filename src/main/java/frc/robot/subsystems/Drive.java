@@ -57,10 +57,12 @@ public class Drive extends Subsystem {
         leftFront = new CANSparkMax(1, MotorType.kBrushless);
         leftFront.setInverted(false);
         leftFront.setIdleMode(IdleMode.kBrake);
+        leftFront.setSmartCurrentLimit(80);
 
         leftRear = new CANSparkMax(2, MotorType.kBrushless);
         leftRear.setInverted(false);
         leftRear.setIdleMode(IdleMode.kBrake);
+        leftRear.setSmartCurrentLimit(80);
 
         setUseSplitArcade(true);
 
@@ -70,10 +72,12 @@ public class Drive extends Subsystem {
         rightFront = new CANSparkMax(3, MotorType.kBrushless);
         rightFront.setInverted(false);
         rightFront.setIdleMode(IdleMode.kBrake);
+        rightFront.setSmartCurrentLimit(80);
 
         rightRear = new CANSparkMax(4, MotorType.kBrushless);
         rightRear.setInverted(false);
         rightRear.setIdleMode(IdleMode.kBrake);
+        rightRear.setSmartCurrentLimit(80);
 
         // Set SlaveSpeedControllers to Follow MasterSpeedController
         rightRear.follow(rightFront);
@@ -88,6 +92,7 @@ public class Drive extends Subsystem {
         hDrive = new CANSparkMax(5, MotorType.kBrushless);
         hDrive.setInverted(false);
         hDrive.setIdleMode(IdleMode.kBrake);
+        hDrive.setSmartCurrentLimit(40);
 
         spotlight = new Spark(0);
         spotlight.addChild(spotlight);

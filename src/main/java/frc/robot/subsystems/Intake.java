@@ -55,7 +55,7 @@ public class Intake extends Subsystem {
         feeder = new CANSparkMax(10, MotorType.kBrushless); // 
         feeder.setInverted(false);
         feeder.setIdleMode(IdleMode.kCoast);
-        feeder.setSmartCurrentLimit(15);
+        feeder.setSmartCurrentLimit(30);
 
         feeder.setOpenLoopRampRate(1);
 
