@@ -97,6 +97,9 @@ public class Arm extends Subsystem {
         super.initSendable(builder);
         builder.addDoubleProperty("Angle", this::getArmAngle, null);
         builder.addDoubleProperty("Height", this::getArmPosition, null);
+        builder.addDoubleProperty("Arm Bus Voltage", () -> armMotor.getBusVoltage(), null);
+        builder.addDoubleProperty("Arm Output Current", () -> armMotor.getOutputCurrent(), null);
+        builder.addDoubleProperty("Arm Sticky Faults", () -> armMotor.getStickyFaults(), null);
     }
 
     public double toHeightInches(double angle) {

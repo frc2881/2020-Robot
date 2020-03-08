@@ -9,6 +9,7 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class ControlPanel extends Subsystem {
@@ -34,6 +35,14 @@ public class ControlPanel extends Subsystem {
         m_colorMatcher.addColorMatch(kGreenTarget);
         m_colorMatcher.addColorMatch(kRedTarget);
         m_colorMatcher.addColorMatch(kYellowTarget);
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+        builder.addDoubleProperty("Control Panel Spinner Bus Voltage", () -> panelSpinner.getBusVoltage(), null);
+        builder.addDoubleProperty("Control Panel Spinner Output Current", () -> panelSpinner.getOutputCurrent(), null);
+        builder.addDoubleProperty("Control Panel Spinner Sticky Faults", () -> panelSpinner.getStickyFaults(), null);
     }
 
     @Override

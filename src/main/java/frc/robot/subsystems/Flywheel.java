@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.scoring.flywheel.ControlFlywheel;
 import frc.robot.subsystems.Intake.RollerDirection;
 
-
 public class Flywheel extends Subsystem {
 
     public boolean flywheelReady = false;
@@ -27,14 +26,23 @@ public class Flywheel extends Subsystem {
     private boolean flywheelFullSpeed = false;
 
     public Flywheel() {
+        flywheel = new CANSparkMax(6, MotorType.kBrushless);
+        flywheel.setInverted(true);
+        flywheel.setIdleMode(IdleMode.kCoast);
+        flywheel.setSmartCurrentLimit(70);
 
-    flywheel = new CANSparkMax(6, MotorType.kBrushless);
-    flywheel.setInverted(true);
-    flywheel.setIdleMode(IdleMode.kCoast);
-    flywheel.setSmartCurrentLimit(70);
+        flywheelEncoder = flywheel.getEncoder();
+        flywheelVelocity = () -> flywheelEncoder.getVelocity();
+    }
 
-    flywheelEncoder = flywheel.getEncoder();
-    flywheelVelocity = () -> flywheelEncoder.getVelocity();
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+        builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
+        builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
+        builder.addDoubleProperty("Flywheel Bus Voltage", () -> flywheel.getBusVoltage(), null);
+        builder.addDoubleProperty("Flywheel Output Current", () -> flywheel.getOutputCurrent(), null);
+        builder.addDoubleProperty("Flywheel Sticky Faults", () -> flywheel.getStickyFaults(), null);
     }
 
     public void toggleFlywheelStopped() {
@@ -52,18 +60,11 @@ public class Flywheel extends Subsystem {
     public boolean isFlywheelFullSpeed() {
         return flywheelFullSpeed;
     }
-   
+
     public void reset() {
         flywheelReady = false;
         flywheelFullSpeed = false;
         flywheelStop = false;
-    }
-    
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        super.initSendable(builder);
-        builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
-        builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
     }
 
     public boolean isFlywheelReady() {

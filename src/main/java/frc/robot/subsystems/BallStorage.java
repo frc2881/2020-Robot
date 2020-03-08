@@ -88,6 +88,22 @@ public class BallStorage extends Subsystem {
 
     }
 
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+        builder.addDoubleProperty("Storage Bus Voltage", () -> intakeMain.getBusVoltage(), null);
+        builder.addDoubleProperty("Storage Output Current", () -> intakeMain.getOutputCurrent(), null);
+        builder.addDoubleProperty("Storage Sticky Faults", () -> intakeMain.getStickyFaults(), null);
+
+        builder.addDoubleProperty("Left Centering Bus Voltage", () -> intakeLeft.getBusVoltage(), null);
+        builder.addDoubleProperty("Left Centering Output Current", () -> intakeLeft.getOutputCurrent(), null);
+        builder.addDoubleProperty("Left Centering Sticky Faults", () -> intakeLeft.getStickyFaults(), null);
+
+        builder.addDoubleProperty("Right Centering Bus Voltage", () -> intakeRight.getBusVoltage(), null);
+        builder.addDoubleProperty("Right Centering Output Current", () -> intakeRight.getOutputCurrent(), null);
+        builder.addDoubleProperty("Right Centering Sticky Faults", () -> intakeRight.getStickyFaults(), null);
+    }
+
     public void intakeMain(double speed, RollerDirection state) {
         if (state == RollerDirection.INTAKE) {
             intakeMain.set(-speed);

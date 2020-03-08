@@ -57,7 +57,7 @@ public class ArmControl extends Command {
             speed = 0;
         }
 
-    Robot.arm.setArmSpeed(-speed);
+        Robot.arm.setArmSpeed(-speed);
 
     }
 
