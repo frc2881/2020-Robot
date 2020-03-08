@@ -42,10 +42,10 @@ public class AutoFiringSequence extends CommandGroup {
     protected void execute() {
         double time = timeSinceInitialized();
         Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
-        if (time > .25) {
+        if (time > .40) { //also worked well at .25
             Robot.ballStorage.armAlign(1, 1);
         }
-        else if (time > .10) {
+        else if (time > 0.05) { //also worked well at .10
             Robot.ballStorage.armAlign(1, 0);
         }  
     }
