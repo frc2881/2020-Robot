@@ -64,8 +64,8 @@ public class Drive extends Subsystem {
         leftRear.setInverted(false);
         leftRear.setIdleMode(IdleMode.kBrake);
         leftRear.setSmartCurrentLimit(80);
-        //leftRear.follow(leftFront); // Set SlaveSpeedControllers to Follow MasterSpeedController
-        left =  new SpeedControllerGroup(leftFront, leftRear);
+        leftRear.follow(leftFront); // Set SlaveSpeedControllers to Follow MasterSpeedController
+        //left =  new SpeedControllerGroup(leftFront, leftRear);
 
 
 
@@ -78,12 +78,12 @@ public class Drive extends Subsystem {
         rightRear.setInverted(false);
         rightRear.setIdleMode(IdleMode.kBrake);
         rightRear.setSmartCurrentLimit(80);
-        //rightRear.follow(rightFront); // Set SlaveSpeedControllers to Follow MasterSpeedController
-        right = new SpeedControllerGroup(rightFront, rightRear);
+        rightRear.follow(rightFront); // Set SlaveSpeedControllers to Follow MasterSpeedController
+        //right = new SpeedControllerGroup(rightFront, rightRear);
 
 
 
-        differentialDrive = new DifferentialDrive(left, right);
+        differentialDrive = new DifferentialDrive(leftFront, rightFront);
         addChild("Differential Drive 1", differentialDrive);
         differentialDrive.setSafetyEnabled(true);
         differentialDrive.setExpiration(0.1);
