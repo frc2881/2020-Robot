@@ -27,9 +27,9 @@ public class DriveForDistance extends Command {
     private static final double I = 2 * P * 0.05 / Pc;
     private static final double D = 0.125 * P * Pc / 0.05;
 
-    public DriveForDistance(double distance) {
+    public DriveForDistance(double distanceFeet) {
         requires(Robot.drive);
-        this.distance = distance;
+        this.distance = distanceFeet * 12;
     }
 
     // Called just before this Command runs the first time
