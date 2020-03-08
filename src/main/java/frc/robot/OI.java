@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.DriveForDistance;
 import frc.robot.commands.background.*;
 import frc.robot.commands.background.drive.*;
 import frc.robot.commands.background.rumble.*;
@@ -193,7 +193,7 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());
         SmartDashboard.putData("Angle Calibrate Encoder", new AngleCalibrateEncoder());
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        SmartDashboard.putData("Autonomous Command", new DriveForDistance(5));
         SmartDashboard.putData("Do Nothing", new DoNothing());
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
         SmartDashboard.putData("Lift Control", new LiftControl());
