@@ -38,7 +38,7 @@ public class DriveWithJoysticks extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        //Robot.logInitialize(this);
+        Robot.logInitialize(this);
         Robot.drive.setDeadband(0.05);
     }
 
@@ -74,13 +74,13 @@ public class DriveWithJoysticks extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        //Robot.logEnd(this);
+        Robot.logEnd(this);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        //Robot.logInterrupted(this);
+        Robot.logInterrupted(this);
     }
 }
