@@ -54,7 +54,7 @@ public class ControlFeeder extends Command {
         double speed;
         // made a deadband with a boolean because the spark maxs dont have a function
         // for one
-        if (Robot.intake.feederStop || Robot.lift.readyForLift() || Robot.arm.getArmAngle() > 18) {
+        if (Robot.intake.feederStop) {
             speed = 0;
         } else if (Robot.intake.intakeFeeder) {
             speed = -1;

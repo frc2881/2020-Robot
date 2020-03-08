@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.background.*;
-import frc.robot.commands.background.drive.*;
-import frc.robot.commands.background.rumble.*;
-import frc.robot.commands.background.wait.*;
-import frc.robot.commands.scoring.arm.*;
-import frc.robot.commands.scoring.ballmechanism.*;
-import frc.robot.commands.scoring.flywheel.*;
-import frc.robot.commands.scoring.lift.*;
+import frc.robot.commands.background.SetSpotlight;
+import frc.robot.commands.background.TWINKLES;
+import frc.robot.commands.background.drive.DriveWithJoysticks;
+import frc.robot.commands.background.wait.DoNothing;
+import frc.robot.commands.background.wait.WaitForPressure;
+import frc.robot.commands.background.wait.WaitForever;
+import frc.robot.commands.scoring.ballmechanism.FeederStop;
+import frc.robot.commands.scoring.ballmechanism.FeederSwitch;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -143,66 +143,58 @@ public class OI {
 
         // Buttons Pad RIGHT
         manipulatorPinkSquare = new JoystickButton(manipulator, 1);
-        manipulatorPinkSquare.whenPressed( new LiftInitialize());
+        manipulatorPinkSquare.whenPressed(new DoNothing());
 
         manipulatorBlueX = new JoystickButton(manipulator, 2); // AUTO BALL STORAGE (7" sequence) TODO
-        manipulatorBlueX.whenPressed(new IntakeFor7Inches()); 
+        manipulatorBlueX.whenPressed(new DoNothing());
  
         manipulatorRedCircle = new JoystickButton(manipulator, 3); // INTAKE STOP
         manipulatorRedCircle.whenPressed(new FeederStop());
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
-        manipulatorGreenTriangle.whileHeld(new EjectStorage(-0.5));
+        manipulatorGreenTriangle.whileHeld(new DoNothing());
 
         // Small Buttons
         manipulatorShare = new JoystickButton(manipulator, 9); // BALL OUT - LEFT
-        manipulatorShare.whileHeld(new ArmAligningControl(true, false));
+        manipulatorShare.whileHeld(new DoNothing());
 
         manipulatorOption = new JoystickButton(manipulator, 10); // BALL OUT - RIGHT
-        manipulatorOption.whileHeld(new ArmAligningControl(false, false));
+        manipulatorOption.whileHeld(new DoNothing());
 
         // Triggers + Bumpers
         manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT
-        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, true));
+        manipulatorLeftTrigger.whileHeld(new DoNothing());
 
         manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT
-        manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
+        manipulatorRightTrigger.whileHeld(new DoNothing());
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeedToggle());
+        manipulatorLeftBumper.whileHeld(new DoNothing());
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
-        manipulatorRightBumper.whileHeld(new AutoFiringSequence());
+        manipulatorRightBumper.whileHeld(new DoNothing());
 
         // POV Pad LEFT
         manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
-        manipulatorPOV180.whileHeld(new ArmToAngle(0));
+        manipulatorPOV180.whileHeld(new DoNothing());
 
         manipulatorPOV90 = buttonFromPOV(manipulator, 90); // ARM HEIGHT 20
-        manipulatorPOV90.whileHeld(new ArmToAngle(20));
+        manipulatorPOV90.whileHeld(new DoNothing());
 
         manipulatorPOV270 = buttonFromPOV(manipulator, 270); // ARM HEIGHT 40
-        manipulatorPOV270.whileHeld(new ArmToAngle(50));
+        manipulatorPOV270.whileHeld(new DoNothing());
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
-        manipulatorPOV0.whileHeld(new ArmToAngle(60));
+        manipulatorPOV0.whileHeld(new DoNothing());
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
         manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Arm Control", new ArmControl());
-        SmartDashboard.putData("Angle Calibrate Encoder", new AngleCalibrateEncoder());
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("Do Nothing", new DoNothing());
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
-        SmartDashboard.putData("Lift Control", new LiftControl());
-        SmartDashboard.putData("Lift To Height", new LiftToHeight());
         SmartDashboard.putData("TWINKLES", new TWINKLES());
-        SmartDashboard.putData("Rumble Driver", new RumbleDriver());
-        SmartDashboard.putData("Rumble Joysticks", new RumbleJoysticks());
-        SmartDashboard.putData("Rumble Yes", new RumbleYes());
-        SmartDashboard.putData("Rumble No", new RumbleNo());
         SmartDashboard.putData("Wait Forever", new WaitForever());
         SmartDashboard.putData("Wait For Pressure", new WaitForPressure());
 
