@@ -68,7 +68,7 @@ public class Flywheel extends Subsystem {
 
     public boolean isFlywheelReady() {
         boolean readyForHigh = getFlywheelRPM() > 4000 && isFlywheelFullSpeed();
-        boolean readyForLow = getFlywheelRPM() > 2000 && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
+        boolean readyForLow = getFlywheelRPM() > 2000 && getFlywheelRPM() < 2500 && !isFlywheelFullSpeed();
 
         return readyForHigh || readyForLow;
     }
