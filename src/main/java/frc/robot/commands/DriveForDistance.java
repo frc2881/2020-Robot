@@ -13,91 +13,71 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
-import frc.robot.subsystems.BallStorage.RollerDirection;
-//fix pathway
 
 /**
  *
  */
 public class DriveForDistance extends Command {
-    private double setpoint;
+    private double distance;
+    private PIDController straightPID;
+    //using the Ziegler-Nichols straightPID Control Tuning method, we find the proper numbers for the PID loop.
+    private static final double Kc = 0.08;
+    private static final double Pc = 0.291666;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
+    private static final double P = 0.6 * Kc; 
+    private static final double I = 2 * P * 0.05 / Pc;
+    private static final double D = 0.125 * P * Pc / 0.05;
 
-    public DriveForDistance(double distanceFeet) {
+    public DriveForDistance(double distance) {
         requires(Robot.drive);
-        setpoint = distanceFeet * 12;
+        this.distance = distance;
     }
 
     // Called just before this Command runs the first time
-    @Override
     protected void initialize() {
+        /* Make a call to the subsystem to use a straightPID loop controller in the subsystem
+        to set the heading based on the HAT controller. */
         Robot.logInitialize(this);
+        straightPID = new PIDController(0.5, 0, 0);// to be tested
+        straightPID.setSetpoint(distance);
+        straightPID.setTolerance(1);
         Robot.drive.resetDriveEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        // System.out.println("DriveForDistance executing");
-        double time = timeSinceInitialized();
-        double speed;
-        double distance = Robot.drive.getDrivePosition() - setpoint;
-        // Sets the minimum and maximum speed of the robot during the command
-        if (distance < 1) {
-            speed
-        } else if (distance < 5) {
-            speed = 0.4;
-        } else if (distance < 6.5) {
-            speed = 0.2 + ((6.5 - distance) / 7.5);
-        } else if (distance < 9) {
-            speed = 0.2;
-        } else {
-            speed = 0;
-        }
-
-        // System.out.println("Value: " + value);
-        System.out.println("Setpoint: " + setpoint);
-        System.out.println("Current Position: " + Robot.ballStorage.getIntakeMainEncoderPosition());
-
-        Robot.ballStorage.intakeMain(speed, RollerDirection.INTAKE);
-        // sequential order
-        // rollers, intakeLeft/Right, intakeParallel
-        // Robot.intake.intakeRightLeft(speed, RollerDirection.INTAKE);
-        // Robot.intake.intakeParallelBand(speed, RollerDirection.INTAKE);
-        if (timeSinceInitialized() > 0.5) {
-            // Robot.intake.setBallStorageRampRate(0);
-        }
+        // Calls to the subsystem to update the angle if controller value has changed
+        // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
+        double value = straightPID.calculate(Robot.drive.getDrivePosition());
+       // Sets the minimum and maximum speed of the robot during the command 
+       if (value > 1) {
+           value = 1;
+       } else if (value < -1) {
+           value = -1;
+       }
+        Robot.drive.tankDrive(value, value);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        double distance = Robot.ballStorage.getIntakeMainEncoderPosition() - beginningPosition;
-        // return straightPID.atSetpoint();
+        // asking the straightPID loop have we reached our position
+        return straightPID.atSetpoint();
+    }
 
-        if (distance >= 9) {
-            return true;
-        } else {
-            return false;
-        }
+    @Override
+    protected void interrupted() {
+        Robot.logInterrupted(this);
+        // call the drive subsystem to make sure the straightPID loop is disabled
+        Robot.drive.tankDrive(0, 0);
     }
 
     // Called once after isFinished returns true
     @Override
-    protected void interrupted() {
-        Robot.logInterrupted(this);
-        Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
     protected void end() {
         Robot.logEnd(this);
-        Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-        // Robot.log("Ending storage encoder position: " +
-        // Robot.intake.getIntakeMainEncoderPosition());
-        // Robot.log("Storage distance traveled: " +
-        // (Robot.intake.getIntakeMainEncoderPosition() - beginningPosition));
+        // call the drive subsystem to make sure the straightPID loop is disabled
+        Robot.drive.tankDrive(0, 0);
     }
 
 }
