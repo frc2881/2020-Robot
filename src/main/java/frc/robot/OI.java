@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.DriveForDistance;
 import frc.robot.commands.background.SetSpotlight;
 import frc.robot.commands.background.TWINKLES;
 import frc.robot.commands.background.drive.DriveWithJoysticks;
@@ -191,7 +191,7 @@ public class OI {
         manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        SmartDashboard.putData("Autonomous Command", new DriveForDistance(-5));
         SmartDashboard.putData("Do Nothing", new DoNothing());
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
         SmartDashboard.putData("TWINKLES", new TWINKLES());
