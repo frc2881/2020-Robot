@@ -37,9 +37,10 @@ public class DriveForDistance extends Command {
         /* Make a call to the subsystem to use a straightPID loop controller in the subsystem
         to set the heading based on the HAT controller. */
         Robot.logInitialize(this);
-        straightPID = new PIDController(0.5, 0, 0);// to be tested
+        Robot.log("Starting to drive autonomously for " + distance/12 + " feet!");
+        straightPID = new PIDController(2, 0, 0);// to be tested
         straightPID.setSetpoint(distance);
-        straightPID.setTolerance(1);
+        straightPID.setTolerance(2);
         Robot.drive.resetDriveEncoders();
     }
 
@@ -50,11 +51,14 @@ public class DriveForDistance extends Command {
         // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
         double value = straightPID.calculate(Robot.drive.getDrivePosition());
        // Sets the minimum and maximum speed of the robot during the command 
-       if (value > 1) {
-           value = 1;
-       } else if (value < -1) {
-           value = -1;
+       if (value > 0.5) {
+           value = 0.5;
+       } else if (value < -0.5) {
+           value = -0.5;
+       } else if (Math.abs(value) < 0.05) {
+           value = 0;
        }
+
         Robot.drive.tankDrive(value, value);
     }
 

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.background.drive.DriveWithJoysticks;
 import frc.robot.utils.DistancePerPulse;
 
@@ -32,6 +33,7 @@ import frc.robot.utils.DistancePerPulse;
  */
 public class Drive extends Subsystem {
 
+    //16 to 80, 30 to 50
     private static final double highestGearTeethNumber = 80/30*50;
     private static final double lowestGearTeethNumber = 16;
     private static final double wheelDiameter = 6;
@@ -125,7 +127,11 @@ public class Drive extends Subsystem {
 
     }
 
-
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+        builder.addDoubleProperty("Drive Position", this::getDrivePosition, null);
+    }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
