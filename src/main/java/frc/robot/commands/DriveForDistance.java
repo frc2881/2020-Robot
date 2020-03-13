@@ -11,77 +11,72 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 
 /**
  *
  */
 public class DriveForDistance extends Command {
-    private double distance;
-    private PIDController straightPID;
-    //using the Ziegler-Nichols straightPID Control Tuning method, we find the proper numbers for the PID loop.
-    private static final double Kc = 0.08;
-    private static final double Pc = 0.291666;  // period of oscillation (found from average devided by 1/8 of a second(slow mo' camera))
-    private static final double P = 0.6 * Kc; 
-    private static final double I = 2 * P * 0.05 / Pc;
-    private static final double D = 0.125 * P * Pc / 0.05;
 
-    public DriveForDistance(double distanceFeet) {
+    private double setpoint;
+
+    public DriveForDistance(double setpointFeet) {
         requires(Robot.drive);
-        this.distance = distanceFeet * 12;
+        this.setpoint = setpointFeet * 12;
     }
 
     // Called just before this Command runs the first time
+    @Override
     protected void initialize() {
-        /* Make a call to the subsystem to use a straightPID loop controller in the subsystem
-        to set the heading based on the HAT controller. */
         Robot.logInitialize(this);
-        Robot.log("Starting to drive autonomously for " + distance/12 + " feet!");
-        straightPID = new PIDController(2, 0, 0);// to be tested
-        straightPID.setSetpoint(distance);
-        straightPID.setTolerance(2);
+        Robot.log("Starting to drive autonomously for " + setpoint / 12 + " feet!");
         Robot.drive.resetDriveEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        // Calls to the subsystem to update the angle if controller value has changed
-        // Robot.drive.autonomousRotate(rotateToAngleRate, -rotateToAngleRate);
-        double value = straightPID.calculate(Robot.drive.getDrivePosition());
-       // Sets the minimum and maximum speed of the robot during the command 
-       if (value > 0.5) {
-           value = 0.5;
-       } else if (value < -0.5) {
-           value = -0.5;
-       } else if (Math.abs(value) < 0.05) {
-           value = 0;
-       }
+        double time = timeSinceInitialized();
+        double speed;
+        double position = Robot.drive.getDrivePosition();
+        double maxSpeed = 0.4;
 
-        Robot.drive.tankDrive(value, value);
+        // Sets the minimum and maximum speed of the robot during the command
+        if (time < 2) {
+            speed = Math.copySign(time * maxSpeed / 2, setpoint);
+        } else if (Math.abs(setpoint - position) > 2) {
+            speed = (setpoint - position) * 0.2;
+        } else {
+            speed = 0;
+        }
+
+        if (Math.abs(speed) > maxSpeed) {
+            speed = Math.copySign(maxSpeed, speed);
+        } else if (Math.abs(speed) < 0.05) {
+            speed = 0;
+        }
+
+        Robot.drive.tankDrive(speed, speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        // asking the straightPID loop have we reached our position
-        return straightPID.atSetpoint();
-    }
-
-    @Override
-    protected void interrupted() {
-        Robot.logInterrupted(this);
-        // call the drive subsystem to make sure the straightPID loop is disabled
-        Robot.drive.tankDrive(0, 0);
+        return Math.abs(setpoint - Robot.drive.getDrivePosition()) <= 2;
     }
 
     // Called once after isFinished returns true
     @Override
-    protected void end() {
-        Robot.logEnd(this);
-        // call the drive subsystem to make sure the straightPID loop is disabled
+    protected void interrupted() {
+        Robot.logInterrupted(this);
         Robot.drive.tankDrive(0, 0);
     }
 
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void end() {
+        Robot.logEnd(this);
+        Robot.drive.tankDrive(0, 0);
+    }
 }
