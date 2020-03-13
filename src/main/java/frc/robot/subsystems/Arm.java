@@ -127,4 +127,12 @@ public class Arm extends Subsystem {
     public double getArmAngle() {
         return toAngleDegrees(getArmPosition());
     }
+
+    public void resetArmEncoder(boolean autonomous) {
+        if (autonomous) {
+            armEncoder.setPosition(11.8);
+        } else {
+            armEncoder.setPosition(2.0012);
+        }
+    }
 }

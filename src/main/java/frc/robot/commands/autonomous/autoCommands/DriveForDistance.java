@@ -8,7 +8,7 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package frc.robot.commands;
+package frc.robot.commands.autonomous.autoCommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;

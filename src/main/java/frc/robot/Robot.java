@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.DriveForDistance;
+import frc.robot.commands.autonomous.autoCommands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.BallStorage;
 import frc.robot.subsystems.Drive;
@@ -246,4 +246,16 @@ public class Robot extends TimedRobot {
         log("Running instant command " + command.getClass().getSimpleName());
     }
 
+    public static boolean isNavXReady() {
+        return !navX.isConnected() || !navX.isCalibrating();
+    }
+
+    public static boolean abortAuto() {
+        if (!isNavXReady()) {
+            return false;
+        }
+        boolean pitch = Math.abs(navX.getPitch()) >= 20;
+        boolean roll = Math.abs(navX.getRoll()) >= 20;
+        return pitch || roll;
+    }
 }
