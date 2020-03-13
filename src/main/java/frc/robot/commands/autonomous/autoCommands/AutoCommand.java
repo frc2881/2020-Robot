@@ -26,7 +26,7 @@ public class AutoCommand extends AbstractAutoCommand {
         addSequential(new WaitCommand(waitTime));
         addParallel(new AutonomousRobotPrep());
         if (auto == AutoOptions.SCORE) {
-            addSequential(new OverrideAuto(start));
+            addSequential(new AutoScoringSequence(start));
         }
         else {
             addSequential(new DriveForDistance(5));

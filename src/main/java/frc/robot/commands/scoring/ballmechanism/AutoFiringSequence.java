@@ -39,7 +39,7 @@ public class AutoFiringSequence extends CommandGroup {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.flywheel.isFlywheelReady()) {
+        if (Robot.flywheel.isFlywheelReady(false)) {
             double time = timeSinceInitialized();
             Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
             if (time > .15) {

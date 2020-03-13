@@ -39,11 +39,12 @@ public class DriveForDistance extends Command {
         double time = timeSinceInitialized();
         double speed;
         double position = Robot.drive.getDrivePosition();
-        double maxSpeed = 0.4;
+        double maxSpeed = 0.6;
+        double revTime = 0.3; // seconds
 
         // Sets the minimum and maximum speed of the robot during the command
-        if (time < 2) {
-            speed = Math.copySign(time * maxSpeed / 2, setpoint);
+        if (time < revTime) {
+            speed = Math.copySign(time * maxSpeed / revTime, setpoint);
         } else if (Math.abs(setpoint - position) > 2) {
             speed = (setpoint - position) * 0.2;
         } else {

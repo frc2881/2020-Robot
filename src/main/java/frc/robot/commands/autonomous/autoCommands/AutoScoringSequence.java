@@ -12,17 +12,21 @@ package frc.robot.commands.autonomous.autoCommands;
 
 import frc.robot.commands.autonomous.AutonomousFinish;
 import frc.robot.commands.autonomous.autoCommands.Enums.StartingPosition;
+import frc.robot.commands.background.drive.TurnToAngle;
 
 /**
  *
  */
-public class OverrideAuto extends AbstractAutoCommand {
+public class AutoScoringSequence extends AbstractAutoCommand {
 
-    OverrideAuto(StartingPosition start) {
+    AutoScoringSequence(StartingPosition start) {
 
         addSequential(new AutoScore(start));
         if (start == StartingPosition.PUSH_ALLIANCE_MEMBER) {
-            addSequential(new DriveForDistance(-5));
+            addSequential(new DriveForDistance(-1));
+            addSequential(new DriveForDistance(2));
+        } else {
+            addSequential(new DriveForDistance(-1));
         }
         addSequential(new AutonomousFinish());
         

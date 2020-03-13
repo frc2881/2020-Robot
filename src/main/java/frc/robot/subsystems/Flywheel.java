@@ -63,12 +63,18 @@ public class Flywheel extends Subsystem {
     public void initSendable(SendableBuilder builder) {
         super.initSendable(builder);
         builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
-        builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
+        builder.addBooleanProperty("Is Flywheel Ready", () -> isFlywheelReady(false), null);
     }
 
-    public boolean isFlywheelReady() {
+    public boolean isFlywheelReady(boolean autonomous) {
         boolean readyForHigh = getFlywheelRPM() > 4000 && isFlywheelFullSpeed();
-        boolean readyForLow = getFlywheelRPM() > 2000 && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
+        boolean readyForLow;
+
+        if (autonomous) {
+            readyForLow = getFlywheelRPM() > 2100;
+        } else {
+            readyForLow = getFlywheelRPM() > 2000 && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
+        }
 
         return readyForHigh || readyForLow;
     }

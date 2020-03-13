@@ -11,7 +11,7 @@ public class WaitUntilFlywheelReady extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Robot.flywheel.isFlywheelReady();
+        return Robot.flywheel.isFlywheelReady(true);
     }
 
     @Override

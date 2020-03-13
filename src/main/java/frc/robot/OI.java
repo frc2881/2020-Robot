@@ -87,6 +87,7 @@ public class OI {
     public JoystickButton manipulatorPOV180;
     public JoystickButton manipulatorPOV270;
     public JoystickButton manipulatorJoystickButtonLeft;
+    public JoystickButton manipulatorTrackpadButton;
     public Joystick driver;
     public Joystick manipulator;
 
@@ -186,6 +187,9 @@ public class OI {
 
         manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
+
+        manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 14);
+        manipulatorJoystickButtonLeft.whenPressed(new CalibrateArmEncoder(false));
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
         manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
