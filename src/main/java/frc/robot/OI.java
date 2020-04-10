@@ -126,16 +126,16 @@ public class OI {
 
         // POV Pad LEFT
         driverPOV0 = buttonFromPOV(driver, 0); // 
-        driverPOV0.whileHeld(new DoNothing());
+        driverPOV0.whileHeld(new TurnToAngle(0));
 
         driverPOV90 = buttonFromPOV(driver, 90); //
-        driverPOV90.whileHeld(new DoNothing());
+        driverPOV90.whileHeld(new TurnToAngle(90));
 
         driverPOV180 = buttonFromPOV(driver, 180); //
-        driverPOV180.whileHeld(new DoNothing());
+        driverPOV180.whileHeld(new TurnToAngle(180));
 
         driverPOV270 = buttonFromPOV(driver, 270); // 
-        driverPOV270.whileHeld(new DoNothing());
+        driverPOV270.whileHeld(new TurnToAngle(270));
 
 
 
