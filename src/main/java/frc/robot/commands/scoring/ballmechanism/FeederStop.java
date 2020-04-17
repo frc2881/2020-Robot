@@ -25,6 +25,7 @@ public class FeederStop extends InstantCommand {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.logRun(this);
         Robot.intake.feederStop =! Robot.intake.feederStop;
     }
 }

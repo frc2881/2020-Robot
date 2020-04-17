@@ -62,13 +62,15 @@ public class ArmToAngle extends Command {
 
     @Override
     protected void interrupted() {
+        Robot.logInterrupted(this);
         // call the drive subsystem to make sure the PID loop is disabled
-        end();
+        Robot.arm.setArmSpeed(0);
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.logEnd(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.arm.setArmSpeed(0);
     }

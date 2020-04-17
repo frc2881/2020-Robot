@@ -9,12 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.TimerTask;
-import frc.robot.Robot;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Drive.IntakeLocation;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Robot;
 
 public class Logging {
 
@@ -92,17 +90,6 @@ public class Logging {
 			}
 			sb.append(COMMA);
 		}*/
-
-		protected void add(String title, IntakeLocation value) {
-			if (writeTitles) {
-				sb.append(QUOTE).append(title).append(QUOTE);
-			}
-			else {
-				sb.append(value);
-			}
-			sb.append(COMMA);
-		}
-
 
 		protected void add(String title, boolean value) {
 			if (writeTitles) {

@@ -38,10 +38,9 @@ public class LiftInitialize extends InstantCommand {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.logInitialize(this);
+        Robot.logRun(this);
         if ((!Robot.isCompetitionMode() || (Robot.timeSinceStart() > 120)) && (Robot.arm.getArmPosition() > 10.7)) {
             Robot.lift.setLiftSolenoidExtended();
-            Robot.lift.readyForLift = true;
         }
     }
 }

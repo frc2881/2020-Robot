@@ -14,13 +14,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousCommand;
+import frc.robot.commands.DriveForDistance;
 import frc.robot.commands.background.*;
 import frc.robot.commands.background.drive.*;
 import frc.robot.commands.background.rumble.*;
 import frc.robot.commands.background.wait.*;
 import frc.robot.commands.scoring.arm.*;
 import frc.robot.commands.scoring.ballmechanism.*;
+import frc.robot.commands.scoring.flywheel.*;
 import frc.robot.commands.scoring.lift.*;
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -101,20 +102,20 @@ public class OI {
         driverPinkSquare.whileHeld(new DoNothing());
 
         /*driverBlueX = new JoystickButton(driver, 2);
-        driverBlueX.whenPressed(new IntakeSetAsBack());
+        driverBlueX.whenPressed(new DoNothing());
 
         driverRedCircle = new JoystickButton(driver, 3);
-        driverRedCircle.whileHeld(new DoNothing());
+        driverRedCircle.whenPressed(new FlywheelSwitch());
 
         driverGreenTriangle = new JoystickButton(driver, 4);
-        driverGreenTriangle.whenPressed(new IntakeSetAsFront());*/
+        driverGreenTriangle.whenPressed(new DoNothing());*/
 
         // Small Buttons
         driverShare = new JoystickButton(driver, 9); // ARCADE DRIVE SWITCH
-        driverShare.whileHeld(new SetArcadeDrive());
+        driverShare.whileHeld(new DoNothing());
 
         driverOption = new JoystickButton(driver, 10); // TANK DRIVE SWITCH
-        driverOption.whileHeld(new SetTankDrive());
+        driverOption.whileHeld(new DoNothing());
 
         //Bumpers
         driverLeftBumper = new JoystickButton(driver, 5); // Climber Leadscrew Down TODO
@@ -151,7 +152,7 @@ public class OI {
         manipulatorRedCircle.whenPressed(new FeederStop());
 
         manipulatorGreenTriangle = new JoystickButton(manipulator, 4); // BALL STORAGE OUT
-        manipulatorGreenTriangle.whileHeld(new IntakeTube(-0.5));
+        manipulatorGreenTriangle.whileHeld(new EjectStorage(-0.5));
 
         // Small Buttons
         manipulatorShare = new JoystickButton(manipulator, 9); // BALL OUT - LEFT
@@ -168,7 +169,7 @@ public class OI {
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new ControlFlywheel(-0.85));
+        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeedToggle());
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
         manipulatorRightBumper.whileHeld(new AutoFiringSequence());
@@ -192,7 +193,7 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());
         SmartDashboard.putData("Angle Calibrate Encoder", new AngleCalibrateEncoder());
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        SmartDashboard.putData("Autonomous Command", new DriveForDistance(5));
         SmartDashboard.putData("Do Nothing", new DoNothing());
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
         SmartDashboard.putData("Lift Control", new LiftControl());
@@ -202,8 +203,6 @@ public class OI {
         SmartDashboard.putData("Rumble Joysticks", new RumbleJoysticks());
         SmartDashboard.putData("Rumble Yes", new RumbleYes());
         SmartDashboard.putData("Rumble No", new RumbleNo());
-        SmartDashboard.putData("Intake Set As Front", new IntakeSetAsFront());
-        SmartDashboard.putData("Intake Set As Back", new IntakeSetAsBack());
         SmartDashboard.putData("Wait Forever", new WaitForever());
         SmartDashboard.putData("Wait For Pressure", new WaitForPressure());
 
@@ -237,6 +236,15 @@ public class OI {
         return manipulator;
     }
 
+    public double applyDeadband(double input, double deadband) {
+        if(Math.abs(input)<deadband){
+            return 0.0;
+        }
+        else{
+            return input;
+        }
+    }
+
     // DRIVER Joysticks
 
     public double getDriverLeftX() {
@@ -248,7 +256,7 @@ public class OI {
     }
 
     public double getDriverRightX() {
-        return driver.getRawAxis(2);
+        return applyDeadband(driver.getRawAxis(2), 0.1);
     }
 
     public double getDriverRightY() {

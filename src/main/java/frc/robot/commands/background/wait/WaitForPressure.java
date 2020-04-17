@@ -12,6 +12,7 @@
 package frc.robot.commands.background.wait;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 /**
  *
@@ -30,7 +31,7 @@ public class WaitForPressure extends Command {
     
         @Override
         protected void initialize() {
-            //Robot.logInitialize(this);
+            Robot.logInitialize(this);
         }
     
         // Called repeatedly when this Command is scheduled to run
@@ -47,6 +48,6 @@ public class WaitForPressure extends Command {
     
         @Override
         protected void end() {
-            //Robot.logEnd(this);
+            Robot.logEnd(this);
         }
     }
