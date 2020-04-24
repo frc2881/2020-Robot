@@ -28,6 +28,7 @@ public class ArmToAngle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        Robot.logInitialize(this);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -50,7 +51,9 @@ public class ArmToAngle extends Command {
             speed = 0;
         }
 
-        Robot.arm.setArmSpeed(speed);
+        Robot.log("remaining distance: " + difference);
+        Robot.log("speed: " + speed);
+        Robot.arm.setArmSpeed(-speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
