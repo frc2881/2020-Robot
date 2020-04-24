@@ -50,7 +50,7 @@ public class ArmToAngle extends Command {
             speed = 0;
         }
 
-        Robot.arm.setArmSpeed(-speed);
+        Robot.arm.setArmSpeed(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
