@@ -184,8 +184,8 @@ public class OI {
         manipulatorPOV270 = buttonFromPOV(manipulator, 270); // ARM HEIGHT 40
         manipulatorPOV270.whileHeld(new ArmToAngle(50));
 
-        manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
-        manipulatorPOV0.whileHeld(new ArmToAngle(60));
+        manipulatorPOV0 = buttonFromPOV(manipulator, 0); // TEST FLYWHEEL TOGGLE
+        manipulatorPOV0.whenPressed(new FlywheelSwitch());
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
         manipulatorJoystickButtonLeft.whenPressed(new FeederSwitch());
