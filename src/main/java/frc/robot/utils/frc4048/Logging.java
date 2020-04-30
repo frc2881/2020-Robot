@@ -17,7 +17,7 @@ import frc.robot.Robot;
 public class Logging {
 
 	public static enum Subsystems {
-		ARM, DRIVE, INTAKE, LIFT, PNEUMATICS
+		ARM, BALLSTORAGE, CONTROLPANEL, DRIVE, FLYWHEEL, INTAKE, LIFT, PNEUMATICS
 	}
 
 	private boolean writeLoggingGap = false;
@@ -45,7 +45,7 @@ public class Logging {
 		public LoggingContext(final Subsystems subsystem) {
 			this.subsystem = subsystem;
 		}
-		
+
 		abstract protected void addAll();
 		
 		final void writeHeadings() {
