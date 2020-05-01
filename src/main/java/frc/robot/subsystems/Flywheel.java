@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.scoring.flywheel.ControlFlywheel;
 import frc.robot.subsystems.Intake.RollerDirection;
+import frc.robot.utils.frc4048.Logging;
 
 
 public class Flywheel extends Subsystem {
@@ -113,5 +114,15 @@ public class Flywheel extends Subsystem {
         // Put code here to be run every loop
 
     }
+
+    public Logging.LoggingContext loggingContext = new Logging.LoggingContext(Logging.Subsystems.FLYWHEEL){
+
+        @Override
+        protected void addAll(){
+            add("FLYWHEEL: BusVoltage", flywheel.getBusVoltage());
+            add("FLYWHEEL: OutputCurrent", flywheel.getOutputCurrent());
+            add("FLYWHEEL: StickyFaults", flywheel.getStickyFaults());
+        }
+    };
 
 }
