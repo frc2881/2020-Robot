@@ -196,7 +196,7 @@ public class Drive extends Subsystem {
             add("right FRONT: BusVoltage", rightFront.getBusVoltage());
             add("right FRONT: OutputCurrent", rightFront.getOutputCurrent());
             add("right FRONT: StickyFaults", rightFront.getStickyFaults());
-            add("right REAR: Bus Voltage", rightRear.getBusVoltage());
+            add("right REAR: BusVoltage", rightRear.getBusVoltage());
             add("right REAR: OutputCurrent", rightRear.getOutputCurrent());
             add("right REAR: StickyFaults", rightRear.getStickyFaults());
         }
