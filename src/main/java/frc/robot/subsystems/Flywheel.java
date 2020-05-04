@@ -24,8 +24,6 @@ public class Flywheel extends Subsystem {
     private CANSparkMax flywheel;
     private CANEncoder flywheelEncoder;
     private DoubleSupplier flywheelVelocity;
-    private NetworkTableEntry flywheelSlider;
-    private double flywheelBound;
 
     private boolean flywheelStop = false;
     private boolean flywheelFullSpeed = false;
@@ -39,14 +37,6 @@ public class Flywheel extends Subsystem {
 
         flywheelEncoder = flywheel.getEncoder();
         flywheelVelocity = () -> flywheelEncoder.getVelocity();
-
-        flywheelSlider = Shuffleboard.getTab("Drive")
-        .add("Min RPM", 2000)
-        .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("1000", 1000, "2000", 2000))
-        .getEntry();
-
-        flywheelBound = flywheelSlider.getDouble(2000);
     }
 
     public void toggleFlywheelStopped() {
@@ -76,17 +66,11 @@ public class Flywheel extends Subsystem {
         super.initSendable(builder);
         builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
         builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
-        builder.addDoubleProperty("Flywheel Slider Value", this::flywheelSupplier, null);
-    }
-
-    public double flywheelSupplier() {
-        flywheelBound = flywheelSlider.getDouble(2000);
-        return flywheelBound;
     }
 
     public boolean isFlywheelReady() {
-        boolean readyForHigh = getFlywheelRPM() > 4000 && isFlywheelFullSpeed();
-        boolean readyForLow = getFlywheelRPM() > flywheelBound && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
+        boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
+        boolean readyForLow = getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
 
         return readyForHigh || readyForLow;
     }
