@@ -11,7 +11,6 @@
 package frc.robot.commands.scoring.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 
 /**
@@ -36,16 +35,17 @@ public class ArmToAngle extends Command {
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
         double time = timeSinceInitialized();
-        double speed; 
+        double speed;
         double difference = height - Robot.arm.getArmPosition();
         // Sets the minimum and maximum speed of the robot during the command
-        if (time < 1) {
-            speed = Math.copySign(time, difference);
-        } else if (Math.abs(difference) <= 0.5) {
+        
+        if (Math.abs(difference) <= 0.3) {
             speed = 0;
-        } else if (Math.abs(difference) < 5) {
-            speed = difference * 0.2;
-        } else if (Math.abs(difference) > 5) {
+        } else if (time < 1) {
+            speed = Math.copySign(time, difference);
+        } else if (Math.abs(difference) < 2) {
+            speed = difference * 0.5 + 0.075;
+        } else if (Math.abs(difference) >= 2) {
             speed = Math.copySign(1, difference);
         } else {
             speed = 0;
