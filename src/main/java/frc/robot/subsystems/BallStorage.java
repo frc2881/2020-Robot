@@ -126,7 +126,7 @@ public class BallStorage extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new EjectStorage(0));
+        setDefaultCommand(new AutoFiringSequence());
 
     }
 }

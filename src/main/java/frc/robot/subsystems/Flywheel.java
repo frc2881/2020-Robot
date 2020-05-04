@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import java.util.Map;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.CANEncoder;
@@ -8,10 +7,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.scoring.flywheel.ControlFlywheel;
 import frc.robot.subsystems.Intake.RollerDirection;
@@ -19,13 +15,15 @@ import frc.robot.subsystems.Intake.RollerDirection;
 
 public class Flywheel extends Subsystem {
 
+    public enum FlywheelStates{FULL, HALF, STOP}
+
     public boolean flywheelReady = false;
 
     private CANSparkMax flywheel;
     private CANEncoder flywheelEncoder;
     private DoubleSupplier flywheelVelocity;
 
-    private boolean flywheelStop = false;
+    private boolean flywheelStop = true;
     private boolean flywheelFullSpeed = false;
 
     public Flywheel() {
@@ -47,8 +45,13 @@ public class Flywheel extends Subsystem {
         return flywheelStop;
     }
 
-    public void setFlywheelSpeed(boolean halfSpeed) {
-        flywheelFullSpeed = halfSpeed;
+    public void setFlywheelSpeedState(FlywheelStates speed) {
+        if (speed == FlywheelStates.STOP){
+            flywheelStop = true;
+        } else {
+            flywheelStop = false;
+            flywheelFullSpeed = speed == FlywheelStates.FULL;
+        }
     }
 
     public boolean isFlywheelFullSpeed() {
