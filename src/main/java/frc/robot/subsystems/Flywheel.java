@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import java.util.Map;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.CANEncoder;
@@ -7,8 +8,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.scoring.flywheel.ControlFlywheel;
 import frc.robot.subsystems.Intake.RollerDirection;
@@ -20,21 +23,30 @@ public class Flywheel extends Subsystem {
 
     private CANSparkMax flywheel;
     private CANEncoder flywheelEncoder;
-    private Solenoid flywheelSolenoid;
     private DoubleSupplier flywheelVelocity;
+    private NetworkTableEntry flywheelSlider;
+    private double flywheelBound;
 
     private boolean flywheelStop = false;
     private boolean flywheelFullSpeed = false;
 
     public Flywheel() {
 
-    flywheel = new CANSparkMax(6, MotorType.kBrushless);
-    flywheel.setInverted(true);
-    flywheel.setIdleMode(IdleMode.kCoast);
-    flywheel.setSmartCurrentLimit(70);
+        flywheel = new CANSparkMax(6, MotorType.kBrushless);
+        flywheel.setInverted(true);
+        flywheel.setIdleMode(IdleMode.kCoast);
+        flywheel.setSmartCurrentLimit(70);
 
-    flywheelEncoder = flywheel.getEncoder();
-    flywheelVelocity = () -> flywheelEncoder.getVelocity();
+        flywheelEncoder = flywheel.getEncoder();
+        flywheelVelocity = () -> flywheelEncoder.getVelocity();
+
+        flywheelSlider = Shuffleboard.getTab("Drive")
+        .add("Min RPM", 2000)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("1000", 1000, "2000", 2000))
+        .getEntry();
+
+        flywheelBound = flywheelSlider.getDouble(2000);
     }
 
     public void toggleFlywheelStopped() {
@@ -64,11 +76,17 @@ public class Flywheel extends Subsystem {
         super.initSendable(builder);
         builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
         builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
+        builder.addDoubleProperty("Flywheel Slider Value", this::flywheelSupplier, null);
+    }
+
+    public double flywheelSupplier() {
+        flywheelBound = flywheelSlider.getDouble(2000);
+        return flywheelBound;
     }
 
     public boolean isFlywheelReady() {
         boolean readyForHigh = getFlywheelRPM() > 4000 && isFlywheelFullSpeed();
-        boolean readyForLow = getFlywheelRPM() > 2000 && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
+        boolean readyForLow = getFlywheelRPM() > flywheelBound && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
 
         return readyForHigh || readyForLow;
     }
