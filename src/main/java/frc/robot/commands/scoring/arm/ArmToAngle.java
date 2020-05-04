@@ -18,12 +18,12 @@ import frc.robot.Robot;
  *
  */
 public class ArmToAngle extends Command {
-    private double angle;
-    private static double beginningPosition;
+    private double height;
 
     public ArmToAngle(double angle) {
-        requires(Robot.drive);
-        angle = this.angle;
+        requires(Robot.arm);
+        height = Robot.arm.toHeightInches(angle);
+
     }
 
     // Called just before this Command runs the first time
@@ -37,7 +37,7 @@ public class ArmToAngle extends Command {
         // Calls to the subsystem to update the angle if controller value has changed
         double time = timeSinceInitialized();
         double speed; 
-        double difference = angle - Robot.arm.getArmAngle();
+        double difference = height - Robot.arm.getArmPosition();
         // Sets the minimum and maximum speed of the robot during the command
         if (time < 1) {
             speed = Math.copySign(time, difference);
@@ -60,7 +60,7 @@ public class ArmToAngle extends Command {
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return Math.abs(angle - Robot.arm.getArmAngle()) < 0.5;
+        return Math.abs(height - Robot.arm.getArmPosition()) < 0.1;
     }
 
     @Override
