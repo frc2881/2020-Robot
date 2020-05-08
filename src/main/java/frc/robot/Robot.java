@@ -154,7 +154,7 @@ public class Robot extends TimedRobot {
         printRobotMode("STARTING AUTONOMOUS", "-");
         logging.traceMessage(
 				"---------------------------- Autonomous mode starting ----------------------------");
-		//logging.printHeadings();
+		//logging.writeAllHeadings();
 		StringBuilder gameInfo = new StringBuilder();
 		gameInfo.append("Match Number=");
 		gameInfo.append(DriverStation.getInstance().getMatchNumber());
@@ -190,6 +190,9 @@ public class Robot extends TimedRobot {
         if (!isCompetitionMode()) {
             resetRobot();
         }
+        logging.traceMessage(
+                "---------------------------- Teleop mode starting ----------------------------");
+        logging.writeAllHeadings();
     }
 
     /**
@@ -198,6 +201,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        logging.writeAllData();
     }
 
     public static double timeSinceStart() {

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.TimerTask;
@@ -17,7 +18,7 @@ import frc.robot.Robot;
 public class Logging {
 
 	public static enum Subsystems {
-		ARM, DRIVE, INTAKE, LIFT, PNEUMATICS
+		ARM, BALLSTORAGE, CONTROLPANEL, DRIVE, FLYWHEEL, INTAKE, LIFT, PNEUMATICS
 	}
 
 	private boolean writeLoggingGap = false;
@@ -28,6 +29,7 @@ public class Logging {
 	public static DecimalFormat df5 = new DecimalFormat(".#####");
 	public static DecimalFormat df4 = new DecimalFormat(".####");
 	public static DecimalFormat df3 = new DecimalFormat(".###");
+	private final static ArrayList<LoggingContext> loggingContexts = new ArrayList<LoggingContext>();
 
 	public Logging(long period, WorkQueue wq) {
 		this.period = period;
@@ -44,8 +46,9 @@ public class Logging {
 		
 		public LoggingContext(final Subsystems subsystem) {
 			this.subsystem = subsystem;
+			loggingContexts.add(this);
 		}
-		
+
 		abstract protected void addAll();
 		
 		final void writeHeadings() {
@@ -196,12 +199,28 @@ public class Logging {
 		traceMessage(sb);
 	}
 
-	/*public void printHeadings() {
-		final LoggingContext list[] = { Robot.drive.loggingContext, Robot.intake.loggingContext, Robot.arm.loggingContext};
-		for (final LoggingContext c : list) {
-			c.writeHeadings();
-		}
-	}*/
+    /**
+     * Iterate through the known logging contexts and write the data for each of
+     * them. Logs one logging context every time it'called. It's called by the
+     * period() method and we want to spread the cost of logging over multiple calls
+     * so we don't run over the 20ms budget.
+     */
+    public void writeAllData() {
+        for (final LoggingContext lc : loggingContexts) {
+            lc.writeData();
+        }
+    }
+
+    /**
+     * Iterate through all known logging contexts and write the title for each of
+     * them. The #writeAllData and #writeAllTitles functions must iterate through
+     * the contexts in the same order so the titles and data are corresponding.
+     */
+    public void writeAllHeadings() {
+        for (final LoggingContext lc : loggingContexts) {
+            lc.writeHeadings();
+        }
+    }
 
 	private class ConsolePrintTask extends TimerTask {
 		PrintWriter log;
@@ -242,7 +261,7 @@ public class Logging {
 					}
 					Date date = new Date();
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_ss-SSS");
-					dateFormat.setTimeZone(TimeZone.getTimeZone("EST5EDT"));
+					dateFormat.setTimeZone(TimeZone.getTimeZone("CST6CDT"));
 					try {
 						this.log = new PrintWriter("/media/sda1/" + dateFormat.format(date) + "-Log.csv", "UTF-8");
 					} catch (Exception e) {
