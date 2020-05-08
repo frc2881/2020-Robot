@@ -48,9 +48,9 @@ public class ControlFlywheel extends Command {
             if (Robot.lift.readyForLift() || Robot.flywheel.getFlywheelStopped()) {
                 speed = 0;
             } else if (Robot.flywheel.isFlywheelFullSpeed()) {
-                speed = 0.85;
+                speed = 0.9;
             } else {
-                speed = 0.5;
+                speed = 0.65;
             }
 
             Robot.flywheel.setFlywheel(speed);

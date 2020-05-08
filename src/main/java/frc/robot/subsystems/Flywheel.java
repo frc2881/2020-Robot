@@ -61,7 +61,7 @@ public class Flywheel extends Subsystem {
     public void reset() {
         flywheelReady = false;
         flywheelFullSpeed = false;
-        flywheelStop = false;
+        flywheelStop = true;
     }
     
     @Override
@@ -75,7 +75,7 @@ public class Flywheel extends Subsystem {
         boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
         boolean readyForLow = getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
 
-        return readyForHigh || readyForLow;
+        return (readyForHigh || readyForLow) && !flywheelStop;
     }
 
     public void intakeFlywheel(double speed, RollerDirection state) {
