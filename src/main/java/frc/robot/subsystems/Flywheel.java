@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.scoring.flywheel.ControlFlywheel;
@@ -16,25 +15,26 @@ import frc.robot.subsystems.Intake.RollerDirection;
 
 public class Flywheel extends Subsystem {
 
+    public enum FlywheelStates{FULL, HALF, STOP}
+
     public boolean flywheelReady = false;
 
     private CANSparkMax flywheel;
     private CANEncoder flywheelEncoder;
-    private Solenoid flywheelSolenoid;
     private DoubleSupplier flywheelVelocity;
 
-    private boolean flywheelStop = false;
+    private boolean flywheelStop = true;
     private boolean flywheelFullSpeed = false;
 
     public Flywheel() {
 
-    flywheel = new CANSparkMax(6, MotorType.kBrushless);
-    flywheel.setInverted(true);
-    flywheel.setIdleMode(IdleMode.kCoast);
-    flywheel.setSmartCurrentLimit(70);
+        flywheel = new CANSparkMax(6, MotorType.kBrushless);
+        flywheel.setInverted(true);
+        flywheel.setIdleMode(IdleMode.kCoast);
+        flywheel.setSmartCurrentLimit(70);
 
-    flywheelEncoder = flywheel.getEncoder();
-    flywheelVelocity = () -> flywheelEncoder.getVelocity();
+        flywheelEncoder = flywheel.getEncoder();
+        flywheelVelocity = () -> flywheelEncoder.getVelocity();
     }
 
     public void toggleFlywheelStopped() {
@@ -45,8 +45,13 @@ public class Flywheel extends Subsystem {
         return flywheelStop;
     }
 
-    public void setFlywheelSpeed(boolean halfSpeed) {
-        flywheelFullSpeed = halfSpeed;
+    public void setFlywheelSpeedState(FlywheelStates speed) {
+        if (speed == FlywheelStates.STOP){
+            flywheelStop = true;
+        } else {
+            flywheelStop = false;
+            flywheelFullSpeed = speed == FlywheelStates.FULL;
+        }
     }
 
     public boolean isFlywheelFullSpeed() {
@@ -56,7 +61,7 @@ public class Flywheel extends Subsystem {
     public void reset() {
         flywheelReady = false;
         flywheelFullSpeed = false;
-        flywheelStop = false;
+        flywheelStop = true;
     }
     
     @Override
@@ -67,10 +72,10 @@ public class Flywheel extends Subsystem {
     }
 
     public boolean isFlywheelReady() {
-        boolean readyForHigh = getFlywheelRPM() > 4000 && isFlywheelFullSpeed();
-        boolean readyForLow = getFlywheelRPM() > 2000 && getFlywheelRPM() < 2400 && !isFlywheelFullSpeed();
+        boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
+        boolean readyForLow = getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
 
-        return readyForHigh || readyForLow;
+        return (readyForHigh || readyForLow) && !flywheelStop;
     }
 
     public void intakeFlywheel(double speed, RollerDirection state) {
