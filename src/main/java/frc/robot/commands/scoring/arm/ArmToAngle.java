@@ -39,12 +39,17 @@ public class ArmToAngle extends Command {
         double difference = height - Robot.arm.getArmPosition();
         // Sets the minimum and maximum speed of the robot during the command
         
+
         if (Math.abs(difference) <= 0.1) {
             speed = 0;
         } else if (time < 1) {
             speed = Math.copySign(time, difference);
         } else if (Math.abs(difference) < 2) {
-            speed = Math.copySign(Math.abs(difference) * 0.5 + 0.025, difference);
+            if (difference > 0) {
+                speed = difference * 0.5 + 0.05;
+            } else {
+                speed = difference * 0.35;
+            }
         } else if (Math.abs(difference) >= 2) {
             speed = Math.copySign(1, difference);
         } else {
