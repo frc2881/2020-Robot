@@ -199,28 +199,28 @@ public class Logging {
 		traceMessage(sb);
 	}
 
-  /**
-   * Iterate through the known logging contexts and write the data for each of
-   * them. Logs one logging context every time it'called. It's called by the
-   * period() method and we want to spread the cost of logging over multiple calls
-   * so we don't run over the 20ms budget.
-   */
-  public void writeAllData() {
-    for (final LoggingContext lc : loggingContexts) {
-        lc.writeData();
+    /**
+     * Iterate through the known logging contexts and write the data for each of
+     * them. Logs one logging context every time it'called. It's called by the
+     * period() method and we want to spread the cost of logging over multiple calls
+     * so we don't run over the 20ms budget.
+     */
+    public void writeAllData() {
+        for (final LoggingContext lc : loggingContexts) {
+            lc.writeData();
+        }
     }
-  }
 
-  /**
-   * Iterate through all known logging contexts and write the title for each of
-   * them. The #writeAllData and #writeAllTitles functions must iterate through
-   * the contexts in the same order so the titles and data are corresponding.
-   */
-  public void writeAllHeadings() {
-    for (final LoggingContext lc : loggingContexts) {
-      lc.writeHeadings();
+    /**
+     * Iterate through all known logging contexts and write the title for each of
+     * them. The #writeAllData and #writeAllTitles functions must iterate through
+     * the contexts in the same order so the titles and data are corresponding.
+     */
+    public void writeAllHeadings() {
+        for (final LoggingContext lc : loggingContexts) {
+            lc.writeHeadings();
+        }
     }
-  }
 
 	private class ConsolePrintTask extends TimerTask {
 		PrintWriter log;
@@ -261,7 +261,7 @@ public class Logging {
 					}
 					Date date = new Date();
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_ss-SSS");
-					dateFormat.setTimeZone(TimeZone.getTimeZone("EST5EDT"));
+					dateFormat.setTimeZone(TimeZone.getTimeZone("CST6CDT"));
 					try {
 						this.log = new PrintWriter("/media/sda1/" + dateFormat.format(date) + "-Log.csv", "UTF-8");
 					} catch (Exception e) {

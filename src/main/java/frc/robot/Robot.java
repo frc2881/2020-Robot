@@ -190,7 +190,9 @@ public class Robot extends TimedRobot {
         if (!isCompetitionMode()) {
             resetRobot();
         }
-		logging.writeAllHeadings();
+        logging.traceMessage(
+                "---------------------------- Teleop mode starting ----------------------------");
+        logging.writeAllHeadings();
     }
 
     /**
