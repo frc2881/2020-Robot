@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.commands.scoring.flywheel.ControlFlywheel;
@@ -20,7 +19,6 @@ public class Flywheel extends Subsystem {
 
     private CANSparkMax flywheel;
     private CANEncoder flywheelEncoder;
-    private Solenoid flywheelSolenoid;
     private DoubleSupplier flywheelVelocity;
 
     private boolean flywheelStop = false;

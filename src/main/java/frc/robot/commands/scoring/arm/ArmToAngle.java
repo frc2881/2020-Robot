@@ -44,7 +44,7 @@ public class ArmToAngle extends Command {
         } else if (time < 1) {
             speed = Math.copySign(time, difference);
         } else if (Math.abs(difference) < 2) {
-            speed = difference * 0.5 + 0.075;
+            speed = Math.copySign(Math.abs(difference) * 0.5 + 0.025, difference);
         } else if (Math.abs(difference) >= 2) {
             speed = Math.copySign(1, difference);
         } else {
