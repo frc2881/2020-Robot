@@ -38,13 +38,15 @@ public class ArmToAngle extends Command {
         double speed;
         double difference = height - Robot.arm.getArmPosition() + 0.2;
         double multiplier = difference > 0 ? 0.6 : 0.3;
-        // Sets the minimum and maximum speed of the robot during the command
-        
 
-        if (Math.abs(difference) <= 0.08) {
+        //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
+        //to adjust deadband change the last number in isFinished()
+        //to adjust speed when going up/down: change multiplier
+
+        if (Math.abs(difference) <= 0.1) {
             speed = 0;
         } else if (time < 1) {
-            speed = Math.copySign(time * multiplier + 0.08, difference);
+            speed = Math.copySign(time * (multiplier - 0.1) + 0.1, difference);
         } else if (Math.abs(difference) < 2) {
             speed = difference / 2 * multiplier;
         } else if (Math.abs(difference) >= 2) {
@@ -62,7 +64,7 @@ public class ArmToAngle extends Command {
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return Math.abs(height - Robot.arm.getArmPosition() + 0.1) <= 0.15;
+        return Math.abs(height - Robot.arm.getArmPosition() + 0.1) <= 0.1;
     }
 
     @Override
