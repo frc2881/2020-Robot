@@ -36,18 +36,18 @@ public class ArmToAngle extends Command {
         // Calls to the subsystem to update the angle if controller value has changed
         double time = timeSinceInitialized();
         double speed;
-        double difference = height - Robot.arm.getArmPosition();
+        double difference = height - Robot.arm.getArmPosition() + 0.1;
         double multiplier = difference > 0 ? 0.6 : 0.35;
         // Sets the minimum and maximum speed of the robot during the command
         
 
-        if (Math.abs(difference) <= 0.15) {
+        if (Math.abs(difference) <= 0.05) {
             speed = 0;
         } else if (time < 1) {
             speed = Math.copySign(time * multiplier + 0.05, difference);
-        } else if (Math.abs(difference) < 3) {
-            speed = difference * multiplier;
-        } else if (Math.abs(difference) >= 3) {
+        } else if (Math.abs(difference) < 2) {
+            speed = difference / 2 * multiplier;
+        } else if (Math.abs(difference) >= 2) {
             speed = Math.copySign(multiplier, difference);
         } else {
             speed = 0;
