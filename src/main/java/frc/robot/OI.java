@@ -15,14 +15,31 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.background.*;
-import frc.robot.commands.background.drive.*;
-import frc.robot.commands.background.rumble.*;
-import frc.robot.commands.background.wait.*;
-import frc.robot.commands.scoring.arm.*;
-import frc.robot.commands.scoring.ballmechanism.*;
-import frc.robot.commands.scoring.flywheel.*;
-import frc.robot.commands.scoring.lift.*;
+import frc.robot.commands.background.SetSpotlight;
+import frc.robot.commands.background.TWINKLES;
+import frc.robot.commands.background.drive.DriveWithJoysticks;
+import frc.robot.commands.background.rumble.RumbleDriver;
+import frc.robot.commands.background.rumble.RumbleJoysticks;
+import frc.robot.commands.background.rumble.RumbleNo;
+import frc.robot.commands.background.rumble.RumbleYes;
+import frc.robot.commands.background.wait.DoNothing;
+import frc.robot.commands.background.wait.WaitForPressure;
+import frc.robot.commands.background.wait.WaitForever;
+import frc.robot.commands.scoring.arm.AngleCalibrateEncoder;
+import frc.robot.commands.scoring.arm.ArmControl;
+import frc.robot.commands.scoring.arm.ArmToAngle;
+import frc.robot.commands.scoring.ballmechanism.ArmAligningControl;
+import frc.robot.commands.scoring.ballmechanism.ArmAligningControl.Alignment;
+import frc.robot.commands.scoring.ballmechanism.ArmAligningControl.Direction;
+import frc.robot.commands.scoring.ballmechanism.AutoFiringSequence;
+import frc.robot.commands.scoring.ballmechanism.EjectStorage;
+import frc.robot.commands.scoring.ballmechanism.FeederStop;
+import frc.robot.commands.scoring.ballmechanism.FeederSwitch;
+import frc.robot.commands.scoring.ballmechanism.IntakeFor7Inches;
+import frc.robot.commands.scoring.flywheel.FlywheelFullSpeedToggle;
+import frc.robot.commands.scoring.lift.LiftControl;
+import frc.robot.commands.scoring.lift.LiftInitialize;
+import frc.robot.commands.scoring.lift.LiftToHeight;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -156,17 +173,17 @@ public class OI {
 
         // Small Buttons
         manipulatorShare = new JoystickButton(manipulator, 9); // BALL OUT - LEFT
-        manipulatorShare.whileHeld(new ArmAligningControl(true, false));
+        manipulatorShare.whileHeld(new ArmAligningControl(Alignment.LEFT, Direction.EJECT));
 
         manipulatorOption = new JoystickButton(manipulator, 10); // BALL OUT - RIGHT
-        manipulatorOption.whileHeld(new ArmAligningControl(false, false));
+        manipulatorOption.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.EJECT));
 
         // Triggers + Bumpers
         manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT
-        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, true));
+        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(Alignment.LEFT, Direction.CENTER));
 
         manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT
-        manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
+        manipulatorRightTrigger.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.CENTER));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
         manipulatorLeftBumper.whileHeld(new FlywheelFullSpeedToggle());
