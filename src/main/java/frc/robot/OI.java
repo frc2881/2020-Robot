@@ -23,7 +23,6 @@ import frc.robot.commands.scoring.arm.*;
 import frc.robot.commands.scoring.ballmechanism.*;
 import frc.robot.commands.scoring.flywheel.*;
 import frc.robot.commands.scoring.lift.*;
-import frc.robot.subsystems.Flywheel.FlywheelStates;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -169,11 +168,11 @@ public class OI {
         manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
-        manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.HALF));
+        manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL LOW SPEED
+        manipulatorLeftBumper.whileHeld(new FireAtSpeed(45));
 
-        manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
-        manipulatorRightBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.FULL));
+        manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL HIGH SPEED
+        manipulatorRightBumper.whileHeld(new FireAtSpeed(85));
 
         // POV Pad LEFT
         manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
