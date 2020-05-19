@@ -3,9 +3,12 @@ package frc.robot.subsystems;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANPIDController.AccelStrategy;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.ControlType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
@@ -20,9 +23,19 @@ public class Flywheel extends Subsystem {
 
     public boolean flywheelReady = false;
 
-    private CANSparkMax flywheel;
-    private CANEncoder flywheelEncoder;
-    private DoubleSupplier flywheelVelocity;
+    public final double kP = 0.5; 
+    public final double kI = 0;
+    public final double kD = 0; 
+    public final double kIz = 0; 
+    public final double kFF = 0;
+    public final double kMaxOutput = 1;
+    public final double kMinOutput = -1;
+    public final double maxRPM = 5700;
+
+    private final CANSparkMax flywheel;
+    private final CANEncoder flywheelEncoder;
+    private final CANPIDController flywheelPID;
+    private final DoubleSupplier flywheelVelocity;
 
     private boolean flywheelStop = true;
     private boolean flywheelFullSpeed = false;
@@ -36,6 +49,16 @@ public class Flywheel extends Subsystem {
 
         flywheelEncoder = flywheel.getEncoder();
         flywheelVelocity = () -> flywheelEncoder.getVelocity();
+
+        flywheelPID = flywheel.getPIDController();
+
+        // set PID coefficients - FLYWHEEL PID LOOP
+        flywheelPID.setP(kP);
+        flywheelPID.setI(kI);
+        flywheelPID.setD(kD);
+        flywheelPID.setIZone(kIz);
+        flywheelPID.setFF(kFF);
+        flywheelPID.setOutputRange(kMinOutput, kMaxOutput);
     }
 
     public void toggleFlywheelStopped() {
@@ -46,8 +69,8 @@ public class Flywheel extends Subsystem {
         return flywheelStop;
     }
 
-    public void setFlywheelSpeedState(FlywheelStates speed) {
-        if (speed == FlywheelStates.STOP){
+    public void setFlywheelSpeedState(final FlywheelStates speed) {
+        if (speed == FlywheelStates.STOP) {
             flywheelStop = true;
         } else {
             flywheelStop = false;
@@ -58,46 +81,32 @@ public class Flywheel extends Subsystem {
     public boolean isFlywheelFullSpeed() {
         return flywheelFullSpeed;
     }
-   
+
     public void reset() {
         flywheelReady = false;
         flywheelFullSpeed = false;
         flywheelStop = true;
     }
-    
+
     @Override
-    public void initSendable(SendableBuilder builder) {
+    public void initSendable(final SendableBuilder builder) {
         super.initSendable(builder);
         builder.addDoubleProperty("Flywheel RPM", this::getFlywheelRPM, null);
         builder.addBooleanProperty("Is Flywheel Ready", this::isFlywheelReady, null);
     }
 
     public boolean isFlywheelReady() {
-        boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
-        boolean readyForLow = getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
+        final boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
+        final boolean readyForLow = getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
 
         return (readyForHigh || readyForLow) && !flywheelStop;
     }
 
-    public void intakeFlywheel(double speed, RollerDirection state) {
-        if (state == RollerDirection.INTAKE) {
-            flywheel.set(-speed);
-        } else {
-            // EJECT
-            flywheel.set(speed);
-        }
+    public void setFlywheelRPM(final double RPM) {
+        flywheelPID.setReference(RPM, ControlType.kVelocity);
     }
 
-    public void flywheel(double speed) {
-        flywheel.set(speed);
-    }
-
-    public boolean getIntakeFlywheel() {
-        return (flywheel.get() > 0.05);
-        // return if sufficient speed?
-    }
-
-    public void setFlywheel(double speed) {
+    public void setFlywheel(final double speed) {
         flywheel.set(speed);
     }
 
