@@ -23,13 +23,13 @@ public class Flywheel extends Subsystem {
 
     public boolean flywheelReady = false;
 
-    public final double kP = 0.5; 
-    public final double kI = 0;
+    public final double kP = 0; 
+    public final double kI = 0.0000000017; //tuning
     public final double kD = 0; 
     public final double kIz = 0; 
-    public final double kFF = 0;
+    public final double kFF = 0.000173; //around 1 over 6000, based off of original P value of testing
     public final double kMaxOutput = 1;
-    public final double kMinOutput = -1;
+    public final double kMinOutput = 0;
     public final double maxRPM = 5700;
 
     private final CANSparkMax flywheel;
