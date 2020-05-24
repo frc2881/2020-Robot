@@ -8,58 +8,68 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package frc.robot.commands.scoring.ballmechanism;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.commands.scoring.flywheel.FlywheelFullSpeed;
-import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.BallStorage.RollerDirection;
 
 /**
  *
  */
-public class AutoFiringSequence extends Command {
+public class DriveForDistance extends Command {
 
-    public AutoFiringSequence() {
-        requires(Robot.ballStorage);
+    private double setpoint;
+
+    public DriveForDistance(double setpointFeet) {
+        requires(Robot.drive);
+        this.setpoint = setpointFeet * 12;
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         Robot.logInitialize(this);
+        Robot.log("Starting to drive autonomously for " + setpoint / 12 + " feet!");
+        Robot.drive.resetDriveEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.flywheel.isFlywheelReady()) {
-            double time = timeSinceInitialized();
-            Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
-            if (time > .15) {
-                Robot.ballStorage.armAlign(1, 1);
-            } else {
-                Robot.ballStorage.armAlign(1, 0);
-            }
+        double time = timeSinceInitialized();
+        double speed;
+        double position = Robot.drive.getDrivePosition();
+        double maxSpeed = 0.4;
+
+        // Sets the minimum and maximum speed of the robot during the command
+        if (time < 2) {
+            speed = Math.copySign(time * maxSpeed / 2, setpoint);
+        } else if (Math.abs(setpoint - position) > 2) {
+            speed = (setpoint - position) * 0.2;
         } else {
-            Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-            Robot.ballStorage.armAlign(0, 0);
+            speed = 0;
         }
+
+        if (Math.abs(speed) > maxSpeed) {
+            speed = Math.copySign(maxSpeed, speed);
+        } else if (Math.abs(speed) < 0.05) {
+            speed = 0;
+        }
+
+        Robot.drive.tankDrive(speed, speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return Math.abs(setpoint - Robot.drive.getDrivePosition()) <= 2;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void interrupted() {
         Robot.logInterrupted(this);
-        Robot.ballStorage.armAlign(0, 0);
-        Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
+        Robot.drive.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
@@ -67,5 +77,6 @@ public class AutoFiringSequence extends Command {
     @Override
     protected void end() {
         Robot.logEnd(this);
+        Robot.drive.tankDrive(0, 0);
     }
 }

@@ -14,32 +14,18 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutonomousCommand;
-import frc.robot.commands.background.SetSpotlight;
-import frc.robot.commands.background.TWINKLES;
-import frc.robot.commands.background.drive.DriveWithJoysticks;
-import frc.robot.commands.background.rumble.RumbleDriver;
-import frc.robot.commands.background.rumble.RumbleJoysticks;
-import frc.robot.commands.background.rumble.RumbleNo;
-import frc.robot.commands.background.rumble.RumbleYes;
-import frc.robot.commands.background.wait.DoNothing;
-import frc.robot.commands.background.wait.WaitForPressure;
-import frc.robot.commands.background.wait.WaitForever;
-import frc.robot.commands.scoring.arm.AngleCalibrateEncoder;
-import frc.robot.commands.scoring.arm.ArmControl;
-import frc.robot.commands.scoring.arm.ArmToAngle;
-import frc.robot.commands.scoring.ballmechanism.ArmAligningControl;
+import frc.robot.commands.DriveForDistance;
+import frc.robot.commands.background.*;
+import frc.robot.commands.background.drive.*;
+import frc.robot.commands.background.rumble.*;
+import frc.robot.commands.background.wait.*;
+import frc.robot.commands.scoring.arm.*;
+import frc.robot.commands.scoring.ballmechanism.*;
+import frc.robot.commands.scoring.flywheel.*;
+import frc.robot.commands.scoring.lift.*;
+import frc.robot.subsystems.Flywheel.FlywheelStates;
 import frc.robot.commands.scoring.ballmechanism.ArmAligningControl.Alignment;
 import frc.robot.commands.scoring.ballmechanism.ArmAligningControl.Direction;
-import frc.robot.commands.scoring.ballmechanism.AutoFiringSequence;
-import frc.robot.commands.scoring.ballmechanism.EjectStorage;
-import frc.robot.commands.scoring.ballmechanism.FeederStop;
-import frc.robot.commands.scoring.ballmechanism.FeederSwitch;
-import frc.robot.commands.scoring.ballmechanism.IntakeFor7Inches;
-import frc.robot.commands.scoring.flywheel.FlywheelFullSpeedToggle;
-import frc.robot.commands.scoring.lift.LiftControl;
-import frc.robot.commands.scoring.lift.LiftInitialize;
-import frc.robot.commands.scoring.lift.LiftToHeight;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -186,22 +172,22 @@ public class OI {
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.CENTER));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeedToggle());
+        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.HALF));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
-        manipulatorRightBumper.whileHeld(new AutoFiringSequence());
+        manipulatorRightBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.FULL));
 
         // POV Pad LEFT
-        manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
+        manipulatorPOV180 = buttonFromPOV(manipulator, 180);
         manipulatorPOV180.whileHeld(new ArmToAngle(0));
 
-        manipulatorPOV90 = buttonFromPOV(manipulator, 90); // ARM HEIGHT 20
+        manipulatorPOV90 = buttonFromPOV(manipulator, 90);
         manipulatorPOV90.whileHeld(new ArmToAngle(20));
 
-        manipulatorPOV270 = buttonFromPOV(manipulator, 270); // ARM HEIGHT 40
+        manipulatorPOV270 = buttonFromPOV(manipulator, 270);
         manipulatorPOV270.whileHeld(new ArmToAngle(50));
 
-        manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
+        manipulatorPOV0 = buttonFromPOV(manipulator, 0);
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 11);
@@ -210,7 +196,7 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Arm Control", new ArmControl());
         SmartDashboard.putData("Angle Calibrate Encoder", new AngleCalibrateEncoder());
-        SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
+        SmartDashboard.putData("Autonomous Command", new DriveForDistance(5));
         SmartDashboard.putData("Do Nothing", new DoNothing());
         SmartDashboard.putData("Drive With Joysticks", new DriveWithJoysticks());
         SmartDashboard.putData("Lift Control", new LiftControl());
