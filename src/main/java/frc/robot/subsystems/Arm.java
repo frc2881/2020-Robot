@@ -128,15 +128,6 @@ public class Arm extends Subsystem {
         return toAngleDegrees(getArmPosition());
     }
 
-<<<<<<< HEAD
-    public void resetArmEncoder(boolean autonomous) {
-        if (autonomous) {
-            armEncoder.setPosition(11.8);
-        } else {
-            armEncoder.setPosition(2.0012);
-        }
-    }
-=======
     public Logging.LoggingContext loggingContext = new Logging.LoggingContext(Logging.Subsystems.ARM){
 
         @Override
@@ -146,5 +137,4 @@ public class Arm extends Subsystem {
             add("ARM: StickyFaults", armMotor.getStickyFaults());
         }
     };
->>>>>>> 8f01dd7c3877f9b91bca0cdb60152311e869bd8a
 }

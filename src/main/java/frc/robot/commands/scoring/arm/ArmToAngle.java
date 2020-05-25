@@ -37,11 +37,7 @@ public class ArmToAngle extends Command {
         double time = timeSinceInitialized();
         double speed;
         double difference = height - Robot.arm.getArmPosition() + 0.2;
-<<<<<<< HEAD
         double multiplier = difference > 0 ? 0.6 : 0.4;
-=======
-        double multiplier = difference > 0 ? 0.6 : 0.3;
->>>>>>> 8f01dd7c3877f9b91bca0cdb60152311e869bd8a
 
         //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
         //to adjust deadband change the last number in isFinished()

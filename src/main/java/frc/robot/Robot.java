@@ -162,7 +162,6 @@ public class Robot extends TimedRobot {
         timeOfStart = Timer.getFPGATimestamp();
         // schedule the autonomous command (example)
         printRobotMode("STARTING AUTONOMOUS", "-");
-<<<<<<< HEAD
         logging.traceMessage("---------------------------- Autonomous mode starting ----------------------------");
         // logging.printHeadings();
         StringBuilder gameInfo = new StringBuilder();
@@ -177,23 +176,6 @@ public class Robot extends TimedRobot {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         logging.traceMessage("Field plate selection:" + gameData);
         if (autonomousCommand != null) {
-=======
-        logging.traceMessage(
-				"---------------------------- Autonomous mode starting ----------------------------");
-		//logging.writeAllHeadings();
-		StringBuilder gameInfo = new StringBuilder();
-		gameInfo.append("Match Number=");
-		gameInfo.append(DriverStation.getInstance().getMatchNumber());
-		gameInfo.append(", Alliance Color=");
-		gameInfo.append(DriverStation.getInstance().getAlliance().toString());
-		gameInfo.append(", Match Type=");
-		gameInfo.append(DriverStation.getInstance().getMatchType().toString());
-		logging.traceMessage( gameInfo.toString());
-
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		logging.traceMessage( "Field plate selection:" + gameData);
-        if (autonomousCommand != null)
->>>>>>> 8f01dd7c3877f9b91bca0cdb60152311e869bd8a
             autonomousCommand.start();
         }
         resetRobot();
