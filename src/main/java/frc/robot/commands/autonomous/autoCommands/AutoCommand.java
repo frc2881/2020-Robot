@@ -11,8 +11,7 @@
 package frc.robot.commands.autonomous.autoCommands;
 
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.commands.autonomous.AutonomousRobotPrep;
-import frc.robot.commands.autonomous.AutonomousWatchDog;
+import frc.robot.commands.autonomous.*;
 import frc.robot.commands.autonomous.autoCommands.Enums.*;
 
 /**
@@ -26,10 +25,16 @@ public class AutoCommand extends AbstractAutoCommand {
         addSequential(new WaitCommand(waitTime));
         addParallel(new AutonomousRobotPrep());
         if (auto == AutoOptions.SCORE) {
-            addSequential(new AutoScoringSequence(start));
+            addSequential(new AutoScore(start));
         }
         else {
-            addSequential(new DriveForDistance(5));
+            if (start == StartingPosition.PUSH_ALLIANCE_MEMBER) {
+                addSequential(new DriveForDistance(-1));
+                addSequential(new DriveForDistance(2));
+            } else {
+                addSequential(new DriveForDistance(-1));
+            }
+            addSequential(new AutonomousFinish());
         }
     }
 
