@@ -12,7 +12,6 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.scoring.arm.ArmToAngle;
 import frc.robot.commands.scoring.arm.CalibrateArmEncoder;
 
 /**

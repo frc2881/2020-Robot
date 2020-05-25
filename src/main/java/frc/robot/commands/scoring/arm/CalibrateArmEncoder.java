@@ -14,7 +14,7 @@ public class CalibrateArmEncoder extends InstantCommand {
     @Override
     protected void initialize() {
         Robot.log("Calibrate Arm Encoder has started");
-        Robot.arm.resetArmEncoder(autonomous);
+        //Robot.arm.resetArmEncoder(autonomous);
     }
 
     @Override
