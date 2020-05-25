@@ -27,15 +27,13 @@ public class AutoCommand extends AbstractAutoCommand {
         if (auto == AutoOptions.SCORE) {
             addSequential(new AutoScore(start));
         }
-        else {
-            if (start == StartingPosition.PUSH_ALLIANCE_MEMBER) {
-                addSequential(new DriveForDistance(-1));
-                addSequential(new DriveForDistance(2));
-            } else {
-                addSequential(new DriveForDistance(-1));
-            }
-            addSequential(new AutonomousFinish());
+        if (start == StartingPosition.PUSH_ALLIANCE_MEMBER) {
+            addSequential(new DriveForDistance(-1));
+            addSequential(new DriveForDistance(2));
+        } else {
+            addSequential(new DriveForDistance(-1));
         }
+        addSequential(new AutonomousFinish());
     }
 
     @Override
