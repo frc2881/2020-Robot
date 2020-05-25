@@ -23,6 +23,7 @@ import frc.robot.commands.scoring.arm.*;
 import frc.robot.commands.scoring.ballmechanism.*;
 import frc.robot.commands.scoring.flywheel.*;
 import frc.robot.commands.scoring.lift.*;
+import frc.robot.subsystems.Flywheel.FlywheelStates;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -170,22 +171,22 @@ public class OI {
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
-        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeedToggle());
+        manipulatorLeftBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.HALF));
 
         manipulatorRightBumper = new JoystickButton(manipulator, 6); // FLYWHEEL FEEDER (Ball storage toward feeder)
-        manipulatorRightBumper.whileHeld(new AutoFiringSequence());
+        manipulatorRightBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.FULL));
 
         // POV Pad LEFT
-        manipulatorPOV180 = buttonFromPOV(manipulator, 180); // ARM HEIGHT 0
+        manipulatorPOV180 = buttonFromPOV(manipulator, 180);
         manipulatorPOV180.whileHeld(new ArmToAngle(0));
 
-        manipulatorPOV90 = buttonFromPOV(manipulator, 90); // ARM HEIGHT 20
+        manipulatorPOV90 = buttonFromPOV(manipulator, 90);
         manipulatorPOV90.whileHeld(new ArmToAngle(20));
 
-        manipulatorPOV270 = buttonFromPOV(manipulator, 270); // ARM HEIGHT 40
+        manipulatorPOV270 = buttonFromPOV(manipulator, 270);
         manipulatorPOV270.whileHeld(new ArmToAngle(50));
 
-        manipulatorPOV0 = buttonFromPOV(manipulator, 0); // FLUSH WITH WALL
+        manipulatorPOV0 = buttonFromPOV(manipulator, 0);
         manipulatorPOV0.whileHeld(new ArmToAngle(60));
 
         manipulatorJoystickButtonLeft = new JoystickButton(manipulator, 14);
