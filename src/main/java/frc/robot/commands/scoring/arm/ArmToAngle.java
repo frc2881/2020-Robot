@@ -11,7 +11,6 @@
 package frc.robot.commands.scoring.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 
 /**
@@ -19,45 +18,53 @@ import frc.robot.Robot;
  */
 public class ArmToAngle extends Command {
     private double height;
-    private PIDController rotatePID;
 
     public ArmToAngle(double angle) {
-        requires(Robot.drive);
+        requires(Robot.arm);
         height = Robot.arm.toHeightInches(angle);
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
         Robot.logInitialize(this);
-        rotatePID = new PIDController(0.5, 0, 0);
-        rotatePID.setSetpoint(height);
-        rotatePID.setTolerance(0.1);
-        rotatePID.enableContinuousInput(2, 12);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
-        double value = rotatePID.calculate(Robot.arm.getArmPosition());
-        // Sets the minimum and maximum speed of the robot during the command
-        if (value > 0.5) {
-            value = 0.5;
-        } else if (value < -0.3) {
-            value = -0.3;
-        } else if (value > 0 && value < 0.05){
-            value = 0.05;
-        } else if (value < 0 && value > -0.05){
-            value = -0.05;
+        double time = timeSinceInitialized();
+        double speed;
+        double difference = height - Robot.arm.getArmPosition() + 0.2;
+        double multiplier = difference > 0 ? 0.6 : 0.4;
+
+        //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
+        //to adjust deadband change the last number in isFinished()
+        //to adjust speed when going up/down: change multiplier
+
+        if (Math.abs(difference) <= 0.1) {
+            speed = 0;
+        } else if (time < 1) {
+            speed = Math.copySign(time * (multiplier - 0.1) + 0.1, difference);
+        } else if (Math.abs(difference) < 2) {
+            speed = difference / 2 * multiplier;
+        } else if (Math.abs(difference) >= 2) {
+            speed = Math.copySign(multiplier, difference);
+        } else {
+            speed = 0;
         }
-        Robot.arm.setArmSpeed(-value);
+
+        Robot.log("remaining distance: " + difference);
+        Robot.log("speed: " + speed);
+        Robot.arm.setArmSpeed(-speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return rotatePID.atSetpoint();
+        return Math.abs(height - Robot.arm.getArmPosition() + 0.1) <= 0.1;
     }
 
     @Override
