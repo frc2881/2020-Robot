@@ -45,16 +45,24 @@ public class ControlFlywheel extends Command {
     @Override
     protected void execute() {
 
+            //Sets speed with the velocity from the PID loop
             if (Robot.lift.readyForLift() || Robot.flywheel.getFlywheelStopped()) {
                 velocity = 0;
             } else if (Robot.flywheel.isFlywheelFullSpeed()) {
                 velocity = 4900;
             } else {
                 velocity = 3500;
-            }
+            } 
 
-            Robot.flywheel.setFlywheelRPM(velocity);
-    }
+            //Uses PID for the constant speed and regular motor speed for slowing down
+            if (velocity > 0){
+                //Sets value from PID loop
+                Robot.flywheel.setFlywheelRPM(velocity); 
+            } else if (velocity == 0){    
+                //sets value from motor speed (coasts down because of 0)
+                Robot.flywheel.setFlywheel(0); 
+            }
+    } 
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
