@@ -23,11 +23,12 @@ public class Flywheel extends Subsystem {
 
     public boolean flywheelReady = false;
 
-    public final double kP = 0; 
-    public final double kI = 0.0000000017; //tuning
-    public final double kD = 0; 
+    //Good Curve Numbers: P: 0.0001, I:  0.000000126275, D: 0.001
+    public final double kP = 0.0001;//0.0015; //0.002
+    public final double kI = 0.000000126275; //tuning 0.000001, 0.0000005, 0.00000025085, 0.000000126275,  0.0000000017
+    public final double kD = 0.0015;//0.0002; //0.0012 
     public final double kIz = 0; 
-    public final double kFF = 0.000173; //around 1 over 6000, based off of original P value of testing
+    public final double kFF = 0; //0.000173; //around 1 over 6000, based off of original P value of testing
     public final double kMaxOutput = 1;
     public final double kMinOutput = 0;
     public final double maxRPM = 5700;
@@ -69,6 +70,8 @@ public class Flywheel extends Subsystem {
         return flywheelStop;
     }
 
+    
+
     public void setFlywheelSpeedState(final FlywheelStates speed) {
         if (speed == FlywheelStates.STOP) {
             flywheelStop = true;
@@ -104,6 +107,7 @@ public class Flywheel extends Subsystem {
 
     public void setFlywheelRPM(final double RPM) {
         flywheelPID.setReference(RPM, ControlType.kVelocity);
+
     }
 
     public void setFlywheel(final double speed) {
