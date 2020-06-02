@@ -99,6 +99,7 @@ public class Flywheel extends Subsystem {
     }
 
     public boolean isFlywheelReady() {
+        //TODO: initial ready range should be 3450, afterwards stay within +or- 200 (stay within PID oscillation)
         final boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
         final boolean readyForLow = getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
 
