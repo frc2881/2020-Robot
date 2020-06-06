@@ -165,11 +165,13 @@ public class OI {
         manipulatorOption.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.EJECT));
 
         // Triggers + Bumpers
-        manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT
-        manipulatorLeftTrigger.whileHeld(new ArmAligningControl(Alignment.LEFT, Direction.CENTER));
+        manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT --> AUTOMATED STORAGE
+        //manipulatorLeftTrigger.whileHeld(new ArmAligningControl(Alignment.LEFT, Direction.CENTER));
+        manipulatorLeftTrigger.whenPressed(new BallCenterStorage(Alignment.LEFT, Direction.CENTER));
 
-        manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT
-        manipulatorRightTrigger.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.CENTER));
+        manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT --> AUTOMATED STORAGE
+        //manipulatorRightTrigger.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.CENTER));
+        manipulatorRightTrigger.whileHeld(new BallCenterStorage(Alignment.RIGHT, Direction.CENTER));
 
         manipulatorLeftBumper = new JoystickButton(manipulator, 5); // FLYWHEEL OUT
         manipulatorLeftBumper.whileHeld(new FlywheelFullSpeed(FlywheelStates.HALF));

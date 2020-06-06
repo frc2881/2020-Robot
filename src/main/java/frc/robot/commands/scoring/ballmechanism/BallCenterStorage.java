@@ -22,12 +22,12 @@ import frc.robot.commands.scoring.ballmechanism.ArmAligningControl.Alignment;
  */
 public class BallCenterStorage extends CommandGroup {
         double speed;
-    public BallCenterStorage(Alignment state, Direction state1, int counter) {
+    public BallCenterStorage(Alignment state, Direction state1) {
 
         requires(Robot.ballStorage);
-        if(counter > 0)
-        speed = Robot.oi.getManipulatorLeftX();
-        Robot.ballStorage.ballCenterStorageLimit(state, state1, speed, counter);
+        addSequential(new ArmAligningControl(state, state1));
+        addSequential(new IntakeFor7Inches());
+        //currently only stores 3 power cells
 
         /*addSequential(new ArmAligningControl(state, state1));
         if(state1 == Direction.CENTER)
