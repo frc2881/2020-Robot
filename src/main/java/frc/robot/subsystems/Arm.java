@@ -129,6 +129,11 @@ public class Arm extends Subsystem {
         return toAngleDegrees(getArmPosition());
     }
 
+    public void resetArmEncoder(boolean autonomous) {
+        beginningPosition = autonomous ? -11.9 : armPosition.getAsDouble();
+        beginningPosition -= 2.0012;
+    }
+
     public Logging.LoggingContext loggingContext = new Logging.LoggingContext(Logging.Subsystems.ARM){
 
         @Override

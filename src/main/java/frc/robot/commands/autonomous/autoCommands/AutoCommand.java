@@ -13,6 +13,8 @@ package frc.robot.commands.autonomous.autoCommands;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.autonomous.*;
 import frc.robot.commands.autonomous.autoCommands.Enums.*;
+import frc.robot.commands.scoring.flywheel.SetFlywheelSpeed;
+import frc.robot.subsystems.Flywheel.FlywheelStates;
 
 /**
  *
@@ -21,10 +23,10 @@ public class AutoCommand extends AbstractAutoCommand {
 
     public AutoCommand(AutoOptions auto, StartingPosition start, double waitTime) {
 
-
         addSequential(new WaitCommand(waitTime));
         addParallel(new AutonomousRobotPrep());
-        if (auto == AutoOptions.SCORE) {
+        if (auto == AutoOptions.SCORE) {      
+            addSequential(new SetFlywheelSpeed(FlywheelStates.HALF));
             addSequential(new AutoScore(start));
         }
         if (start == StartingPosition.PUSH_ALLIANCE_MEMBER) {
@@ -34,6 +36,9 @@ public class AutoCommand extends AbstractAutoCommand {
             addSequential(new DriveForDistance(-1));
         }
         addSequential(new AutonomousFinish());
+    }
+
+    private void addParallel(SetFlywheelSpeed setFlywheelSpeed) {
     }
 
     @Override
