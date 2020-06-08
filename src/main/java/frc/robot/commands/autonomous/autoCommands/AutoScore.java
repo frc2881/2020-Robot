@@ -23,7 +23,7 @@ public class AutoScore extends AbstractAutoCommand {
     AutoScore(StartingPosition start) {
 
         double angle = (start == StartingPosition.FRONT_ON_TEN_FOOT_ARC) ? 20 : 25;
-        //addSequential(new ArmToAngle(angle), 3);
+        addSequential(new ArmToAngle(angle), 3);
         addSequential(new WaitUntilFlywheelReady());
         addSequential(new AutoFiringSequence(), 2);
     }
