@@ -23,11 +23,12 @@ public class Flywheel extends Subsystem {
     public boolean flywheelReady = false;
 
     // Good Curve Numbers: P: 0.0001, I: 0.000000126275, D: 0.001
-    public final double kP = 0.0000125;// 0.0015; //0.002
-    public final double kI = 0.000000126275; // tuning 0.000001, 0.0000005, 0.00000025085, 0.000000126275, 0.0000000017
-    public final double kD = 0.015;// 0.0002; //0.0012
+    //More agressive numbers: P: I: D:
+    public final double kP = 0.00000625;
+    public final double kI = 0.000000126275; 
+    public final double kD = 0.015;
     public final double kIz = 0;
-    public final double kFF = 0; // 0.000173; //around 1 over 6000, based off of original P value of testing
+    public final double kFF = 0;
     public final double kMaxOutput = 1;
     public final double kMinOutput = 0;
     public final double maxRPM = 5700;
@@ -39,7 +40,7 @@ public class Flywheel extends Subsystem {
 
     private boolean flywheelStop = true;
     private boolean flywheelFullSpeed = false;
-    private boolean upTo3450RPM;
+    private boolean upTo3450RPM = false;
 
     public Flywheel() {
 
@@ -97,18 +98,11 @@ public class Flywheel extends Subsystem {
     }
 
     public boolean isFlywheelReady() {
-
-        final boolean readyForHigh = getFlywheelRPM() > 4700 && isFlywheelFullSpeed();
-        // Low Speed
-        if (getFlywheelRPM() <= 1000) {
-            upTo3450RPM = false;
-        }
-        if (getFlywheelRPM() >= 3450) {
-            upTo3450RPM = true;
-        }
-        final boolean readyForLow = upTo3450RPM == true && getFlywheelRPM() > 3300 && getFlywheelRPM() < 3700 && !isFlywheelFullSpeed();
-        // TODO: initial ready range should be 3450, afterwards stay within +or- 200 (stay within PID oscillation)
-
+            //Lower speed due to firing at fullspeed with motor.
+        final boolean readyForHigh = getFlywheelRPM() > 4400 && isFlywheelFullSpeed();
+            //TEST: Firing 2 at 4700, down to 4200. Firing 2 at 4700 down to 4150. Min 4400
+        final boolean readyForLow = getFlywheelRPM() > 3325 && !isFlywheelFullSpeed();
+            //TEST: Firing 4 Peak 3700 Low 3500 (Goal was 3600ish)
         return (readyForHigh || readyForLow) && !flywheelStop;
     }
 

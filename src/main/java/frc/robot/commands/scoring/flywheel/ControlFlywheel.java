@@ -18,6 +18,7 @@ import frc.robot.Robot;
  */
 public class ControlFlywheel extends Command {
 
+    public double speed = 0;
     public double velocity = 0;
     private double time;
     private boolean firstTime3400RPM;
@@ -42,7 +43,6 @@ public class ControlFlywheel extends Command {
     protected void initialize() {
         Robot.logInitialize(this);
 
-
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -51,15 +51,15 @@ public class ControlFlywheel extends Command {
 
             //Sets speed with the velocity from the PID loop
             if (Robot.lift.readyForLift() || Robot.flywheel.getFlywheelStopped()) {
-                velocity = 0;
+                speed = 0; //velocity = 0;
             } else if (Robot.flywheel.isFlywheelFullSpeed()) {
-                velocity = 4900;
+                speed = 1;//velocity = 4900;
             } else {
-                if (velocity == 0){
+                if (speed == 0){
                 time = timeSinceInitialized();
                 firstTime3400RPM = false;
                 }
-                velocity = 3500;
+                speed = 1; //velocity = 3500;
             }
             
             if (Robot.flywheel.getFlywheelRPM() >= 3400 && firstTime3400RPM == false) {
@@ -72,14 +72,14 @@ public class ControlFlywheel extends Command {
 //1. when from 0-3500 (starting time) 2. when velocity 1st exceed 3400
 
             //Uses PID for the constant speed and regular motor speed for slowing down
-            if (velocity > 0){
+            if (speed > 0){
                 //Sets value from PID loop
-                Robot.flywheel.setFlywheelRPM(velocity); 
-            } else if (velocity == 0){    
+                Robot.flywheel.setFlywheel(speed); 
+            } else if (speed == 0){    
                 //sets value from motor speed (coasts down because of 0)
                 Robot.flywheel.setFlywheel(0); 
             }
-    } 
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override

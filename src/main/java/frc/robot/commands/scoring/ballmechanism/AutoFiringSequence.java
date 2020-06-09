@@ -36,15 +36,15 @@ public class AutoFiringSequence extends Command {
     protected void execute() {
         if (Robot.flywheel.isFlywheelReady()) {
             double time = timeSinceInitialized();
-            //Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
+            Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
             if (time > .15) {
-                //Robot.ballStorage.armAlign(1, 1);
+                Robot.ballStorage.armAlign(1, 1);
             } else {
-                //Robot.ballStorage.armAlign(1, 0);
+                Robot.ballStorage.armAlign(1, 0);
             }
         } else {
-            //Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-            //Robot.ballStorage.armAlign(0, 0);
+            Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
+            Robot.ballStorage.armAlign(0, 0);
         }
     }
 
