@@ -40,7 +40,6 @@ public class Flywheel extends Subsystem {
 
     private boolean flywheelStop = true;
     private boolean flywheelFullSpeed = false;
-    private boolean upTo3450RPM = false;
 
     public Flywheel() {
 

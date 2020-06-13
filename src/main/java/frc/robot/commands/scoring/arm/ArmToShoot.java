@@ -13,15 +13,24 @@ package frc.robot.commands.scoring.arm;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.DriveForDistance;
+import frc.robot.commands.background.wait.WaitForever;
+import frc.robot.commands.scoring.flywheel.FlywheelFullSpeed;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Flywheel.FlywheelStates;
 
 /**
  *
  */
-public class ArmTo36 extends CommandGroup {
+public class ArmToShoot extends CommandGroup {
 
-    public ArmTo36() {
-        addSequential(new DriveForDistance(-5.0/12));
-        addSequential(new ArmToAngle(37));
+    public ArmToShoot(double angle) {
+
+        if(angle == Arm.towerAngle) {
+            addSequential(new DriveForDistance(-5.0/12));
+        }
+        addParallel(new FlywheelFullSpeed(FlywheelStates.FULL));
+        addSequential(new ArmToAngle(angle));
+        addSequential(new WaitForever());
     }
 
     @Override
@@ -32,5 +41,6 @@ public class ArmTo36 extends CommandGroup {
     @Override
     protected void end() {
         Robot.logEnd(this);
+        Robot.flywheel.setFlywheelSpeedState(FlywheelStates.STOP);
     }
 }
