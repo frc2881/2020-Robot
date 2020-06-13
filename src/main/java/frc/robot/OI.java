@@ -180,7 +180,7 @@ public class OI {
         manipulatorPOV180.whileHeld(new ArmToAngle(0));
 
         manipulatorPOV90 = buttonFromPOV(manipulator, 90);
-        manipulatorPOV90.whileHeld(new ArmToAngle(20));
+        manipulatorPOV90.whileHeld(new ArmTo36());
 
         manipulatorPOV270 = buttonFromPOV(manipulator, 270);
         manipulatorPOV270.whileHeld(new ArmToAngle(50));
