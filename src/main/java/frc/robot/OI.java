@@ -23,6 +23,7 @@ import frc.robot.commands.scoring.arm.*;
 import frc.robot.commands.scoring.ballmechanism.*;
 import frc.robot.commands.scoring.flywheel.*;
 import frc.robot.commands.scoring.lift.*;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Flywheel.FlywheelStates;
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -166,7 +167,7 @@ public class OI {
         // Triggers + Bumpers
         manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT
         manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, true));
-
+ 
         manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
@@ -181,7 +182,7 @@ public class OI {
         manipulatorPOV180.whileHeld(new ArmToAngle(0));
 
         manipulatorPOV90 = buttonFromPOV(manipulator, 90);
-        manipulatorPOV90.whileHeld(new ArmToAngle(20));
+        manipulatorPOV90.whileHeld(new ArmToShoot(Arm.towerAngle));
 
         manipulatorPOV270 = buttonFromPOV(manipulator, 270);
         manipulatorPOV270.whileHeld(new ArmToAngle(50));
