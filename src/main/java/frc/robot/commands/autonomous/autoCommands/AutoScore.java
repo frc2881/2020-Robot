@@ -11,9 +11,14 @@
 package frc.robot.commands.autonomous.autoCommands;
 
 import frc.robot.commands.autonomous.autoCommands.Enums.StartingPosition;
+import frc.robot.commands.background.wait.WaitForever;
 import frc.robot.commands.background.wait.WaitUntilFlywheelReady;
 import frc.robot.commands.scoring.arm.ArmToAngle;
+import frc.robot.commands.scoring.arm.CalibrateArmEncoder;
 import frc.robot.commands.scoring.ballmechanism.AutoFiringSequence;
+import frc.robot.commands.scoring.flywheel.SetFlywheelSpeed;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Flywheel.FlywheelStates;
 
 /**
  *
@@ -22,10 +27,12 @@ public class AutoScore extends AbstractAutoCommand {
 
     AutoScore(StartingPosition start) {
 
-        double angle = (start == StartingPosition.FRONT_ON_TEN_FOOT_ARC) ? 20 : 25;
-        addSequential(new ArmToAngle(angle), 3);
-        addSequential(new WaitUntilFlywheelReady());
-        addSequential(new AutoFiringSequence(), 2);
+        double angle = (start == StartingPosition.FRONT_ON_TEN_FOOT_ARC) ? Arm.frontBumperAngle : Arm.backBumperAngle;
+        addSequential(new ArmToAngle(0), 3);
+        addSequential(new CalibrateArmEncoder(false));
+        addSequential(new SetFlywheelSpeed(FlywheelStates.HALF));
+        addSequential(new ArmToAngle(angle), 1);
+        addSequential(new WaitForever(), 3);
     }
 
 }

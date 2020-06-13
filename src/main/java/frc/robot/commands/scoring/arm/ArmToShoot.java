@@ -12,9 +12,9 @@ package frc.robot.commands.scoring.arm;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.DriveForDistance;
 import frc.robot.commands.background.wait.WaitForever;
 import frc.robot.commands.scoring.flywheel.FlywheelFullSpeed;
+import frc.robot.commands.autonomous.autoCommands.DriveForDistance;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Flywheel.FlywheelStates;
 

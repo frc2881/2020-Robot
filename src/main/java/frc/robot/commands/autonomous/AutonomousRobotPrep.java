@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.background.wait.WaitUntilNavXCalibrated;
 import frc.robot.commands.scoring.arm.CalibrateArmEncoder;
+import frc.robot.commands.scoring.flywheel.SetFlywheelSpeed;
+import frc.robot.subsystems.Flywheel.FlywheelStates;
 
 /**
  *
@@ -23,6 +25,7 @@ public class AutonomousRobotPrep extends CommandGroup {
     public AutonomousRobotPrep() {
         addSequential(new WaitUntilNavXCalibrated());
         addSequential(new CalibrateArmEncoder(true));
+        addSequential(new SetFlywheelSpeed(FlywheelStates.STOP));
     }
 
     @Override

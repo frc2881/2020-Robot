@@ -26,7 +26,6 @@ public class AutoCommand extends AbstractAutoCommand {
         addSequential(new WaitCommand(waitTime));
         addParallel(new AutonomousRobotPrep());
         if (auto == AutoOptions.SCORE) {      
-            addSequential(new SetFlywheelSpeed(FlywheelStates.HALF));
             addSequential(new AutoScore(start));
         }
         if (start == StartingPosition.PUSH_ALLIANCE_MEMBER) {
@@ -36,9 +35,6 @@ public class AutoCommand extends AbstractAutoCommand {
             addSequential(new DriveForDistance(-1));
         }
         addSequential(new AutonomousFinish());
-    }
-
-    private void addParallel(SetFlywheelSpeed setFlywheelSpeed) {
     }
 
     @Override
