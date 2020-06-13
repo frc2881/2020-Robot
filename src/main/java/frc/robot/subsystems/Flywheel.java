@@ -99,7 +99,7 @@ public class Flywheel extends Subsystem {
 
     public boolean isFlywheelReady() {
             //Lower speed due to firing at fullspeed with motor.
-        final boolean readyForHigh = getFlywheelRPM() > 4400 && isFlywheelFullSpeed();
+        final boolean readyForHigh = getFlywheelRPM() > 4900 && isFlywheelFullSpeed(); //on 6/13/2020 on this line, david wrote some code
             //TEST: Firing 2 at 4700, down to 4200. Firing 2 at 4700 down to 4150. Min 4400
         final boolean readyForLow = getFlywheelRPM() > 3325 && !isFlywheelFullSpeed();
             //TEST: Firing 4 Peak 3700 Low 3500 (Goal was 3600ish)
