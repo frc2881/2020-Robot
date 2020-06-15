@@ -17,11 +17,11 @@ import frc.robot.Robot;
  *
  */
 public class ArmToAngle extends Command {
-    private double height;
+    private double angle;
 
     public ArmToAngle(double angle) {
         requires(Robot.arm);
-        height = Robot.arm.toHeightInches(angle);
+        this.angle = angle;
 
     }
 
@@ -36,26 +36,26 @@ public class ArmToAngle extends Command {
         // Calls to the subsystem to update the angle if controller value has changed
         double time = timeSinceInitialized();
         double speed;
-        double difference = height - Robot.arm.getArmPosition();
+        double difference = angle - Robot.arm.getArmAngle();
         double multiplier = difference > 0 ? 0.65 : 0.5; //0.6: smooth but a little show; 0.65 faster but jitters a little
 
         //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
         //to adjust deadband change the last number in isFinished()
         //to adjust speed when going up/down: change multiplier
 
-        if (Math.abs(difference) <= 0.1) {
+        if (Math.abs(difference) <= 1) {
             speed = 0;
         } else if (time < 1) {
             speed = Math.copySign(time * (multiplier - 0.1) + 0.1, difference);
-        } else if (Math.abs(difference) < 2) {
-            speed = difference / 2 * multiplier;
-        } else if (Math.abs(difference) >= 2) {
+        } else if (Math.abs(difference) < 10) {
+            speed = difference / 10 * multiplier;
+        } else if (Math.abs(difference) >= 10) {
             speed = Math.copySign(multiplier, difference);
         } else {
             speed = 0;
         }
 
-        Robot.log("remaining distance: " + difference);
+        Robot.log("remaining distance (˚): " + difference);
         Robot.log("speed: " + speed);
         Robot.arm.setArmSpeed(-speed);
     }
@@ -64,7 +64,7 @@ public class ArmToAngle extends Command {
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return Math.abs(height - Robot.arm.getArmPosition() + 0.1) <= 0.1;
+        return Math.abs(angle - Robot.arm.getArmAngle()) <= 1;
     }
 
     @Override
