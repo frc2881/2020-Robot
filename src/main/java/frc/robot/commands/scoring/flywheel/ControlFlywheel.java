@@ -67,17 +67,12 @@ public class ControlFlywheel extends Command {
                 Robot.log("3400 RPM Time: " + time); //time from 
                 firstTime3400RPM = true;
             }
-        
-
-//1. when from 0-3500 (starting time) 2. when velocity 1st exceed 3400
-
+            //1. when from 0-3500 (starting time) 2. when velocity 1st exceed 3400
+            
             //Uses PID for the constant speed and regular motor speed for slowing down
-            if (speed > 0){
+            if (speed >= 0){
                 //Sets value from PID loop
-                Robot.flywheel.setFlywheel(speed); 
-            } else if (speed == 0){    
-                //sets value from motor speed (coasts down because of 0)
-                Robot.flywheel.setFlywheel(0); 
+                Robot.flywheel.setFlywheel(speed);
             }
     }
 

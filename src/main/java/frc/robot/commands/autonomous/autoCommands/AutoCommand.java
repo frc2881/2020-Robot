@@ -13,12 +13,7 @@ package frc.robot.commands.autonomous.autoCommands;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.commands.autonomous.*;
 import frc.robot.commands.autonomous.autoCommands.Enums.*;
-import frc.robot.commands.scoring.flywheel.SetFlywheelSpeed;
-import frc.robot.subsystems.Flywheel.FlywheelStates;
 
-/**
- *
- */
 public class AutoCommand extends AbstractAutoCommand {
 
     public AutoCommand(AutoOptions auto, StartingPosition start, double waitTime) {
