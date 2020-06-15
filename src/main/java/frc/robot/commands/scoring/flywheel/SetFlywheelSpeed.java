@@ -8,36 +8,16 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 package frc.robot.commands.scoring.flywheel;
-import edu.wpi.first.wpilibj.command.Command;
+
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.subsystems.Flywheel.FlywheelStates;
 /**
  *
  */
-public class SetFlywheelSpeed extends Command {
-
-    private FlywheelStates speed;
+public class SetFlywheelSpeed extends InstantCommand {
     
     public SetFlywheelSpeed(FlywheelStates speed) {
-        this.speed = speed;
-    }
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
         Robot.flywheel.setFlywheelSpeedState(speed);
-    }
-    @Override
-    protected boolean isFinished() {
-        return true;
-    }
-    // Called once after isFinished returns true
-    @Override
-    protected void end() {
-    }
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
-        end();
     }
 }
