@@ -36,8 +36,8 @@ public class ArmToAngle extends Command {
         // Calls to the subsystem to update the angle if controller value has changed
         double time = timeSinceInitialized();
         double speed;
-        double difference = height - Robot.arm.getArmPosition() + 0.2;
-        double multiplier = difference > 0 ? 0.65 : 0.3; //0.6: smooth but a little show; 0.65 faster but jitters a little
+        double difference = height - Robot.arm.getArmPosition();
+        double multiplier = difference > 0 ? 0.65 : 0.5; //0.6: smooth but a little show; 0.65 faster but jitters a little
 
         //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
         //to adjust deadband change the last number in isFinished()

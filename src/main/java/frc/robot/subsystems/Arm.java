@@ -130,7 +130,7 @@ public class Arm extends Subsystem {
     }
 
     public void resetArmEncoder(boolean autonomous) {
-        beginningPosition = autonomous ? -11.9 : armPosition.getAsDouble();
+        beginningPosition = autonomous ? -9.14 : armPosition.getAsDouble();
         beginningPosition -= 2.0012;
     }
 
