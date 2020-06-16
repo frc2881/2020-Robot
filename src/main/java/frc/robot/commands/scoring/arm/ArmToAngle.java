@@ -47,15 +47,15 @@ public class ArmToAngle extends Command {
             speed = 0;
         } else if (time < 1) {
             speed = Math.copySign(time * (multiplier - 0.1) + 0.1, difference);
-        } else if (Math.abs(difference) < 10) {
-            speed = difference / 10 * multiplier;
-        } else if (Math.abs(difference) >= 10) {
+        } else if (Math.abs(difference) < 5) {
+            speed = difference / 5 * multiplier;
+        } else if (Math.abs(difference) >= 5) {
             speed = Math.copySign(multiplier, difference);
         } else {
             speed = 0;
         }
 
-        Robot.log("remaining distance (˚): " + difference);
+        Robot.log("remaining distance: " + difference);
         Robot.log("speed: " + speed);
         Robot.arm.setArmSpeed(-speed);
     }
@@ -64,7 +64,7 @@ public class ArmToAngle extends Command {
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return Math.abs(angle - Robot.arm.getArmAngle()) <= 1;
+        return Math.abs(angle - Robot.arm.getArmAngle() + 1) <= 1;
     }
 
     @Override
