@@ -165,7 +165,7 @@ public class OI {
         // Triggers + Bumpers
         manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT
         manipulatorLeftTrigger.whileHeld(new ArmAligningControl(true, true));
-
+ 
         manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT
         manipulatorRightTrigger.whileHeld(new ArmAligningControl(false, true));
 
