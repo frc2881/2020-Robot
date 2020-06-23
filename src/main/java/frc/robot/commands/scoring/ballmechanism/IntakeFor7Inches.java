@@ -79,6 +79,8 @@ public class IntakeFor7Inches extends Command {
         if(timeSinceInitialized() > 0.5){
             //Robot.intake.setBallStorageRampRate(0);
         }
+
+        Robot.ballStorage.morePC(this);
     }
 
     // Make this return true when this Command no longer needs to run execute()

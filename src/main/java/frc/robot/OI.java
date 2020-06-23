@@ -167,7 +167,7 @@ public class OI {
         // Triggers + Bumpers
         manipulatorLeftTrigger = new JoystickButton(manipulator, 7); // BALL CENTER - LEFT --> AUTOMATED STORAGE
         //manipulatorLeftTrigger.whileHeld(new ArmAligningControl(Alignment.LEFT, Direction.CENTER));
-        manipulatorLeftTrigger.whenPressed(new BallCenterStorage(Alignment.LEFT, Direction.CENTER));
+        manipulatorLeftTrigger.whileHeld(new BallCenterStorage(Alignment.LEFT, Direction.CENTER));
 
         manipulatorRightTrigger = new JoystickButton(manipulator, 8); // BALL CENTER - RIGHT --> AUTOMATED STORAGE
         //manipulatorRightTrigger.whileHeld(new ArmAligningControl(Alignment.RIGHT, Direction.CENTER));

@@ -25,9 +25,11 @@ public class BallCenterStorage extends CommandGroup {
     public BallCenterStorage(Alignment state, Direction state1) {
 
         requires(Robot.ballStorage);
+
         addSequential(new ArmAligningControl(state, state1));
         addSequential(new IntakeFor7Inches());
         //currently only stores 3 power cells
+        Robot.ballStorage.morePC(this);
 
         /*addSequential(new ArmAligningControl(state, state1));
         if(state1 == Direction.CENTER)
@@ -58,7 +60,7 @@ public class BallCenterStorage extends CommandGroup {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.ballStorage.getPCCounter() >= 3;
     }
 
     // Called once after isFinished returns true
