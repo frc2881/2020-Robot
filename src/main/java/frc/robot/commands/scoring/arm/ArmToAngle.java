@@ -90,6 +90,7 @@ public class ArmToAngle extends Command {
         Robot.logInterrupted(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.arm.setArmSpeed(0);
+        monitoringAmps = false;
     }
 
     // Called once after isFinished returns true
@@ -98,6 +99,7 @@ public class ArmToAngle extends Command {
         Robot.logEnd(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.arm.setArmSpeed(0);
+        monitoringAmps = false;
     }
 
 }
