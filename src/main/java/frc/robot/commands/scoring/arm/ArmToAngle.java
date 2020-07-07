@@ -12,6 +12,7 @@ package frc.robot.commands.scoring.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.utils.ArmAmpMonitor;
 
 /**
  *
@@ -19,10 +20,13 @@ import frc.robot.Robot;
 public class ArmToAngle extends Command {
     private double angle;
     private boolean currentSpike;
+    private boolean monitoringAmps;
+    private ArmAmpMonitor ampMonitor = new ArmAmpMonitor(25, 5, () -> Robot.arm.getArmCurrent(), () -> Robot.arm.getArmVelocity());
 
     public ArmToAngle(double angle) {
         requires(Robot.arm);
         this.angle = angle;
+        monitoringAmps = false;
 
     }
 
@@ -35,11 +39,12 @@ public class ArmToAngle extends Command {
     @Override
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
+        ampMonitor.checkTriggered();
+
         double time = timeSinceInitialized();
         double speed;
         double difference = angle - Robot.arm.getArmAngle();
         double multiplier = difference > 0 ? 0.65 : 0.5; //0.6: smooth but a little show; 0.65 faster but jitters a little
-        currentSpike = Robot.arm.isCurrentSpiked();
 
         //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
         //to adjust deadband change the last number in isFinished()
@@ -55,6 +60,19 @@ public class ArmToAngle extends Command {
             speed = Math.copySign(multiplier, difference);
         } else {
             speed = 0;
+        }
+
+        if (!monitoringAmps && timeSinceInitialized() > 0.2) {
+            Robot.log("ArmToAngle Amp monitoring");
+            ampMonitor.reset();
+            monitoringAmps = true;
+        }
+        else if (monitoringAmps && ampMonitor.isTriggered()) {
+            speed = 0;
+            Robot.log("Arm Current Limit Exceeded");
+            if (!ampMonitor.armGoingUp()) {
+                Robot.arm.resetArmEncoder(false);
+            }
         }
 
         Robot.log("remaining distance: " + difference);
