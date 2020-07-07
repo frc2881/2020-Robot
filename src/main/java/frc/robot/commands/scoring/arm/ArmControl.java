@@ -55,6 +55,8 @@ public class ArmControl extends Command {
             speed = 0;
         } else if (bottomLimitClimbReached && speed < 0) {
             speed = 0;
+        } else if (Robot.arm.getArmPosition() < 0 && speed < 0) {
+            speed = 0;
         }
 
     Robot.arm.setArmSpeed(-speed);
