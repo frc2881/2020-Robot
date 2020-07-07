@@ -33,12 +33,16 @@ public class ArmAmpMonitor {
         if (velocity < 0) {
             if (current >= downThreshold && current >= previous) {
                 violations++;
+            } else if (violations >= 0) {
+                violations--;
             }
             previous = current;
             armGoingUp = false;
         } else {
             if (current >= upThreshold && current >= previous) {
                 violations++;
+            } else if (violations >= 0) {
+                violations--;
             }
             previous = current;
             armGoingUp = true;
