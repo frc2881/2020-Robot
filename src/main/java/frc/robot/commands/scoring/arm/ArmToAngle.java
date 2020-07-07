@@ -49,7 +49,7 @@ public class ArmToAngle extends Command {
         //to adjust deadband change the last number in isFinished()
         //to adjust speed when going up/down: change multiplier
 
-        if (Math.abs(difference) <= 1) {
+        if (Math.abs(difference) <= 0.6) {
             speed = 0;
         } else if (time < 1) {
             speed = Math.copySign(time * (multiplier - 0.1) + 0.1, difference);
@@ -66,11 +66,11 @@ public class ArmToAngle extends Command {
             ampMonitor.reset();
             monitoringAmps = true;
         } else if (monitoringAmps && ampMonitor.isTriggered()) {
-            speed = 0;
-            Robot.log("Arm Current Limit Exceeded");
-            if (!ampMonitor.armGoingUp()) {
+            if (Robot.arm.getArmVelocity() < 0 || !ampMonitor.armGoingUp()) {
                 Robot.arm.resetArmEncoder(false);
             }
+            speed = 0;
+            Robot.log("Arm Current Limit Exceeded");
         }
 
         Robot.log("remaining distance: " + difference);
@@ -82,7 +82,7 @@ public class ArmToAngle extends Command {
     @Override
     protected boolean isFinished() {
         // asking the pid loop have we reached our position
-        return Math.abs(angle - Robot.arm.getArmAngle() + 1) <= 1;
+        return Math.abs(angle - Robot.arm.getArmAngle()) <= 0.6;
     }
 
     @Override
