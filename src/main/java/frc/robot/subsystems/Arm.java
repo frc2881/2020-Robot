@@ -116,6 +116,10 @@ public class Arm extends Subsystem {
         }
     }
 
+    public double getArmCurrent() {
+        return armMotor.getOutputCurrent();
+    }
+
     public double getArmPosition() {
         if (armPosition.getAsDouble() - beginningPosition < 2.0012) {
             beginningPosition = armPosition.getAsDouble() - 2.0012;
