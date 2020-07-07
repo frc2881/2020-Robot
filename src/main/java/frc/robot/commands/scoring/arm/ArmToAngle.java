@@ -55,7 +55,7 @@ public class ArmToAngle extends Command {
             speed = 0;
         }
 
-        Robot.log("remaining distance (˚): " + difference);
+        Robot.log("remaining distance: " + difference);
         Robot.log("speed: " + speed);
         Robot.arm.setArmSpeed(-speed);
     }
