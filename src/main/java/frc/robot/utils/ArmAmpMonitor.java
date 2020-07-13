@@ -32,7 +32,7 @@ public class ArmAmpMonitor {
         double velocity = direction.getAsDouble();
         
         estimated = previous * coefficient + current * (1 - coefficient);
-        current = previous;
+        previous = current;
         armGoingUp = velocity > 0;
 
         return isTriggered();
@@ -47,6 +47,14 @@ public class ArmAmpMonitor {
             triggered = (estimated >= downThreshold);
         }
         return triggered;
+    }
+
+    public double current() {
+        return currentSupplier.getAsDouble();
+    }
+
+    public double estimated() {
+        return estimated;
     }
 
     public boolean armGoingUp() {

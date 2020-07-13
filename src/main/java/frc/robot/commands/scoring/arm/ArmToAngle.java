@@ -20,7 +20,7 @@ import frc.robot.utils.ArmAmpMonitor;
 public class ArmToAngle extends Command {
     private double angle;
     private boolean monitoringAmps;
-    private ArmAmpMonitor ampMonitor = new ArmAmpMonitor(25, 5, () -> Robot.arm.getArmCurrent(), () -> Robot.arm.getArmVelocity());
+    private ArmAmpMonitor ampMonitor = new ArmAmpMonitor(43, 10, () -> Robot.arm.getArmCurrent(), () -> Robot.arm.getArmVelocity());
 
     public ArmToAngle(double angle) {
         requires(Robot.arm);
@@ -48,7 +48,7 @@ public class ArmToAngle extends Command {
         //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
         //to adjust deadband change the last number in isFinished()
         //to adjust speed when going up/down: change multiplier
-
+        
         if (Math.abs(difference) <= 0.6) {
             speed = 0;
         } else if (time < 1) {
@@ -71,6 +71,8 @@ public class ArmToAngle extends Command {
             }
             speed = 0;
             Robot.log("Arm Current Limit Exceeded");
+            Robot.log("Current: " + ampMonitor.current());
+            Robot.log("Estimated: " + ampMonitor.estimated());
         }
 
         Robot.log("remaining distance: " + difference);
