@@ -23,7 +23,7 @@ public class ArmAmpMonitor {
     }
 
     public void reset() {
-        previous = Double.MAX_VALUE;
+        previous = 0;
     }
 
     public boolean checkTriggered() {
@@ -32,6 +32,7 @@ public class ArmAmpMonitor {
         double velocity = direction.getAsDouble();
         
         estimated = previous * coefficient + current * (1 - coefficient);
+        current = previous;
         armGoingUp = velocity > 0;
 
         return isTriggered();
