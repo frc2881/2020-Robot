@@ -119,7 +119,7 @@ public class BallStorage extends Subsystem {
             ctr ++;
         else if(command.equals(new BallCenterStorage(Alignment.RIGHT, Direction.CENTER)))
             ctr ++;
-        if(ctr == 3)
+        if(ctr >= 3)
         ctr = 0;
     }
 
