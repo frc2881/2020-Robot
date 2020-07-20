@@ -12,16 +12,20 @@ package frc.robot.commands.scoring.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.utils.ArmAmpMonitor;
 
 /**
  *
  */
 public class ArmToAngle extends Command {
-    private double height;
+    private double angle;
+    private boolean monitoringAmps;
+    private ArmAmpMonitor ampMonitor = new ArmAmpMonitor(43, 10, () -> Robot.arm.getArmCurrent(), () -> Robot.arm.getArmVelocity());
 
     public ArmToAngle(double angle) {
         requires(Robot.arm);
-        height = Robot.arm.toHeightInches(angle);
+        this.angle = angle;
+        monitoringAmps = false;
 
     }
 
@@ -34,37 +38,54 @@ public class ArmToAngle extends Command {
     @Override
     protected void execute() {
         // Calls to the subsystem to update the angle if controller value has changed
+        ampMonitor.checkTriggered();
+
         double time = timeSinceInitialized();
         double speed;
-        double difference = height - Robot.arm.getArmPosition() + 0.2;
-        double multiplier = difference > 0 ? 0.65 : 0.3; //0.6: smooth but a little show; 0.65 faster but jitters a little
+        double difference = angle - Robot.arm.getArmAngle();
+        double multiplier = difference > 0 ? 0.65 : 0.5; //0.6: smooth but a little show; 0.65 faster but jitters a little
 
         //to adjust ramp rate as it slows: adjust the number that difference is compared to and divided by in the 3rd else statement
         //to adjust deadband change the last number in isFinished()
         //to adjust speed when going up/down: change multiplier
-
-        if (Math.abs(difference) <= 0.1) {
+        
+        if (Math.abs(difference) <= 0.6) {
             speed = 0;
         } else if (time < 1) {
             speed = Math.copySign(time * (multiplier - 0.1) + 0.1, difference);
-        } else if (Math.abs(difference) < 2) {
-            speed = difference / 2 * multiplier;
-        } else if (Math.abs(difference) >= 2) {
+        } else if (Math.abs(difference) < 5) {
+            speed = difference / 5 * multiplier;
+        } else if (Math.abs(difference) >= 5) {
             speed = Math.copySign(multiplier, difference);
         } else {
             speed = 0;
         }
 
+        if (!monitoringAmps && timeSinceInitialized() > 0.2) {
+            Robot.log("ArmToAngle Amp monitoring");
+            ampMonitor.reset();
+            monitoringAmps = true;
+        } else if (monitoringAmps && ampMonitor.isTriggered()) {
+            if (Robot.arm.getArmVelocity() < -50) {
+                Robot.arm.resetArmEncoder(false);
+                Robot.log("Velocity: " + Robot.arm.getArmVelocity());
+            }
+            speed = 0;
+            Robot.log("Arm Current Limit Exceeded");
+            Robot.log("Current: " + ampMonitor.current());
+            Robot.log("Estimated: " + ampMonitor.estimated());
+        }
+
         Robot.log("remaining distance: " + difference);
-        Robot.log("speed: " + speed);
+        Robot.log("current position: " + Robot.arm.getArmAngle());
+        Robot.log("motor input: " + speed);
         Robot.arm.setArmSpeed(-speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        // asking the pid loop have we reached our position
-        return Math.abs(height - Robot.arm.getArmPosition() + 0.1) <= 0.1;
+        return false;// Math.abs(angle - Robot.arm.getArmAngle()) <= 0.6;
     }
 
     @Override
@@ -72,6 +93,7 @@ public class ArmToAngle extends Command {
         Robot.logInterrupted(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.arm.setArmSpeed(0);
+        monitoringAmps = false;
     }
 
     // Called once after isFinished returns true
@@ -80,6 +102,7 @@ public class ArmToAngle extends Command {
         Robot.logEnd(this);
         // call the drive subsystem to make sure the PID loop is disabled
         Robot.arm.setArmSpeed(0);
+        monitoringAmps = false;
     }
 
 }
