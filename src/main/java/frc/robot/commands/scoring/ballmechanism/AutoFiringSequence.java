@@ -12,8 +12,6 @@ package frc.robot.commands.scoring.ballmechanism;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.commands.scoring.flywheel.FlywheelFullSpeed;
-import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.BallStorage.RollerDirection;
 
 /**
@@ -35,10 +33,10 @@ public class AutoFiringSequence extends Command {
     @Override
     protected void execute() {
         if (Robot.flywheel.isFlywheelReady()) {
-            double time = timeSinceInitialized();
+            double time = (timeSinceInitialized() - (int)timeSinceInitialized())/2;
             Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
-            if (time > .15) {
-                Robot.ballStorage.armAlign(1, 1);
+            if (time > .25) {
+                Robot.ballStorage.armAlign(0, 1);
             } else {
                 Robot.ballStorage.armAlign(1, 0);
             }
