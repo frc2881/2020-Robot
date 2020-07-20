@@ -10,6 +10,7 @@
 
 package frc.robot.commands.autonomous.autoCommands;
 
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.commands.autonomous.autoCommands.Enums.StartingPosition;
 import frc.robot.commands.background.wait.WaitUntilFlywheelReady;
@@ -27,7 +28,8 @@ public class AutoScore extends AbstractAutoCommand {
     AutoScore(StartingPosition start) {
 
         double angle = (start == StartingPosition.FRONT_ON_TEN_FOOT_ARC) ? frontBumperAngle : backBumperAngle;
-        addSequential(new ArmToAngle(angle), 3);
+        addParallel(new ArmToAngle(angle), 5);
+        addSequential(new WaitCommand(3));
         addSequential(new WaitUntilFlywheelReady());
         addSequential(new AutoFiringSequence(), 2);
     }

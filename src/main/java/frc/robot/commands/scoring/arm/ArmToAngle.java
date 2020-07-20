@@ -66,8 +66,9 @@ public class ArmToAngle extends Command {
             ampMonitor.reset();
             monitoringAmps = true;
         } else if (monitoringAmps && ampMonitor.isTriggered()) {
-            if (Robot.arm.getArmVelocity() < 0 || !ampMonitor.armGoingUp()) {
+            if (Robot.arm.getArmVelocity() < -50) {
                 Robot.arm.resetArmEncoder(false);
+                Robot.log("Velocity: " + Robot.arm.getArmVelocity());
             }
             speed = 0;
             Robot.log("Arm Current Limit Exceeded");
@@ -76,15 +77,15 @@ public class ArmToAngle extends Command {
         }
 
         Robot.log("remaining distance: " + difference);
-        Robot.log("speed: " + speed);
+        Robot.log("current position: " + Robot.arm.getArmAngle());
+        Robot.log("motor input: " + speed);
         Robot.arm.setArmSpeed(-speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        // asking the pid loop have we reached our position
-        return Math.abs(angle - Robot.arm.getArmAngle()) <= 0.6;
+        return false;// Math.abs(angle - Robot.arm.getArmAngle()) <= 0.6;
     }
 
     @Override

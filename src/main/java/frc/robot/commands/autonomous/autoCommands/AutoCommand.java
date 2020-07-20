@@ -38,9 +38,6 @@ public class AutoCommand extends AbstractAutoCommand {
         addSequential(new AutonomousFinish());
     }
 
-    private void addParallel(SetFlywheelSpeed setFlywheelSpeed) {
-    }
-
     @Override
     protected void initialize() {
         super.initialize();
