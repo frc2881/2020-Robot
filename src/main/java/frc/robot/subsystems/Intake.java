@@ -91,9 +91,9 @@ public class Intake extends Subsystem {
 
         @Override
         protected void addAll(){
-            add("INTAKE: BusVoltage", feeder.getBusVoltage());
-            add("INTAKE: OutputCurrent", feeder.getOutputCurrent());
-            add("INTAKE: StickyFaults", feeder.getStickyFaults());
+            add("Bus Voltage", feeder.getBusVoltage());
+            add("Output Current", feeder.getOutputCurrent());
+            add("SPARK MAX Sticky Faults", feeder.getStickyFaults());
         }
     };
 }

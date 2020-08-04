@@ -133,9 +133,9 @@ public class Arm extends Subsystem {
 
         @Override
         protected void addAll(){
-            add("ARM: BusVoltage", armMotor.getBusVoltage());
-            add("ARM: OutputCurrent", armMotor.getOutputCurrent());
-            add("ARM: StickyFaults", armMotor.getStickyFaults());
+            add("Bus Voltage", armMotor.getBusVoltage());
+            add("Output Current", armMotor.getOutputCurrent());
+            add("SPARK MAX Sticky Faults", armMotor.getStickyFaults());
         }
     };
 }

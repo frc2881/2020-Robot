@@ -138,9 +138,9 @@ public class Flywheel extends Subsystem {
 
         @Override
         protected void addAll() {
-            add("FLYWHEEL: BusVoltage", flywheel.getBusVoltage());
-            add("FLYWHEEL: OutputCurrent", flywheel.getOutputCurrent());
-            add("FLYWHEEL: StickyFaults", flywheel.getStickyFaults());
+            add("Bus Voltage", flywheel.getBusVoltage());
+            add("Output Current", flywheel.getOutputCurrent());
+            add("SPARK MAX Sticky Faults", flywheel.getStickyFaults());
         }
     };
 

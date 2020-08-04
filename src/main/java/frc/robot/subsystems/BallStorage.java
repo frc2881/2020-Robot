@@ -125,15 +125,15 @@ public class BallStorage extends Subsystem {
 
         @Override
         protected void addAll(){
-            add("LEFT ALIGN: BusVoltage", intakeLeft.getBusVoltage());
-            add("LEFT ALIGN: OutputCurrent", intakeLeft.getOutputCurrent());
-            add("LEFT ALIGN: right FRONT: StickyFaults", intakeLeft.getStickyFaults());
-            add("Right ALIGN: BusVoltage", intakeRight.getBusVoltage());
-            add("Right ALIGN: OutputCurrent", intakeRight.getOutputCurrent());
-            add("Right ALIGN: right FRONT: StickyFaults", intakeRight.getStickyFaults());
-            add("TUBE: BusVoltage", intakeMain.getBusVoltage());
-            add("TUBE: OutputCurrent", intakeMain.getOutputCurrent());
-            add("TUBE: right FRONT: StickyFaults", intakeMain.getStickyFaults());
+            add("Left: Bus Voltage", intakeLeft.getBusVoltage());
+            add("Left: Output Current", intakeLeft.getOutputCurrent());
+            add("Left: SPARK MAX Sticky Faults", intakeLeft.getStickyFaults());
+            add("Right: Bus Voltage", intakeRight.getBusVoltage());
+            add("Right: Output Current", intakeRight.getOutputCurrent());
+            add("Right: SPARK MAX Sticky Faults", intakeRight.getStickyFaults());
+            add("Storage: Bus Voltage", intakeMain.getBusVoltage());
+            add("Storage: Output Current", intakeMain.getOutputCurrent());
+            add("Storage: SPARK MAX Sticky Faults", intakeMain.getStickyFaults());
         }
     };
 

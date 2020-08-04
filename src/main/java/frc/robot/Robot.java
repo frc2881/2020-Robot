@@ -135,9 +135,8 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         printRobotMode("ROBOT IS DISABLED", "-");
-        logging.traceMessage(
-				"---------------------------- Robot Disabled ----------------------------");
-                resetRobot = true;
+        logging.traceMessage("mode: disabled");
+        resetRobot = true;
 
     }
 
@@ -152,20 +151,19 @@ public class Robot extends TimedRobot {
         timeOfStart = Timer.getFPGATimestamp();
         // schedule the autonomous command (example)
         printRobotMode("STARTING AUTONOMOUS", "-");
-        logging.traceMessage(
-				"---------------------------- Autonomous mode starting ----------------------------");
+        logging.traceMessage("mode: autonomous");
 		//logging.writeAllHeadings();
-		StringBuilder gameInfo = new StringBuilder();
-		gameInfo.append("Match Number=");
-		gameInfo.append(DriverStation.getInstance().getMatchNumber());
-		gameInfo.append(", Alliance Color=");
-		gameInfo.append(DriverStation.getInstance().getAlliance().toString());
-		gameInfo.append(", Match Type=");
-		gameInfo.append(DriverStation.getInstance().getMatchType().toString());
-		logging.traceMessage( gameInfo.toString());
-
+        StringBuilder gameInfo = new StringBuilder();
+        gameInfo.append("Match: ");
+        gameInfo.append(DriverStation.getInstance().getMatchType().toString());
+        gameInfo.append(" ");
+        gameInfo.append(DriverStation.getInstance().getMatchNumber());
+        gameInfo.append(" - ");
+        gameInfo.append(DriverStation.getInstance().getAlliance().toString());
+        gameInfo.append(" Alliance");
+		logging.traceMessage(gameInfo.toString());
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		logging.traceMessage( "Field plate selection:" + gameData);
+		logging.traceMessage("Game Data:" + gameData);
         if (autonomousCommand != null)
             autonomousCommand.start();
         resetRobot();
@@ -190,8 +188,7 @@ public class Robot extends TimedRobot {
         if (!isCompetitionMode()) {
             resetRobot();
         }
-        logging.traceMessage(
-                "---------------------------- Teleop mode starting ----------------------------");
+        logging.traceMessage("mode: teleop");
         logging.writeAllHeadings();
     }
 
@@ -230,24 +227,33 @@ public class Robot extends TimedRobot {
     }
     
     public static void logInitialize(Command command) {
-        log("Command " + command.getClass().getSimpleName() + " started");
+        String message = "Command " + command.getClass().getSimpleName() + " started";
+        log(message);
+        logging.traceMessage(message);
     }
 
     public static void logInitialize(Command command, Object... settings) {
-        log("Command " + command.getClass().getSimpleName() + " started: " +
-                Stream.of(settings).map(Object::toString).collect(joining(", ")));
+        String message = "Command " + command.getClass().getSimpleName() + " started: " +
+                Stream.of(settings).map(Object::toString).collect(joining(", "));
+        log(message);
+        logging.traceMessage(message);
     }
 
     public static void logEnd(Command command) {
-        log("Command " + command.getClass().getSimpleName() + " ended");
+        String message = "Command " + command.getClass().getSimpleName() + " ended";
+        log(message);
+        logging.traceMessage(message);
     }
 
     public static void logInterrupted(Command command) {
-        log("Command " + command.getClass().getSimpleName() + " interrupted");
+        String message = "Command " + command.getClass().getSimpleName() + " interrupted";
+        log(message);
+        logging.traceMessage(message);
     }
 
     public static void logRun(InstantCommand command) {
-        log("Running instant command " + command.getClass().getSimpleName());
+        String message = "Running instant command " + command.getClass().getSimpleName();
+        log(message);
+        logging.traceMessage(message);
     }
-
 }

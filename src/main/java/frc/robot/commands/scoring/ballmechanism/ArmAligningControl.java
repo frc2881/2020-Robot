@@ -41,7 +41,7 @@ public class ArmAligningControl extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.logInitialize(this);
+        Robot.logInitialize(this, left ? "Left" : "Right", intake ? "in" : "out");
     }
 
     // Called repeatedly when this Command is scheduled to run

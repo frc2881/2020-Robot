@@ -192,18 +192,18 @@ public class Drive extends Subsystem {
 
         @Override
         protected void addAll(){
-            add("right FRONT: BusVoltage", rightFront.getBusVoltage());
-            add("right FRONT: OutputCurrent", rightFront.getOutputCurrent());
-            add("right FRONT: StickyFaults", rightFront.getStickyFaults());
-            add("right REAR: BusVoltage", rightRear.getBusVoltage());
-            add("right REAR: OutputCurrent", rightRear.getOutputCurrent());
-            add("right REAR: StickyFaults", rightRear.getStickyFaults());
-            add("left FRONT: BusVoltage", leftFront.getBusVoltage());
-            add("left FRONT: OutputCurrent", leftFront.getOutputCurrent());
-            add("left FRONT: StickyFaults", leftFront.getStickyFaults());
-            add("left REAR: BusVoltage", leftRear.getBusVoltage());
-            add("left REAR: OutputCurrent", leftRear.getOutputCurrent());
-            add("left REAR: StickyFaults", leftRear.getStickyFaults());
+            add("Front Left: Bus Voltage", leftFront.getBusVoltage());
+            add("Front Left: Output Current", leftFront.getOutputCurrent());
+            add("Front Left: SPARK MAX Sticky Faults", leftFront.getStickyFaults());
+            add("Back Left: Bus Voltage", leftRear.getBusVoltage());
+            add("Back Left: Output Current", leftRear.getOutputCurrent());
+            add("Back Left: SPARK MAX Sticky Faults", leftRear.getStickyFaults());
+            add("Front Right: Bus Voltage", rightFront.getBusVoltage());
+            add("Front Right: Output Current", rightFront.getOutputCurrent());
+            add("Front Right: SPARK MAX Sticky Faults", rightFront.getStickyFaults());
+            add("Back Right: Bus Voltage", rightRear.getBusVoltage());
+            add("Back Right: Output Current", rightRear.getOutputCurrent());
+            add("Back Right: SPARK MAX Sticky Faults", rightRear.getStickyFaults());
         }
     };
 }

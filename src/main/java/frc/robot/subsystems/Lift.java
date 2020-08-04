@@ -137,12 +137,12 @@ public class Lift extends Subsystem {
 
         @Override
         protected void addAll(){
-            add("LiftMotor: BusVoltage", liftMotor.getBusVoltage());
-            add("LiftMotor: OutputCurrent", liftMotor.getOutputCurrent());
-            add("LiftMotor: StickyFaults", liftMotor.getStickyFaults());
-            add("LiftMotor2: BusVoltage", liftMotor2.getBusVoltage());
-            add("LiftMotor2: OutputCurrent", liftMotor2.getOutputCurrent());
-            add("LiftMotor2: StickyFaults", liftMotor2.getStickyFaults());
+            add("Left: Bus Voltage", liftMotor.getBusVoltage());
+            add("Left: Output Current", liftMotor.getOutputCurrent());
+            add("Left: SPARK MAX Sticky Faults", liftMotor.getStickyFaults());
+            add("Right: Bus Voltage", liftMotor2.getBusVoltage());
+            add("Right: Output Current", liftMotor2.getOutputCurrent());
+            add("Right: SPARK MAX Sticky Faults", liftMotor2.getStickyFaults());
         }
     };
 }

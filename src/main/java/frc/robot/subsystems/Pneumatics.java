@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import frc.robot.utils.frc4048.Logging;
 /**
  *
  */
@@ -71,5 +72,13 @@ public class Pneumatics extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+
+    public Logging.LoggingContext loggingContext = new Logging.LoggingContext(Logging.Subsystems.PNEUMATICS){
+
+        @Override
+        protected void addAll(){
+            add("Pressure", getPressure());
+        }
+    };
 
 }
