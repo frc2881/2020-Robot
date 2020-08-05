@@ -58,13 +58,13 @@ public class Logging {
 		}
 		
 		public final void writeData() {
-			if ((DriverStation.getInstance().isEnabled() && (counter % 5 == 0)) || writeTitles) {
+			if ((/*DriverStation.getInstance().isEnabled() &&*/ (counter % 5 == 0)) || writeTitles) {
 				sb.setLength(0);
 				sb.append(df3.format(Timer.getFPGATimestamp()));
 				sb.append(",");
-				if(DriverStation.getInstance().isDisabled())
+/*				if(DriverStation.getInstance().isDisabled())
 					sb.append(0);
-				else
+				else*/
 					sb.append(df3.format(Timer.getFPGATimestamp()));
 				sb.append(",");
 				sb.append(subsystem.name());
