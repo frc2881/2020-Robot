@@ -204,6 +204,9 @@ public class Drive extends Subsystem {
             add("Back Right: Bus Voltage", rightRear.getBusVoltage());
             add("Back Right: Output Current", rightRear.getOutputCurrent());
             add("Back Right: SPARK MAX Sticky Faults", rightRear.getStickyFaults());
+            add("H: Bus Voltage", hDrive.getBusVoltage());
+            add("H: Output Current", hDrive.getOutputCurrent());
+            add("H: SPARK MAX Sticky Faults", hDrive.getStickyFaults());
         }
     };
 }
