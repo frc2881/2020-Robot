@@ -11,6 +11,7 @@
 package frc.robot.commands.scoring.ballmechanism;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallStorage.RollerDirection;
@@ -22,6 +23,7 @@ import frc.robot.subsystems.BallStorage.RollerDirection;
 public class IntakeFor7Inches extends Command {
     private double setpoint;
     private PIDController straightPID;
+    int ctr = 0;
     
 
     private static double beginningPosition;
@@ -44,6 +46,7 @@ public class IntakeFor7Inches extends Command {
         setpoint = Robot.ballStorage.getIntakeMainEncoderPosition() + 7;
         //Robot.log("Beginning storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         beginningPosition = Robot.ballStorage.getIntakeMainEncoderPosition();
+        ctr = Robot.ballStorage.getPowerCells();
         //Robot.intake.setBallStorageRampRate(0.5);
     } 
 
@@ -80,7 +83,6 @@ public class IntakeFor7Inches extends Command {
             //Robot.intake.setBallStorageRampRate(0);
         }
 
-        Robot.ballStorage.morePC(this);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -110,6 +112,7 @@ public class IntakeFor7Inches extends Command {
     protected void end() {
         Robot.logEnd(this);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
+        Robot.ballStorage.powerCellCtr(ctr+=3);
         //Robot.log("Ending storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         //Robot.log("Storage distance traveled: " + (Robot.intake.getIntakeMainEncoderPosition() - beginningPosition));
     }

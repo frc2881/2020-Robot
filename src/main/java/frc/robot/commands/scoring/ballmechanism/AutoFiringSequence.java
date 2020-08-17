@@ -44,7 +44,6 @@ public class AutoFiringSequence extends Command {
             Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
             Robot.ballStorage.armAlign(0, 0);
         }
-        Robot.ballStorage.morePC(this);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -66,5 +65,8 @@ public class AutoFiringSequence extends Command {
     @Override
     protected void end() {
         Robot.logEnd(this);
+        
+        //power cell incrementing
+        Robot.ballStorage.powerCellCtr(0);
     }
 }
