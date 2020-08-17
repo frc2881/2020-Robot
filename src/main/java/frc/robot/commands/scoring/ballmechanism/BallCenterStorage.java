@@ -59,7 +59,7 @@ public class BallCenterStorage extends CommandGroup {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return Robot.ballStorage.getPowerCells() >= 3;
+        return Robot.ballStorage.getPowerCells() >= 3 || timeSinceInitialized() > 5;
     }
 
     // Called once after isFinished returns true
