@@ -11,7 +11,6 @@
 package frc.robot.commands.scoring.ballmechanism;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallStorage.RollerDirection;
@@ -99,12 +98,6 @@ public class IntakeFor7Inches extends Command {
         }
     }
 
-    // Called once after isFinished returns true
-    @Override
-    protected void interrupted() {
-        Robot.logInterrupted(this);
-        Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-    }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
@@ -112,7 +105,9 @@ public class IntakeFor7Inches extends Command {
     protected void end() {
         Robot.logEnd(this);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-        Robot.ballStorage.powerCellCtr(ctr+=3);
+        //++ctr adds before being accessed, ctr++ adds after
+        Robot.ballStorage.powerCellCtr(++ctr);
+        Robot.log("Power Cell Number After" + ctr);
         //Robot.log("Ending storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         //Robot.log("Storage distance traveled: " + (Robot.intake.getIntakeMainEncoderPosition() - beginningPosition));
     }

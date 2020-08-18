@@ -12,6 +12,7 @@ package frc.robot.commands.scoring.ballmechanism;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
+import frc.robot.commands.background.wait.WaitForever;
 import frc.robot.subsystems.BallStorage.Alignment;
 import frc.robot.subsystems.BallStorage.Direction;
 
@@ -23,15 +24,18 @@ import frc.robot.subsystems.BallStorage.Direction;
 public class BallCenterStorage extends CommandGroup {
 
     double speed;
-    int ctr = 0;
 
     public BallCenterStorage(Alignment state, Direction state1) {
 
         requires(Robot.ballStorage);
 
-        ctr = Robot.ballStorage.getPowerCells();
+        int ctr = Robot.ballStorage.getPowerCells();
+        Robot.log("Power Cell Number Before" + ctr);
+        if(ctr < 3){
         addSequential(new ArmAligningControl(state, state1));
         addSequential(new IntakeFor7Inches());
+        }
+        addSequential(new WaitForever());
 
         //currently only stores 3 power cells
 
@@ -46,34 +50,4 @@ public class BallCenterStorage extends CommandGroup {
 
     // Called just before this Command runs the first time
     
-    protected void initialize() {
-        Robot.logInitialize(this);
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    @Override
-    protected void execute() {
-        
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
-    protected boolean isFinished() {
-        return Robot.ballStorage.getPowerCells() >= 3 || timeSinceInitialized() > 5;
-    }
-
-    // Called once after isFinished returns true
-    @Override
-    protected void interrupted() {
-        Robot.logInterrupted(this);
-
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void end() {
-        Robot.logEnd(this);
-        Robot.ballStorage.powerCellCtr(ctr++);
-    }
 }
