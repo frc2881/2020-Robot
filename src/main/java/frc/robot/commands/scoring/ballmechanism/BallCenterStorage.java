@@ -25,6 +25,7 @@ public class BallCenterStorage extends CommandGroup {
 
     double speed;
 
+    //power cell alignment: state, either RIGHT or LEFT, and state1, either CENTER or EJECT
     public BallCenterStorage(Alignment state, Direction state1) {
 
         requires(Robot.ballStorage);
