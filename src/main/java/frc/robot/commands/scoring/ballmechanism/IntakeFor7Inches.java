@@ -22,6 +22,7 @@ import frc.robot.subsystems.BallStorage.RollerDirection;
 public class IntakeFor7Inches extends Command {
     private double setpoint;
     private PIDController straightPID;
+    int ctr = 0;
     
 
     private static double beginningPosition;
@@ -44,6 +45,7 @@ public class IntakeFor7Inches extends Command {
         setpoint = Robot.ballStorage.getIntakeMainEncoderPosition() + 7;
         //Robot.log("Beginning storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         beginningPosition = Robot.ballStorage.getIntakeMainEncoderPosition();
+        ctr = Robot.ballStorage.getPowerCells();
         //Robot.intake.setBallStorageRampRate(0.5);
     } 
 
@@ -79,6 +81,7 @@ public class IntakeFor7Inches extends Command {
         if(timeSinceInitialized() > 0.5){
             //Robot.intake.setBallStorageRampRate(0);
         }
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -87,7 +90,7 @@ public class IntakeFor7Inches extends Command {
         double distance = Robot.ballStorage.getIntakeMainEncoderPosition() - beginningPosition;
         //return straightPID.atSetpoint();
 
-        if (distance >= 9){
+        if (distance >= 9 || Robot.ballStorage.getPowerCells() >= 3){
             return true;
         }
         else {
@@ -95,12 +98,6 @@ public class IntakeFor7Inches extends Command {
         }
     }
 
-    // Called once after isFinished returns true
-    @Override
-    protected void interrupted() {
-        Robot.logInterrupted(this);
-        Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
-    }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
@@ -108,6 +105,9 @@ public class IntakeFor7Inches extends Command {
     protected void end() {
         Robot.logEnd(this);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
+        //++ctr adds before being accessed, ctr++ adds after
+        Robot.ballStorage.powerCellCtr(++ctr);
+        Robot.log("Power Cell Number After" + ctr);
         //Robot.log("Ending storage encoder position: " + Robot.intake.getIntakeMainEncoderPosition());
         //Robot.log("Storage distance traveled: " + (Robot.intake.getIntakeMainEncoderPosition() - beginningPosition));
     }

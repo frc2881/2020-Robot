@@ -11,6 +11,7 @@ package frc.robot.commands.scoring.flywheel;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Flywheel.FlywheelStates;
+import frc.robot.subsystems.*;
 /**
  *
  */
@@ -45,5 +46,6 @@ public class FlywheelFullSpeed extends Command {
     @Override
     protected void interrupted() {
         end();
+        Robot.ballStorage.powerCellCtr(0);
     }
 }
