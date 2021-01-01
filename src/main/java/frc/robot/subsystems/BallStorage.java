@@ -118,31 +118,18 @@ public class BallStorage extends Subsystem {
         return powerCell;
     }
 
+    public int getPowerCellsDirection(Direction state){
+        if(state == Direction.EJECT){
+            return 0;
+        }
+        return powerCell;
+    }
+    
+
     public void powerCellCtr(int powerCell){
         this.powerCell = powerCell;
     }
-
-    /*public void morePC(Command command){
-        if(command.equals(new Auto.FiringSequence()))
-            ctr = 0;
-        //is the flywheel always on?
-        else if(command.equals(new IntakeFor7Inches()))
-            ctr += 3;
-        //one powercell at a time
-        else if(command.equals(new BallCenterStorage(Alignment.LEFT, Direction.CENTER)))
-            ctr ++;
-        else if(command.equals(new BallCenterStorage(Alignment.RIGHT, Direction.CENTER)))
-            ctr ++;
-        if(ctr >= 3)
-        ctr = 0;
-    }
-
-    //incrementing powercells
-    public double getPCCounter(){
-        return ctr;
-    }*/
     
-
     public void armAlign(double left, double right) { // positive values make cells go in, negative goes out
         /*
          * if(left>-1&&right>-1){ intakeLeft.set(0); intakeRight.set(0); } else

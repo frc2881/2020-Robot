@@ -55,8 +55,7 @@ public class ArmAligningControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        //double left = Robot.oi.getManipulatorTriggerLeft();
-        //double right = Robot.oi.getManipulatorTriggerRight();
+        
         if (state1 == Direction.CENTER){
             if (state == Alignment.LEFT){
                 Robot.ballStorage.armAlign(0.6, 0); // TODO change these back to left and right
@@ -78,7 +77,7 @@ public class ArmAligningControl extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return timeSinceInitialized() >= .25 || Robot.ballStorage.getPowerCells() >= 3;
+        return timeSinceInitialized() >= .25 || Robot.ballStorage.getPowerCellsDirection(state1) >= 3;
         //tune
     }
 
@@ -88,7 +87,6 @@ public class ArmAligningControl extends Command {
         Robot.logEnd(this);
         Robot.ballStorage.armAlign(0, 0);
 
-        //Robot.ballStorage.powerCellCtr(ctr++);
     }
 
     // Called when another command which requires one or more of the same

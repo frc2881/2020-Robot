@@ -27,12 +27,16 @@ public class AutoFiringSequence extends Command {
     @Override
     protected void initialize() {
         Robot.logInitialize(this);
+        while(Robot.flywheel.isFlywheelReady() == false){
+            Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
+            Robot.ballStorage.armAlign(0, 0);
+        }
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (Robot.flywheel.isFlywheelReady()) {
+        //if (Robot.flywheel.isFlywheelReady()) {
             double time = (timeSinceInitialized() - (int)timeSinceInitialized())/2;
             Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
             if (time > .25) {
@@ -40,10 +44,10 @@ public class AutoFiringSequence extends Command {
             } else {
                 Robot.ballStorage.armAlign(1, 0);
             }
-        } else {
+        /*} else {
             Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
             Robot.ballStorage.armAlign(0, 0);
-        }
+        }*/
     }
 
     // Make this return true when this Command no longer needs to run execute()

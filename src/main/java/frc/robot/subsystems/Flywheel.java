@@ -105,6 +105,7 @@ public class Flywheel extends Subsystem {
             //TEST: Firing 4 Peak 3700 Low 3500 (Goal was 3600ish)
         return (readyForHigh || readyForLow) && !flywheelStop;
     }
+    
 
     public void setFlywheelRPM(final double RPM) {
         flywheelPID.setReference(RPM, ControlType.kVelocity);
