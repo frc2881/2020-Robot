@@ -30,8 +30,9 @@ public class BallCenterStorage extends CommandGroup {
 
         requires(Robot.ballStorage);
 
+        if(Robot.ballStorage.getPowerCells() <= 10){
         addSequential(new ArmAligningControl(state, state1));
-        addSequential(new IntakeFor7Inches());
+        addSequential(new IntakeFor7Inches());}
         addSequential(new WaitForever());
 
         //currently only stores 3 power cells

@@ -90,7 +90,7 @@ public class IntakeFor7Inches extends Command {
         double distance = Robot.ballStorage.getIntakeMainEncoderPosition() - beginningPosition;
         //return straightPID.atSetpoint();
 
-        if (distance >= 9 || Robot.ballStorage.getPowerCells() >= 3){
+        if (distance >= 9){ //|| Robot.ballStorage.getPowerCells() >= 3){
             return true;
         }
         else {

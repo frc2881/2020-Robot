@@ -18,6 +18,7 @@ import frc.robot.subsystems.BallStorage.RollerDirection;
  *
  */
 public class AutoFiringSequence extends Command {
+    public double firstReady;
 
     public AutoFiringSequence() {
         requires(Robot.ballStorage);
@@ -27,27 +28,32 @@ public class AutoFiringSequence extends Command {
     @Override
     protected void initialize() {
         Robot.logInitialize(this);
-        while(Robot.flywheel.isFlywheelReady() == false){
+        /*while(Robot.flywheel.isFlywheelReady() == false){
             Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
             Robot.ballStorage.armAlign(0, 0);
-        }
+        }*/
+        firstReady = 0.0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        //if (Robot.flywheel.isFlywheelReady()) {
-            double time = (timeSinceInitialized() - (int)timeSinceInitialized())/2;
+
+        if (Robot.flywheel.isFlywheelReady()) {
+            if(firstReady == 0.0){
+                firstReady = timeSinceInitialized();
+            }
+            double time = (timeSinceInitialized() - firstReady);
             Robot.ballStorage.intakeMain(1, RollerDirection.INTAKE);
-            if (time > .25) {
-                Robot.ballStorage.armAlign(0, 1);
+            if (time > 1) {
+                Robot.ballStorage.armAlign(1, 1);
             } else {
                 Robot.ballStorage.armAlign(1, 0);
             }
-        /*} else {
+        } else {
             Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
             Robot.ballStorage.armAlign(0, 0);
-        }*/
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -62,12 +68,13 @@ public class AutoFiringSequence extends Command {
         Robot.logInterrupted(this);
         Robot.ballStorage.armAlign(0, 0);
         Robot.ballStorage.intakeMain(0, RollerDirection.INTAKE);
+        firstReady = 0.0;
     }
 
     // Called when another command which requires one or more of the same
     @Override
     protected void end() {
         Robot.logEnd(this);
-        
+        firstReady = 0.0;
     }
 }

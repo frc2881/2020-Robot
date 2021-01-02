@@ -77,7 +77,7 @@ public class ArmAligningControl extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return timeSinceInitialized() >= .25 || Robot.ballStorage.getPowerCellsDirection(state1) >= 3;
+        return timeSinceInitialized() >= .25; //|| Robot.ballStorage.getPowerCellsDirection(state1) >= 3;
         //tune
     }
 
